@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<component>
+    <!-- 
+        //////// WIND UI COMPONENT ////////
+    -->
+
+    <!-- Component CSS code -->
+    <style type="text/css" app="wind.ui">
+        .component_Button_base {
+            min-width: 200px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background-color: #2777b1;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 250ms;
+        }
+
+        .component_Button_base:hover {
+            background-color: #1d5783;
+        }
+    </style>
+
+    <!-- Component HTML Code -->
+    <!-- Wind UI Variables (example: __%variableName__) only works here! -->
+    <html type="text/html" app="wind.ui">
+
+        <div class="component_Button_base" style="__%style__" onclick="__%onClickJsEvent__">
+            __%value__
+        </div>
+
+    </html>
+
+    <!-- Component JavaScript Code -->
+    <script type="text/javacript" app="wind.ui">
+    </script>
+</component>
