@@ -1,6 +1,6 @@
 <?php
     //Start Wind UI Client Core
-    include_once("../../.core/base/client/wind-ui-client-prepare.php");
+    include_once("../../_core/base/client/wind-ui-client-prepare.php");
     WindUiClientRenderer::setParameters((object)
     array(
         "thisAppRootDir"=>(__DIR__),

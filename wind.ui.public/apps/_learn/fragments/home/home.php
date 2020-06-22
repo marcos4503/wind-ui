@@ -1,6 +1,6 @@
 <?php
     //Import core files and start fragment renderization.
-    include_once("../../../../.core/base/fragment/wind-ui-fragment-prepare.php");
+    include_once("../../../../_core/base/fragment/wind-ui-fragment-prepare.php");
     WindUiFragmentRenderer::setParameters((object)
     array(
         "thisAppRootDir"=>(__DIR__) . "/../../",
@@ -139,7 +139,7 @@ O Wind UI possui uma hierarquia de pastas e arquivos para garantir a melhor orga
     só armazenará os arquivos do Wind UI dentro de uma pasta, inclusive seus apps. Por isso, você pode mudar o sufixo do seu Wind UI para "public" ou
     "private". Você pode ter duas dessas pastas contendo o Wind UI, se preferir.</li>
     <ul>
-        <li><b>.core</b> - Armazena todas as pastas e arquivos do núcleo do Wind UI. É o cerébro do Wind UI.</li>
+        <li><b>_core</b> - Armazena todas as pastas e arquivos do núcleo do Wind UI. É o cerébro do Wind UI.</li>
         <li><b>apps</b> - Armazena todos os seus apps criados com o Wind UI.</li>
         <ul>
             <li><b>seuApp1</b> - Essa é a pasta do seu app. A pasta deve levar o nome do seu app. Essa pasta conterá tudo que faz seu app
