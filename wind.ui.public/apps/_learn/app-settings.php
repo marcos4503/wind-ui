@@ -16,6 +16,7 @@
         public static $appPreventDragImages = true;
         public static $appTextSelectionHighlight = false;
         public static $appShowNotificationOnJsLogs = true;
+        public static $appAlwaysShowYScrollBar = true;
 
         //client.php base style
         public static $styleBodyBackgroundColor = "#d9d9d9";

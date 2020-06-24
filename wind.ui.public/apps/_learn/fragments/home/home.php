@@ -1,6 +1,6 @@
 <?php
     //Import core files and start fragment renderization.
-    include_once("../../../../_core/base/fragment/wind-ui-fragment-prepare.php");
+    include_once("../../../../.core/base/fragment/wind-ui-fragment-prepare.php");
     WindUiFragmentRenderer::setParameters((object)
     array(
         "thisAppRootDir"=>(__DIR__) . "/../../",
@@ -28,7 +28,6 @@ Este aplicativo foi desenvolvido para rodar com o Wind UI. O objetivo deste apli
         "style"=>"max-height: 200px;"
     ), false);
 ?>
-
 
 <br>
 <br>
@@ -139,7 +138,7 @@ O Wind UI possui uma hierarquia de pastas e arquivos para garantir a melhor orga
     só armazenará os arquivos do Wind UI dentro de uma pasta, inclusive seus apps. Por isso, você pode mudar o sufixo do seu Wind UI para "public" ou
     "private". Você pode ter duas dessas pastas contendo o Wind UI, se preferir.</li>
     <ul>
-        <li><b>_core</b> - Armazena todas as pastas e arquivos do núcleo do Wind UI. É o cerébro do Wind UI.</li>
+        <li><b>.core</b> - Armazena todas as pastas e arquivos do núcleo do Wind UI. É o cerébro do Wind UI.</li>
         <li><b>apps</b> - Armazena todos os seus apps criados com o Wind UI.</li>
         <ul>
             <li><b>seuApp1</b> - Essa é a pasta do seu app. A pasta deve levar o nome do seu app. Essa pasta conterá tudo que faz seu app
@@ -165,6 +164,35 @@ O Wind UI possui uma hierarquia de pastas e arquivos para garantir a melhor orga
         </ul>
     </ul>
 </ul>
+
+<h3>Instalado e começando a utilizar o Wind UI em sua hospedagem</h3>
+
+Primeiramente, você precisa fazer o download do Framework Wind UI a partir do GitHub. Lá você pode baixa-lo e como o Wind UI é código aberto, você
+ pode modifica-lo, redistribui-lo e fazer tudo que a licensa que esta no GitHub lhe permite.
+
+<br>
+<br>
+
+Depois de baixado o Wind UI, você deve arrastar a pasta "wind.ui.public" para a sua hospedagem. Depois disso, basta criar uma pasta com o nome de seu
+ app, dentro da pasta "apps" do "wind.ui.public". Você pode renomear a pasta alterando seu sufixo para criar diferentes versões do Framework, em
+ uma mesma hospedagem. Por exemplo, você pode ter "wind.ui.public" para que usuários acessem e "wind.ui.private" para testes internos. Ao criar
+ a pasta de seu app, você pode simplesmente copiar o app "_learn" que já vem incluso para demonstração e estudo. Todos os seus apps serão dependentes
+ da pasta ".core", por isso não altere a hierarquia de pastas e arquivos, nem renomeie os arquivos. Consulte o tópico acima para saber onde você pode
+ modificar para criar seu app. Você pode duplicar o app "_learn" e renomear a pasta para o nome do seu futuro app, então é só começar a modificar
+ este app duplicado para criar o seu próprio!
+
+<br>
+<br>
+
+Dentro do seu novo app, você pode editar o arquivo "app-settings.php" para deixar seu app com suas preferências. É muito importante modifica-lo
+ corretamente, ou seja, como se trata de um arquivo PHP, não deixe este arquivo com erros de sintaxe ou coisas parecidas. Agora o seu novo app já
+ deve estar pronto e o Wind UI já está em sua hospedagem. Continue lendo este aplicativo para entender como criar seu app com sucesso!
+
+<br>
+<br>
+
+Isso é tudo que você precisa saber para ter uma introdução ao Wind UI. Utilize o Menu no canto superior direito deste app para navegar por outras
+ seções e aprender mais sobre o Wind UI!
 
 <!-- End of fragment modifiable area -->
 <?php

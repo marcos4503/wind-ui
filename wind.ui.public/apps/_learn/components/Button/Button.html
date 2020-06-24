@@ -23,8 +23,19 @@
         }
     </style>
 
+    <!-- Component HTML Variables Default Values -->
+    <!-- Set the default value of the undefined variables here when instantiating this component -->
+    <json type="text/json" app="wind.ui">
+        {
+        "style":"",
+        "onClickJsEvent":"",
+        "value":"Empty Button"
+        }
+    </json>
+
     <!-- Component HTML Code -->
     <!-- Wind UI Variables (example: __%variableName__) only works here! -->
+    <!-- Use "__%WindUiPhp::getResourcePath__/yourResource" to get path of a resource of your app -->
     <html type="text/html" app="wind.ui">
 
         <div class="component_Button_base" style="__%style__" onclick="__%onClickJsEvent__">
