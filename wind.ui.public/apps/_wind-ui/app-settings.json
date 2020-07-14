@@ -1,0 +1,51 @@
+{
+    "appTitle": "Wind UI App",
+    "appCode": "wind.ui.app",
+    "appLang": "pt-br",
+    "appCharSet": "UTF-8",
+    "appDefaultFavicon": "/resources/icons/favicon.png",
+    "appWithNotificationsFavicon": "/resources/icons/favicon-notify.png",
+    "appBrowserColor": "#0055A5",
+    "appPhpTimeZone": "America/Sao_Paulo",
+    "appPreventDragImages": true,
+    "appTextSelectionHighlight": false,
+    "appShowNotificationOnJsLogs": true,
+    "appAlwaysShowYScrollBar": true,
+    "appDefaultFragmentToLoad": "home",
+    "appFragmentNotFoundMessage": "Wind UI: Erro 404. Não foi possível encontrar o Fragmento que você solicitou pela URL. O Fragmento padrão foi carregado ao invés disso.",
+    "cookieWarningPopUpMessage": "Esta aplicação utiliza Cookies para garantir o melhor funcionamento. Ao continuar a usar esta aplicação, você concorda com o uso de Cookies.",
+    "cookieWarningPopUpAcceptButton": "Concordo",
+    "loadScreenLoadingMessage": "Carregando...",
+    "fragmentsViewerErrorMessage": "Não foi possível exibir este conteúdo. Por favor, verifique sua conexão e tente novamente.",
+    "fragmentsViewerLoadingMessage": "Carregando conteúdo...",
+    "clientExternalJsLibs": [
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ],
+    "clientExternalCssLibs": [
+        ""
+    ],
+    "clientThirdPartyOnHeadJsLibs": [
+        ""
+    ],
+    "clientThirdPartyCssLibs": [
+        "rainbow-github.css"
+    ],
+    "clientThirdPartyBeforeBodyCloseJsLibs": [
+        "rainbow.js",
+        "rainbow.generic.js",
+        "rainbow.javascript.js",
+        "rainbow.css.js",
+        "rainbow.html.js",
+        "rainbow.php.js",
+        "rainbow.c.js",
+        "rainbow.csharp.js",
+        "rainbow.go.js",
+        "rainbow.java.js",
+        "rainbow.json.js",
+        "rainbow.lua.js",
+        "rainbow.python.js",
+        "rainbow.ruby.js",
+        "rainbow.shell.js",
+        "rainbow.sql.js"
+    ]
+}

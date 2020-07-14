@@ -8,8 +8,10 @@
     //Run functions with a interval
     window.setInterval(function(){
         WindUiJs.loadRightFragmentIfUrlIsDifferent();
-        WindUiJs.runFunctionsForEachScreenWidth();
-        WindUiJs.countNodesOnNotificationAreaAndShowCorrectIcon();
+        WindUiJs.checkCurrentClientScreenWidthAndRunCustomFunction();
+        WindUiJs.countNodesOnNotificationAreaAndShowCorrectFavicon();
+        if(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds != null && WindUiJs.isFunction(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds) == true)
+            WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds();
     }, 100);
 
     //Catch all logs
@@ -17,17 +19,17 @@
         <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == true) ? "" : "return;")); ?>
         WindUiJs.showSimpleNotification("[JavaScript Log] " + msg, 0, true, null); 
     }
-    window.console.log = catchConsoleLog;
+    <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == false) ? "//" : "")); ?>window.console.log = catchConsoleLog;
     function catchConsoleError(msg) { 
         <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == true) ? "" : "return;")); ?>
         WindUiJs.showSimpleNotification("[JavaScript Error] " + msg, 0, true, null); 
     }
-    window.console.error = catchConsoleError;
+    <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == false) ? "//" : "")); ?>window.console.error = catchConsoleError;
     function catchConsoleWarn(msg) { 
         <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == true) ? "" : "return;")); ?>
         WindUiJs.showSimpleNotification("[JavaScript Warn] " + msg, 0, true, null); 
     }
-    window.console.warn = catchConsoleWarn;
+    <?php echo(((WindUiAppPrefs::$appShowNotificationOnJsLogs == false) ? "//" : "")); ?>window.console.warn = catchConsoleWarn;
 
     //All public methods of JavaScript Wind UI
     class WindUiJs{
@@ -40,37 +42,13 @@
         static customFunctionToRunBeforeLoadFragment = null;
         static customFunctionToRunAfterLoadFragment = null;
         static currentRequestedFragment = "";
-
-        //Run functions according to browser width
-        static runFunctionsForEachScreenWidth(){
-            //This method runs with interval of 100ms to guarantee accuracy
-            var screenWidth = document.body.clientWidth;
-            switch(true){
-                case (screenWidth >= 3840):
-                    //Run functions
-                    break;
-                case (screenWidth >= 2560):
-                    //Run functions
-                    break;
-                case (screenWidth >= 1920):
-                    //Run functions
-                    break;
-                case (screenWidth >= 1368):
-                    //Run functions
-                    break;
-                case (screenWidth >= 1280):
-                    //Run functions
-                    break;
-                case (screenWidth >= 720):
-                    //Run functions
-                    break;
-                case (screenWidth >= 480 || screenWidth < 480):
-                    //Run functions
-                    break;
-                default:
-                    console.log("Wind UI: Can't detect the current screen width.");
-            }
-        }
+        static blockOnLoadNewFragmentWhileAjaxHttpRequestRunning = false;
+        static currentAjaxHttpRequestsRunning = 0;
+        static customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning = null;
+        static alwaysShowNotificationFavicon = false;
+        static customFunctionToRunAccordingClientScreenWidth = null;
+        static customFunctionToBeRunnedOnEach100Milliseconds = null;
+        static isCurrentPingingServerNow = false;
 
         //Tools methods
 
@@ -96,6 +74,71 @@
 
             //Return the script element
             return fileref;
+        }
+
+        static isJsonString(str) {
+            //Return true if a string is a json syntax
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+        static isXmlHttpRequest(object){
+            //Return true if object is xmlhttprequest
+            try {
+                var test = object.responseText;
+            } 
+            catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+        static isFormData(object){
+            //Return true if object is formdata
+            try {
+                var test = object.append("", "");
+            } 
+            catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+        static getFileFromFragmentNameStr(fragmentName){
+            //Split fragment name
+            var splited = fragmentName.split('/');
+            if(splited.length == 1)
+                return fragmentName;
+            if(splited.length > 1){
+                return splited[splited.length - 1];
+            }
+        }
+
+        static getDirFromFragmentNameStr(fragmentName){
+            //Split dir in fragment name
+            var splited = fragmentName.split('/');
+            if(splited.length == 1)
+                return fragmentName;
+            if(splited.length > 1){
+                var dir = "";
+                var firstBar = false;
+                for(var i = 0; i < splited.length; i++){
+                    if(firstBar == false){
+                        dir += splited[i];
+                        firstBar = true;
+                        continue;
+                    }    
+                    if(firstBar == true){
+                        dir += "/" + splited[i];
+                        continue;
+                    }
+                }
+                return dir;
+            }
         }
 
         //Cookies Warning
@@ -138,6 +181,11 @@
             WindUiJs.customFunctionToRunAfterLoadFragment = customFunction;
         }
 
+        static setFunctionToBeRunnedOnEach100Milliseconds(customFunction){
+            //Set the custom function to be runned on each 100 milliseconds
+            WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds = customFunction;
+        }
+
         static loadNewFragment(fragmentName, postData) {
             //If already is loading a new fragment, cancel request
             if(WindUiJs.alreadyLoadingFragment == true){
@@ -148,6 +196,14 @@
             //If the requested fragment is null or empty, cancel load
             if(fragmentName == null || fragmentName == ""){
                 console.error("Wind UI: Error on load Fragment " + fragmentName + ". Fragment name is invalid.");
+                return;
+            }
+
+            //If is running a ajax http request, cancel load of fragment
+            if(WindUiJs.blockOnLoadNewFragmentWhileAjaxHttpRequestRunning == true && WindUiJs.currentAjaxHttpRequestsRunning > 0){
+                if(WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning != null && WindUiJs.isFunction(WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning) == true)
+                    WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning();
+                console.error("Wind UI: Error on load Fragment " + fragmentName + ". " + WindUiJs.currentAjaxHttpRequestsRunning.toString() + " Ajax Http Request is running. Please, wait.");
                 return;
             }
 
@@ -183,7 +239,7 @@
 
             //Prepare to load a new fragment
             var xmlHttpreq = new XMLHttpRequest();
-            xmlHttpreq.open("POST", "<?php echo(WindUiAppPrefs::$appRootPath . "/fragments/"); ?>" + fragmentName + "/" + fragmentName + ".php", true);
+            xmlHttpreq.open("POST", "<?php echo(WindUiAppPrefs::$appRootPath . "/fragments/"); ?>" + WindUiJs.getDirFromFragmentNameStr(fragmentName) + "/" + WindUiJs.getFileFromFragmentNameStr(fragmentName) + ".php", true);
             xmlHttpreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xmlHttpreq.onreadystatechange = function(){
                 if (xmlHttpreq.readyState === 4) {
@@ -193,6 +249,31 @@
                         //Insert the loaded content inside the fragments viewer
                         windUiClientFragmentsViewer.innerHTML = xmlHttpreq.responseText;
 
+                        //Change the contents of all og metatags of client with the metatags of this fragment, delete <json> from this fragment
+                        var windUiJsonFragmentManifestNode = document.getElementById("windUiJsonFragmentManifest");
+                        if(windUiJsonFragmentManifestNode == null)
+                            console.error("Wind UI: We couldn't find a Json tag manifest in this fragment.");
+                        if(windUiJsonFragmentManifestNode != null){
+                            var jsonManifestOfThisFragment = windUiJsonFragmentManifestNode.innerHTML;
+                            if(WindUiJs.isJsonString(jsonManifestOfThisFragment) == true){
+                                var jsonManifest = JSON.parse(jsonManifestOfThisFragment);
+                                WindUiJs.changeCurrentClientTitle(jsonManifest.fragmentOgMetaTagTitle);
+                                document.getElementById("windUiOgMetaTagUrl").content = window.location.href;
+                                document.getElementById("windUiOgMetaTagTitle").content = jsonManifest.fragmentOgMetaTagTitle;
+                                document.getElementById("windUiOgMetaTagDescription").content = jsonManifest.fragmentOgMetaTagDescription;
+                                document.getElementById("windUiOgMetaTagImage").content = "<?php echo(WindUiAppPrefs::$appRootPath); ?>" + jsonManifest.fragmentOgMetaTagImage;
+                                document.getElementById("windUiOgMetaTagImageType").content = jsonManifest.fragmentOgMetaTagImageType;
+                                document.getElementById("windUiOgMetaTagImageWidth").content = jsonManifest.fragmentOgMetaTagImageWidth;
+                                document.getElementById("windUiOgMetaTagImageHeight").content = jsonManifest.fragmentOgMetaTagImageHeight;
+                                document.getElementById("windUiOgMetaTagType").content = jsonManifest.fragmentOgMetaTagType;
+                                document.getElementById("windUiOgArticleAuthor").content = jsonManifest.fragmentOgArticleAuthor;
+                                document.getElementById("windUiOgArticleSection").content = jsonManifest.fragmentOgArticleSection;
+                                document.getElementById("windUiOgArticleTag").content = jsonManifest.fragmentOgArticleTags;
+                                document.getElementById("windUiOgArticlePublishTime").content = jsonManifest.fragmentOgArticlePublishTime;
+                            }
+                            windUiClientFragmentsViewer.removeChild(windUiJsonFragmentManifestNode);
+                        }
+                        
                         //Eval all JavaScript tags of fragment code
                         var allScriptTagsInsideFragment = windUiClientFragmentsViewer.getElementsByTagName("SCRIPT");
                         for (var i = 0; i < allScriptTagsInsideFragment.length; i++)
@@ -236,14 +317,14 @@
             }
 
             //Try to load script.js from fragment preventing from cache
-            var dynamicJsScript = WindUiJs.loadJsFile("<?php echo(WindUiAppPrefs::$appRootPath . "/fragments/"); ?>" + fragmentName + "/_script.js?noCache=" + (Date.now().toString()));
+            var dynamicJsScript = WindUiJs.loadJsFile("<?php echo(WindUiAppPrefs::$appRootPath . "/fragments/"); ?>" + WindUiJs.getDirFromFragmentNameStr(fragmentName) + "/" + WindUiJs.getFileFromFragmentNameStr(fragmentName) + ".js?noCache=" + (Date.now().toString()));
             dynamicJsScript.onload = function(){
                 //Only starts to load fragment, after load script.js of fragment
-                setTimeout(function () { xmlHttpreq.send(postData); }, 1000);
+                setTimeout(function () { xmlHttpreq.send(postData); }, <?php echo(WindUiAppPrefs::$appDelayBeforeLoadFragment); ?>);
             }
             dynamicJsScript.onerror = function(){
                 //Show warning about error
-                WindUiJs.showSimpleNotification('Wind UI: An error occurred while loading the script.js for this fragment. Please try to refresh the page.', 0, true, null);
+                WindUiJs.showSimpleNotification('Wind UI: An error occurred while loading the ' + fragmentName + '.js for this fragment. Please try to refresh the page.', 0, true, null);
             }
         }
 
@@ -271,9 +352,266 @@
             return WindUiJs.currentRequestedFragment;
         }
 
+        static checkCurrentClientScreenWidthAndRunCustomFunction(){
+            //customFunctionToRunAccordingClientScreenWidth function example
+            //function(roundedScreenWidth, realtimeScreenWidth){}
+
+            //This method runs with interval of 100ms to guarantee accuracy
+            var screenWidth = WindUiJs.getCurrentClientScreenWidth();
+            switch(true){
+                case (screenWidth >= 3840):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(3840, screenWidth);
+                    break;
+                case (screenWidth >= 2560):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(2560, screenWidth);
+                    break;
+                case (screenWidth >= 1920):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1920, screenWidth);
+                    break;
+                case (screenWidth >= 1368):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1368, screenWidth);
+                    break;
+                case (screenWidth >= 1280):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1280, screenWidth);
+                    break;
+                case (screenWidth >= 720):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(720, screenWidth);
+                    break;
+                case (screenWidth >= 480 || screenWidth < 480):
+                    //Run functions
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(480, screenWidth);
+                    break;
+                default:
+                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
+                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(0, screenWidth);
+            }
+        }
+
+        static setFunctionToBeRunnedAccordingClientScreenWidth(customFunction){
+            //Set a custom function to be runned according the current client screen width
+            WindUiJs.customFunctionToRunAccordingClientScreenWidth = customFunction;
+        }
+
+        static getCurrentClientScreenWidth(){
+            //Return current screen width
+            return document.body.clientWidth;
+        }
+
+        //Api Ajax methods
+
+        static instantiateNewPostDataForAjaxHttpRequest(){
+            //Instantiate formdata object and return
+            return new FormData();
+        }
+
+        static addNewFieldInPostDataForAjaxHttpRequest(postData, ajaxHttpApiFileReceptorVarName, textValue){
+            //Add the var in post data, if object postdata is a formdata
+            if(WindUiJs.isFormData(postData) == true)
+                postData.append(ajaxHttpApiFileReceptorVarName, textValue);
+        }
+
+        static loadNewAjaxHttpRequestOnApi(ajaxHttpApiName, postData, onDone){
+            //onDone function example (Response Json is null, if string of responseText is not a Json syntax)
+            //function(isSuccess, responseText, responseXml, responseJson){}
+
+            //Check a new http request running
+            WindUiJs.currentAjaxHttpRequestsRunning += 1;
+
+            //Prepare to load a new fragment
+            var xmlHttpreq = new XMLHttpRequest();
+            xmlHttpreq.open("POST", "<?php echo(WindUiAppPrefs::$appRootPath . "/ajax-http-apis/"); ?>" + ajaxHttpApiName + ".php", true);
+            xmlHttpreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xmlHttpreq.onreadystatechange = function(){
+                if (xmlHttpreq.readyState === 4) {
+                    if (xmlHttpreq.status === 200) {
+                        //IF SUCESS
+
+                        //Call "onDone" if is registered
+                        if(onDone != null && WindUiJs.isFunction(onDone) == true){
+                            if(WindUiJs.isJsonString(xmlHttpreq.responseText) == true){
+                                onDone(true, xmlHttpreq.responseText, xmlHttpreq.responseXML, JSON.parse(xmlHttpreq.responseText));
+                            }
+                            else{
+                                onDone(true, xmlHttpreq.responseText, xmlHttpreq.responseXML, null);
+                            }     
+                        } 
+                    }
+                    else {
+                        //IF NETWORK ERROR
+
+                        //Call "onDone" if is registered
+                        if(onDone != null && WindUiJs.isFunction(onDone) == true)
+                            onDone(false, null, null, null);
+                    }
+
+                    //End a new http request running
+                    WindUiJs.currentAjaxHttpRequestsRunning -= 1;
+                }
+            }
+            setTimeout(function () { xmlHttpreq.send(postData); }, <?php echo(WindUiAppPrefs::$appDelayBeforeLoadAjaxRequest); ?>);
+        }
+
+        static uploadNewFileOnAjaxHttpRequestInApi(ajaxHttpApiName, ajaxHttpApiFileReceptorVarName, inputFileElement, inputFileElementFileToUploadIndex, onStartLoad, onProgressUpdate, onDoneLoad, onError, onAbort){
+            //Check a new http request running
+            WindUiJs.currentAjaxHttpRequestsRunning += 1;
+
+            //Get the file
+            var formData = new FormData();
+            formData.append(ajaxHttpApiFileReceptorVarName, inputFileElement.files[inputFileElementFileToUploadIndex]);
+
+            //Start upload
+            var xmlHttpreq = new XMLHttpRequest();
+            xmlHttpreq.upload.addEventListener("loadstart", function(event){
+                //onStartLoad function example
+                //function(){}
+                if(onStartLoad != null && WindUiJs.isFunction(onStartLoad) == true)
+                    onStartLoad();
+            }, false);
+            xmlHttpreq.upload.addEventListener("progress", function(event){
+                //onProgressUpdate function example
+                //function(value, total){}
+                if(onProgressUpdate != null && WindUiJs.isFunction(onProgressUpdate) == true){
+                    if(event.lengthComputable == true)
+                        onProgressUpdate(event.loaded / event.total, 1.0);
+                    if(event.lengthComputable == false)
+                        onProgressUpdate(1.0, 1.0);
+                }
+            }, false);
+            xmlHttpreq.addEventListener("load", function(event){
+                //onDoneLoad function example
+                //function(){}
+                if(onDoneLoad != null && WindUiJs.isFunction(onDoneLoad) == true)
+                    onDoneLoad();
+
+                //End a new http request running
+                WindUiJs.currentAjaxHttpRequestsRunning -= 1;
+            }, false);
+            xmlHttpreq.addEventListener("error", function(event){
+                //onError function example
+                //function(){}
+                if(onError != null && WindUiJs.isFunction(onError) == true)
+                    onError();
+
+                //End a new http request running
+                WindUiJs.currentAjaxHttpRequestsRunning -= 1;
+            }, false);
+            xmlHttpreq.addEventListener("abort", function(event){
+                //onAbort function example
+                //function(){}
+                if(onAbort != null && WindUiJs.isFunction(onAbort) == true)
+                    onAbort();
+
+                //End a new http request running
+                WindUiJs.currentAjaxHttpRequestsRunning -= 1;
+            }, false);
+            xmlHttpreq.open("POST", "<?php echo(WindUiAppPrefs::$appRootPath . "/ajax-http-apis/"); ?>" + ajaxHttpApiName + ".php", true);
+            xmlHttpreq.send(formData);
+
+            //Return the windUiJsAjaxUploadOperation
+            return xmlHttpreq;
+        }
+
+        static abortUploadOfNewFileOnAjaxHttpRequestInApi(windUiJsAjaxUploadOperation){
+            //Abort operation of ajaxUpload if exists and if is a xmlhttprequest object
+            if(WindUiJs.isXmlHttpRequest(windUiJsAjaxUploadOperation) == true)
+                windUiJsAjaxUploadOperation.abort();
+        }
+
+        static changeStateOfButtonToLoadingAjaxHttpRequest(buttonElement){
+            //Change the state of a button, to loading and return the original state of button, converted to string json
+
+            //Verify if buttonElement is really a button
+            if(buttonElement.tagName == "INPUT" && buttonElement.type == "button"){
+                //Get the original state of button
+                var originalStateJson = "{";
+                originalStateJson += '"backgroundImage":"' + buttonElement.style.backgroundImage + '",';
+                originalStateJson += '"backgroundSize":"' + buttonElement.style.backgroundSize + '",';
+                originalStateJson += '"backgroundPosition":"' + buttonElement.style.backgroundPosition + '",';
+                originalStateJson += '"backgroundRepeat":"' + buttonElement.style.backgroundRepeat + '",';
+                originalStateJson += '"value":"' + buttonElement.value + '",';
+                originalStateJson += '"width":"' + buttonElement.width + '",';
+                originalStateJson += '"height":"' + buttonElement.height + '"';
+                originalStateJson += "}";
+
+                //Get height and width of element
+                var originalWidth = buttonElement.offsetWidth;
+                var originalHeight = buttonElement.offsetHeight;
+
+                //Set the new state
+                buttonElement.style.backgroundImage = "url(<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$ajaxHttpRequestLoadingOnButtonSpinnerResource); ?>)";
+                buttonElement.style.backgroundSize = "<?php echo(WindUiAppPrefs::$ajaxHttpRequestLoadingOnButtonSpinnerSizePx); ?>px";
+                buttonElement.style.backgroundPosition = "center";
+                buttonElement.style.backgroundRepeat = "no-repeat";
+                buttonElement.style.width = originalWidth.toString() + "px";
+                buttonElement.style.height = originalHeight.toString() + "px";
+                buttonElement.value = "";
+                buttonElement.disabled = "disabled";
+
+                //Return the original state
+                return originalStateJson;
+            }
+        }
+
+        static restoreOriginalStateOfButtonNow(buttonElement, originalState){
+            //Restores a state of a button
+            if(WindUiJs.isJsonString(originalState) == true){
+                var json = JSON.parse(originalState);
+
+                //set the original state
+                //Set the new state
+                buttonElement.style.backgroundImage = json.backgroundImage;
+                buttonElement.style.backgroundSize = json.backgroundSize;
+                buttonElement.style.backgroundPosition = json.backgroundPosition;
+                buttonElement.style.backgroundRepeat = json.backgroundRepeat;
+                buttonElement.value = json.value;
+                buttonElement.width = json.width;
+                buttonElement.height = json.height;
+                buttonElement.disabled = "";
+            }
+        }
+
+        static enableBlockOnLoadNewFragmentWhileAjaxHttpRequestIsRunning(onTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning){
+            //Enable the block, to prevent load of a new fragment, while ajax http request is running. Save the function to run onTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning
+            WindUiJs.blockOnLoadNewFragmentWhileAjaxHttpRequestRunning = true;
+            WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning = onTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning;
+        }
+
+        static disableBlockOnLoadNewFragmentWhileAjaxHttpRequestIsRunning(){
+            //Disable the block, to prevent load of a new fragment, while ajax http request is running
+            WindUiJs.blockOnLoadNewFragmentWhileAjaxHttpRequestRunning = true;
+        }
+
+        static isBlockOnLoadNewFragmentWhileAjaxHttpRequestIsRunningEnabled(){
+            //Return if the block is enabled or disabled
+            return WindUiJs.blockOnLoadNewFragmentWhileAjaxHttpRequestRunning;
+        }
+
+        static getCountOfAjaxHttpRequestsRunningNow(){
+            //Return the count of ajax http requests running now
+            return WindUiJs.currentAjaxHttpRequestsRunning;
+        }
+
+        static isNetworkAvailableOnBrowserNow(){
+            //Return if network is available now
+            return navigator.onLine;
+        }
+
         //Notifications methods
 
-        static countNodesOnNotificationAreaAndShowCorrectIcon(){
+        static countNodesOnNotificationAreaAndShowCorrectFavicon(){
             //Get default icon
             if(WindUiJs.defaultAppIcon == ""){
                 WindUiJs.defaultAppIcon = document.getElementById('windUiDynamicIcon').href;
@@ -292,7 +630,8 @@
             //Count quantity of nodes of notifications inside Notifications Area
             var nodesInNotificationArea = WindUiJs.notificationAreaElement.childElementCount;
             if(nodesInNotificationArea != WindUiJs.lastQuantityOfNodesInNotificationArea){
-                if(nodesInNotificationArea == 0){
+                //Only update the DOM if have new notifications
+                if(nodesInNotificationArea == 0 && WindUiJs.alwaysShowNotificationFavicon == false){
                     //Change favicon to default
                     var link = document.createElement('link'),
                     oldLink = document.getElementById('windUiDynamicIcon');
@@ -303,7 +642,19 @@
                         document.head.removeChild(oldLink);
                     document.head.appendChild(link);
                 }
-                if(nodesInNotificationArea > 0){
+                if(nodesInNotificationArea > 0 && WindUiJs.alwaysShowNotificationFavicon == false){
+                    //Change favicon to favicon with indicator
+                    var link = document.createElement('link'),
+                    oldLink = document.getElementById('windUiDynamicIcon');
+                    link.id = 'windUiDynamicIcon';
+                    link.rel = 'shortcut icon';
+                    link.href = WindUiJs.withNotificationsAppIcon;
+                    if(oldLink)
+                        document.head.removeChild(oldLink);
+                    document.head.appendChild(link);
+                }
+                if(WindUiJs.alwaysShowNotificationFavicon == true){
+                    //If force to always show notification favicon
                     //Change favicon to favicon with indicator
                     var link = document.createElement('link'),
                     oldLink = document.getElementById('windUiDynamicIcon');
@@ -316,6 +667,20 @@
                 }
             }
             WindUiJs.lastQuantityOfNodesInNotificationArea = nodesInNotificationArea;
+        }
+
+        static forceAlwaysExibitionOfNotificationFavicon(enabled){
+            //Set the force of always show notification favicon
+            if(WindUiJs.lastQuantityOfNodesInNotificationArea <= 0)
+                WindUiJs.lastQuantityOfNodesInNotificationArea = 1;
+            if(WindUiJs.lastQuantityOfNodesInNotificationArea >= 1)
+                WindUiJs.lastQuantityOfNodesInNotificationArea += 1;
+            WindUiJs.alwaysShowNotificationFavicon = enabled;
+        }
+
+        static isNotificationFaviconForcedToAlwaysShow(){
+            //Return if the notification favicon is forced to show
+            return WindUiJs.alwaysShowNotificationFavicon;
         }
 
         static showSimpleNotification(message, duration, playSound, onCloseEvent){

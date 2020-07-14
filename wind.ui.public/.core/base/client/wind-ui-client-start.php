@@ -1,6 +1,8 @@
 <?php
+//-------- WindUiAppPrefs:: already been included in this client and all preferences from this app is imported by wind-ui-client-prepare ----------
+
 //Include the core files on top of Client.php.
-include_once(WindUiClientRenderer::$thisAppRootDir . "/app-settings.php");
+include_once(WindUiAppPrefs::$appRootPath . "/app-variables.php");
 include_once(__DIR__ . "/../../library/backend/wind-ui-php.php");
 WindUiPhp::$typeOfScriptCurrentlyUsingThisLib = "client";
 
@@ -20,28 +22,43 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
         <!-- Wind UI Client.php External Libs -->
         <?php
             //Include all external libs setted
-            for ($i = 0; $i < count(WindUiClientRenderer::$externalJsLibs); $i++)
-                if(WindUiClientRenderer::$externalJsLibs[$i] != "")
-                    echo('<script type="text/javascript" src="'.WindUiClientRenderer::$externalJsLibs[$i].'"></script>');
-            for ($i = 0; $i < count(WindUiClientRenderer::$externalCssLibs); $i++)
-                if(WindUiClientRenderer::$externalCssLibs[$i] != "")
-                    echo('<link rel="stylesheet" href="'.WindUiClientRenderer::$externalCssLibs[$i].'" type="text/css" />');
+            for ($i = 0; $i < count(WindUiAppPrefs::$clientExternalJsLibs); $i++)
+                if(WindUiAppPrefs::$clientExternalJsLibs[$i] != "")
+                    echo('<script type="text/javascript" src="'.WindUiAppPrefs::$clientExternalJsLibs[$i].'"></script>');
+            for ($i = 0; $i < count(WindUiAppPrefs::$clientExternalCssLibs); $i++)
+                if(WindUiAppPrefs::$clientExternalCssLibs[$i] != "")
+                    echo('<link rel="stylesheet" href="'.WindUiAppPrefs::$clientExternalCssLibs[$i].'" type="text/css" />');
         ?>
         <!-- Wind UI App Third Party Libs -->
         <?php
             //Include all third party css libs
-            for ($i = 0; $i < count(WindUiClientRenderer::$thirdPartyCssLibs); $i++){
-                $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/css/" . WindUiClientRenderer::$thirdPartyCssLibs[$i];
+            for ($i = 0; $i < count(WindUiAppPrefs::$clientThirdPartyCssLibs); $i++){
+                $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/css/" . WindUiAppPrefs::$clientThirdPartyCssLibs[$i];
                 if(is_file($filePath) == true)
                     echo("<style>".file_get_contents($filePath)."</style>");
             }
             //Include all third party js libs on head
-            for ($i = 0; $i < count(WindUiClientRenderer::$thirdPartyOnHeadJsLibs); $i++){
-                $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/js/" . WindUiClientRenderer::$thirdPartyOnHeadJsLibs[$i];
+            for ($i = 0; $i < count(WindUiAppPrefs::$clientThirdPartyOnHeadJsLibs); $i++){
+                $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/js/" . WindUiAppPrefs::$clientThirdPartyOnHeadJsLibs[$i];
                 if(is_file($filePath) == true)
                     echo('<script type="text/javascript">'.file_get_contents($filePath)."</script>");
             }
         ?>
+        <!-- Wind UI Client.php dynamic Open Graph Universal Meta Tags of current requested fragment in URL get PARAM -->
+        <meta property="og:locale" content="<?php echo(WindUiAppPrefs::$appLang); ?>" />
+        <meta id="windUiOgMetaTagUrl" property="og:url" content="<?php echo("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>" />
+        <meta id="windUiOgMetaTagTitle" property="og:title" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagTitle")); ?>" />
+        <meta id="windUiOgMetaTagSiteName" property="og:site_name" content="<?php echo(WindUiAppPrefs::$appTitle); ?>" />
+        <meta id="windUiOgMetaTagDescription" property="og:description" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagDescription")); ?>">
+        <meta id="windUiOgMetaTagImage" property="og:image" content="<?php echo(WindUiAppPrefs::$appRootPath . WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImage")); ?>">
+        <meta id="windUiOgMetaTagImageType" property="og:image:type" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageType")); ?>">
+        <meta id="windUiOgMetaTagImageWidth" property="og:image:width" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageWidth")); ?>">
+        <meta id="windUiOgMetaTagImageHeight" property="og:image:height" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageHeight")); ?>">
+        <meta id="windUiOgMetaTagType" property="og:type" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagType")); ?>">
+        <meta id="windUiOgArticleAuthor" property="article:author" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleAuthor")); ?>">
+        <meta id="windUiOgArticleSection" property="article:section" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleSection")); ?>">
+        <meta id="windUiOgArticleTag" property="article:tag" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleTags")); ?>">
+        <meta id="windUiOgArticlePublishTime" property="article:published_time" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticlePublishTime")); ?>">
         <!-- Wind UI Client.php dynamic elements -->
         <!-- Tags of dynamic favicon and dynamic current fragment javascript will be rendered below -->
         <link id="windUiDynamicIcon" rel="shortcut icon" href="<?php; echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$appDefaultFavicon); ?>" />
@@ -112,6 +129,12 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
                 echo($script);
             ?>
         </script>
+
+        <?php
+            //Include PHP and CSS of app
+            include_once(WindUiAppPrefs::$appRootPath . "/app-javascript.php");
+            include_once(WindUiAppPrefs::$appRootPath . "/app-css-style.php");
+        ?>
 
         <!-- Startup Load Screen -->
         <div id="windUiLoadingScreen" class="windUiLoadingScreen">
