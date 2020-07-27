@@ -10,6 +10,7 @@
         WindUiJs.loadRightFragmentIfUrlIsDifferent();
         WindUiJs.checkCurrentClientScreenWidthAndRunCustomFunction();
         WindUiJs.countNodesOnNotificationAreaAndShowCorrectFavicon();
+        WindUiJs.countNodesOnDialogAreaAndShowBackgroundBlock();
         if(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds != null && WindUiJs.isFunction(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds) == true)
             WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds();
     }, 100);
@@ -49,8 +50,10 @@
         static customFunctionToRunAccordingClientScreenWidth = null;
         static customFunctionToBeRunnedOnEach100Milliseconds = null;
         static isCurrentPingingServerNow = false;
+        static dialogAreaElement = null;
+        static lastQuantityOfNodesInDialogArea = -1;
 
-        //Tools methods
+        //Basic tools for all methods
 
         static isFunction(variableToCheck){
             //If our variable is an instance of "Function"
@@ -58,22 +61,6 @@
                 return true;
             }
             return false;
-        }
-
-        static loadJsFile(filename){
-            //Remove old script
-            document.getElementsByTagName("head")[0].removeChild(document.getElementById("windUiDynamicFragmentJavaScript"));
-
-            //Create and load new script
-            var fileref = document.createElement('script');
-            fileref.setAttribute("id","windUiDynamicFragmentJavaScript");
-            fileref.setAttribute("type","text/javascript");
-            fileref.setAttribute("src", filename);
-            if (typeof fileref != "undefined")
-                document.getElementsByTagName("head")[0].appendChild(fileref);
-
-            //Return the script element
-            return fileref;
         }
 
         static isJsonString(str) {
@@ -106,6 +93,72 @@
                 return false;
             }
             return true;
+        }
+
+        static isString(value){
+            //Return true if value is a string
+            if(typeof value === "string" || value instanceof String){
+                return true;
+            }  
+            else{
+                return false;
+            }
+        }
+
+        static isNumber(value){
+            //Return true if value is a number
+            if(isNaN(value) == false && isFinite(value) == true && typeof value !== "boolean" && value != null){
+                return true;
+            }    
+            else{
+                return false;
+            }
+        }
+
+        static isFloat(value){
+            //Return true if value is a float
+            if(isNaN(value) == false && value != null && value.toString().indexOf('.') != -1){
+                return true;
+            }  
+            else{
+                return false;
+            }
+        }
+
+        static isInt(value){
+            //Return true if value is a int
+            if(value === parseInt(value, 10)){
+                return true;
+            }  
+            else{
+                return false;
+            }
+        }
+
+        static isBool(value){
+            //Return true if value is a bool
+            if(typeof value === "boolean"){
+                return true;
+            }  
+            else{
+                return false;
+            }
+        }
+
+        static loadJsFile(filename){
+            //Remove old script
+            document.getElementsByTagName("head")[0].removeChild(document.getElementById("windUiDynamicFragmentJavaScript"));
+
+            //Create and load new script
+            var fileref = document.createElement('script');
+            fileref.setAttribute("id","windUiDynamicFragmentJavaScript");
+            fileref.setAttribute("type","text/javascript");
+            fileref.setAttribute("src", filename);
+            if (typeof fileref != "undefined")
+                document.getElementsByTagName("head")[0].appendChild(fileref);
+
+            //Return the script element
+            return fileref;
         }
 
         static getFileFromFragmentNameStr(fragmentName){
@@ -141,17 +194,58 @@
             }
         }
 
-        //Cookies Warning
+        static getDayConvertedToString(dateObject){
+            //Converts day to string
+            var day = dateObject.getDate();
+            if(day < 10)
+                return ("0" + day.toString());
+            if(day >= 10)
+                return day.toString();
+        }
 
-        static checkIfTheUserAcceptedCookiesForThisApp(){
-            //Check if the user has accepted cookies, if not display the dialog
-            if(localStorage.getItem("acceptedCookie:<?php echo(WindUiAppPrefs::$appCode); ?>") == null){
-                WindUiJs.showActionNotification('<?php echo(WindUiAppPrefs::$cookieWarningPopUpMessage); ?>', 0, false, '<?php echo(WindUiAppPrefs::$cookieWarningPopUpAcceptButton); ?>', function(){
-                    localStorage.setItem("acceptedCookie:<?php echo(WindUiAppPrefs::$appCode); ?>", "true");
-                }, true, function(){
-                    WindUiJs.checkIfTheUserAcceptedCookiesForThisApp();
-                });
-            }
+        static getMonthConvertedToString(dateObject){
+            //Converts month to string
+            var month = dateObject.getMonth();
+            if(month < 10)
+                return ("0" + (month + 1).toString());
+            if(month >= 10)
+                return (month + 1).toString();
+        }
+
+        static getYearConvertedToString(dateObject){
+            //Converts year to string
+            var year = dateObject.getFullYear();
+            if(year < 10)
+                return ("0" + year.toString());
+            if(year >= 10)
+                return year.toString();
+        }
+
+        static getHourConvertedToString(dateObject){
+            //Converts hour to string
+            var hour = dateObject.getHours();
+            if(hour < 10)
+                return ("0" + hour.toString());
+            if(hour >= 10)
+                return hour.toString();
+        }
+
+        static getMinuteConvertedToString(dateObject){
+            //Converts minute to string
+            var minute = dateObject.getMinutes();
+            if(minute < 10)
+                return ("0" + minute.toString());
+            if(minute >= 10)
+                return minute.toString();
+        }
+
+        static getSecondConvertedToString(dateObject){
+            //Converts second to string
+            var second = dateObject.getSeconds();
+            if(second < 10)
+                return ("0" + second.toString());
+            if(second >= 10)
+                return second.toString();
         }
 
         //Client after load methods
@@ -166,6 +260,17 @@
             var allImages = document.getElementsByTagName("IMG");
             for (var i = 0; i < allImages.length; i++){
                 allImages[i].ondragstart = function() { return false; };
+            }
+        }
+
+        static checkIfTheUserAcceptedCookiesForThisApp(){
+            //Check if the user has accepted cookies, if not display the dialog
+            if(localStorage.getItem("acceptedCookie:<?php echo(WindUiAppPrefs::$appCode); ?>") == null){
+                WindUiJs.showActionNotification('<?php echo(WindUiAppPrefs::$cookieWarningPopUpMessage); ?>', 0, false, '<?php echo(WindUiAppPrefs::$cookieWarningPopUpAcceptButton); ?>', function(){
+                    localStorage.setItem("acceptedCookie:<?php echo(WindUiAppPrefs::$appCode); ?>", "true");
+                }, true, function(){
+                    WindUiJs.checkIfTheUserAcceptedCookiesForThisApp();
+                });
             }
         }
 
@@ -410,6 +515,24 @@
             return document.body.clientWidth;
         }
 
+        static getResourcePath(resourceName){
+            //Return the full path to a desired resource of Wind UI app
+            var appRootPath = "<?php echo(WindUiAppPrefs::$appRootPath); ?>/";
+            return appRootPath + resourceName;
+        }
+
+        //Components core methods
+
+        static getComponentById(componentId){
+            //Try to find the component
+            var component = document.getElementById(componentId);
+            if(component == null)
+                console.error("WindUI Component: Could not find component with ID " + componentId + ".");
+            if(component != null)
+                return component;
+            return null;
+        }
+
         //Api Ajax methods
 
         static instantiateNewPostDataForAjaxHttpRequest(){
@@ -482,12 +605,12 @@
             }, false);
             xmlHttpreq.upload.addEventListener("progress", function(event){
                 //onProgressUpdate function example
-                //function(value, total){}
+                //function(value){}
                 if(onProgressUpdate != null && WindUiJs.isFunction(onProgressUpdate) == true){
                     if(event.lengthComputable == true)
-                        onProgressUpdate(event.loaded / event.total, 1.0);
+                        onProgressUpdate(event.loaded / event.total);
                     if(event.lengthComputable == false)
-                        onProgressUpdate(1.0, 1.0);
+                        onProgressUpdate(1.0);
                 }
             }, false);
             xmlHttpreq.addEventListener("load", function(event){
@@ -848,6 +971,293 @@
         static getCountOfNotificationsInScreen(){
             //Return quantity of notifications current in screen of client.php
             return document.getElementById("windUiNotificationArea").childElementCount;
+        }
+
+        //Dialog box methods
+
+        static countNodesOnDialogAreaAndShowBackgroundBlock(){
+            //Get dialog area element if is null
+            if(WindUiJs.dialogAreaElement == null){
+                WindUiJs.dialogAreaElement = document.getElementById("windUiDialogBoxArea");
+            }
+
+            //Count quantity of nodes of dialogs inside Dialog Area
+            var nodesInDialogArea = WindUiJs.dialogAreaElement.childElementCount;
+            if(nodesInDialogArea != WindUiJs.lastQuantityOfNodesInDialogArea){
+                //Only update the DOM if have new dialogs updates
+                if(nodesInDialogArea == 0)
+                    document.getElementById("windUiDialogBoxAreaBackgroundClickBlock").style.opacity = "0";
+                if(nodesInDialogArea > 0)
+                    document.getElementById("windUiDialogBoxAreaBackgroundClickBlock").style.opacity = "1";
+            }
+            WindUiJs.lastQuantityOfNodesInDialogArea = nodesInDialogArea;
+        }
+
+        static showSimpleDialog(optionalUrlOfIcon, title, content, okButtonText, onClickOkButtonEvent){
+            //Create a simple dialog
+            return WindUiJs.createRequestedComplexDialog(optionalUrlOfIcon, title, content, okButtonText, onClickOkButtonEvent, '', null, '', null);
+        }
+
+        static showConfirmationDialog(optionalUrlOfIcon, title, content, yesButtonText, onClickYesButtonEvent, noButtonText, onClickNoButtonEvent){
+            //Create a confirmation dialog
+            return WindUiJs.createRequestedComplexDialog(optionalUrlOfIcon, title, content, yesButtonText, onClickYesButtonEvent, noButtonText, onClickNoButtonEvent, '', null);
+        }
+
+        static showComplexDialog(optionalUrlOfIcon, title, content, yesButtonText, onClickYesButtonEvent, noButtonText, onClickNoButtonEvent, neutralButtonText, onClickNeutralButtonEvent){
+            //Create a complex dialog
+            return WindUiJs.createRequestedComplexDialog(optionalUrlOfIcon, title, content, yesButtonText, onClickYesButtonEvent, noButtonText, onClickNoButtonEvent, neutralButtonText, onClickNeutralButtonEvent);
+        }
+
+        static createRequestedComplexDialog(optionalUrlOfIcon, title, content, yesButtonText, onClickYesButtonEvent, noButtonText, onClickNoButtonEvent, neutralButtonText, onClickNeutralButtonEvent){
+            //Get dialog box area
+            var dialogArea = document.getElementById("windUiDialogBoxArea");
+
+            //Create the complex dialog background element
+            var complexDialogBackground = document.createElement("div");
+            complexDialogBackground.classList.add("windUiComplexDialogBackground");
+
+            //Create the dialog popup element
+            var complexDialogPopUp = document.createElement("div");
+            complexDialogPopUp.classList.add("windUiComplexDialogPopUp");
+            complexDialogBackground.appendChild(complexDialogPopUp);
+
+            var complexDialogTitle = document.createElement("div");
+            complexDialogTitle.classList.add("windUiComplexDialogTitle");
+            complexDialogPopUp.appendChild(complexDialogTitle);
+            if(optionalUrlOfIcon != ""){
+                var complexDialogTitleIcon = document.createElement("div");
+                complexDialogTitleIcon.classList.add("windUiComplexDialogTitleIcon");
+                complexDialogTitleIcon.innerHTML = "<img src=" + optionalUrlOfIcon + " style=\"width: 100%;\" />";
+                complexDialogTitle.appendChild(complexDialogTitleIcon);
+            }
+            var complexDialogTitleText = document.createElement("div");
+            complexDialogTitleText.classList.add("windUiComplexDialogTitleText");
+            complexDialogTitleText.innerHTML = title;
+            complexDialogTitle.appendChild(complexDialogTitleText);
+
+            var complexDialogTextContent = document.createElement("div");
+            complexDialogTextContent.classList.add("windUiComplexDialogTextContent");
+            complexDialogTextContent.innerHTML = content;
+            complexDialogPopUp.appendChild(complexDialogTextContent);
+
+            var complexDialogButtons = document.createElement("div");
+            complexDialogButtons.classList.add("windUiComplexDialogButtons");
+            complexDialogPopUp.appendChild(complexDialogButtons);
+            if(yesButtonText == "" && noButtonText == "" && neutralButtonText == ""){
+                var complexDialogNoButtonDefined = document.createElement("div");
+                complexDialogNoButtonDefined.classList.add("windUiComplexDialogButton");
+                complexDialogNoButtonDefined.innerHTML = "OK";
+                complexDialogNoButtonDefined.onclick = function(){
+                    WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
+
+                    if(onClickNeutralButtonEvent != null && WindUiJs.isFunction(onClickNeutralButtonEvent) == true)
+                        onClickNeutralButtonEvent();
+                }
+                complexDialogButtons.appendChild(complexDialogNoButtonDefined);
+            }
+            if(yesButtonText != "" || noButtonText != "" || neutralButtonText != ""){
+                if(neutralButtonText != ""){
+                    var complexDialogNeutralButton = document.createElement("div");
+                    complexDialogNeutralButton.classList.add("windUiComplexDialogButton");
+                    complexDialogNeutralButton.innerHTML = neutralButtonText;
+                    complexDialogNeutralButton.onclick = function(){
+                        WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
+
+                        if(onClickNeutralButtonEvent != null && WindUiJs.isFunction(onClickNeutralButtonEvent) == true)
+                            onClickNeutralButtonEvent();
+                    }
+                    complexDialogButtons.appendChild(complexDialogNeutralButton);
+                }
+                if(yesButtonText != ""){
+                    var complexDialogYesButton = document.createElement("div");
+                    complexDialogYesButton.classList.add("windUiComplexDialogButton");
+                    complexDialogYesButton.innerHTML = yesButtonText;
+                    complexDialogYesButton.onclick = function(){
+                        WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
+
+                        if(onClickYesButtonEvent != null && WindUiJs.isFunction(onClickYesButtonEvent) == true)
+                            onClickYesButtonEvent();
+                    }
+                    complexDialogButtons.appendChild(complexDialogYesButton);
+                }
+                if(noButtonText != ""){
+                    var complexDialogNoButton = document.createElement("div");
+                    complexDialogNoButton.classList.add("windUiComplexDialogButton");
+                    complexDialogNoButton.innerHTML = noButtonText;
+                    complexDialogNoButton.onclick = function(){
+                        WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
+
+                        if(onClickNoButtonEvent != null && WindUiJs.isFunction(onClickNoButtonEvent) == true)
+                            onClickNoButtonEvent();
+                    }
+                    complexDialogButtons.appendChild(complexDialogNoButton);
+                }
+            }
+
+            //If dialog area don't have child elements
+            if(dialogArea.childElementCount == 0)
+                dialogArea.appendChild(complexDialogBackground);
+            //If dialog area have child elements
+            if(dialogArea.childElementCount > 0){
+                var lastNode = dialogArea.firstChild;
+                dialogArea.insertBefore(complexDialogBackground, lastNode);
+            }
+
+            //Run animation of entry
+            setTimeout(function () { 
+                complexDialogBackground.style.opacity = "1";
+            }, 25);
+
+            //Return the complex dialog node
+            return complexDialogBackground;
+        }
+
+        static showLoadingDialogBox(title){
+            //Get dialog box area
+            var dialogArea = document.getElementById("windUiDialogBoxArea");
+
+            //Create the loading dialog background element
+            var loadingDialogBackground = document.createElement("div");
+            loadingDialogBackground.classList.add("windUiLoadingDialogBackground");
+
+            //Create the dialog popup element
+            var loadingDialogPopUp = document.createElement("div");
+            loadingDialogPopUp.classList.add("windUiLoadingDialogPopUp");
+            loadingDialogBackground.appendChild(loadingDialogPopUp);
+
+            var spinnerDialogPopUp = document.createElement("div");
+            spinnerDialogPopUp.classList.add("windUiLoadingDialogSpinner");
+            loadingDialogPopUp.appendChild(spinnerDialogPopUp);
+            var titleDialogPopUp = document.createElement("div");
+            titleDialogPopUp.classList.add("windUiLoadingDialogTitle");
+            titleDialogPopUp.innerHTML = title;
+            loadingDialogPopUp.appendChild(titleDialogPopUp);
+
+            //If dialog area don't have child elements
+            if(dialogArea.childElementCount == 0)
+                dialogArea.appendChild(loadingDialogBackground);
+            //If dialog area have child elements
+            if(dialogArea.childElementCount > 0){
+                var lastNode = dialogArea.firstChild;
+                dialogArea.insertBefore(loadingDialogBackground, lastNode);
+            }
+
+            //Run animation of entry
+            setTimeout(function () { 
+                loadingDialogBackground.style.opacity = "1";
+            }, 25);
+
+            //Return the complex dialog node
+            return loadingDialogBackground;
+        }
+
+        static showCustomContentDialogBox(showCloseButton, maxWidth, maxHeight, content){
+            //Get dialog box area
+            var dialogArea = document.getElementById("windUiDialogBoxArea");
+
+            //Create the custom content dialog background element
+            var customContentDialogBackground = document.createElement("div");
+            customContentDialogBackground.classList.add("windUiCustomContentDialogBackground");
+
+            //Create the dialog popup element
+            var customContentDialogPopUp = document.createElement("div");
+            customContentDialogPopUp.classList.add("windUiCustomContentDialogPopUp");
+            customContentDialogPopUp.innerHTML = '<div style="width: 100%; height: 100%; overflow: auto;">' + content + '</div>';
+            customContentDialogPopUp.style.maxWidth = maxWidth;
+            customContentDialogPopUp.style.maxHeight = maxHeight;
+            customContentDialogBackground.appendChild(customContentDialogPopUp);
+            if(showCloseButton == true){
+                 var customContentDialogPopUpClose = document.createElement("div");
+                customContentDialogPopUpClose.classList.add("windUiCustomContentDialogPopUpClose");
+                customContentDialogPopUpClose.onclick = function(){
+                    WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, customContentDialogBackground);
+                }
+                customContentDialogPopUp.appendChild(customContentDialogPopUpClose);
+            }
+
+            //If dialog area don't have child elements
+            if(dialogArea.childElementCount == 0)
+                dialogArea.appendChild(customContentDialogBackground);
+            //If dialog area have child elements
+            if(dialogArea.childElementCount > 0){
+                var lastNode = dialogArea.firstChild;
+                dialogArea.insertBefore(customContentDialogBackground, lastNode);
+            }
+
+            //Run animation of entry
+            setTimeout(function () { 
+                customContentDialogBackground.style.opacity = "1";
+            }, 25);
+
+            //Return the complex dialog node
+            return customContentDialogBackground;
+        }
+
+        static changeContentOfCustomContentDialogBox(customContentDialogNodeObj, showCloseButton, maxWidth, maxHeight, newContent){
+            //Get dialog box area
+            var dialogArea = document.getElementById("windUiDialogBoxArea");
+
+            //Check if dialog provided is a node
+            if(customContentDialogNodeObj == null || customContentDialogNodeObj.nodeType != Node.ELEMENT_NODE)
+                return false;
+
+            //If obj informed not have parent of dialog area, return
+            if(customContentDialogNodeObj.parentNode != dialogArea)
+                return false;
+
+            //Change text content of node passed
+            customContentDialogNodeObj.firstChild.style.maxWidth = maxWidth;
+            customContentDialogNodeObj.firstChild.style.maxHeight = maxHeight;
+            customContentDialogNodeObj.firstChild.innerHTML = '<div style="width: 100%; height: 100%; overflow: auto;">' + newContent + '</div>';
+            if(showCloseButton == true){
+                 var customContentDialogPopUpClose = document.createElement("div");
+                customContentDialogPopUpClose.classList.add("windUiCustomContentDialogPopUpClose");
+                customContentDialogPopUpClose.onclick = function(){
+                    WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, customContentDialogNodeObj);
+                }
+                customContentDialogNodeObj.firstChild.appendChild(customContentDialogPopUpClose);
+            }
+        }
+
+        static isDialogCurrentlyInScreen(dialogNodeObj){
+            //Get dialog area
+            var dialogArea = document.getElementById("windUiDialogBoxArea");
+
+            //Check if dialog provided is a node
+            if(dialogNodeObj == null || dialogNodeObj.nodeType != Node.ELEMENT_NODE)
+                return false;
+
+            //If obj informed not have parent of notification area, return
+            if(dialogNodeObj.parentNode != dialogArea)
+                return false;
+
+            //Return if the notification is active or not
+            if(dialogNodeObj == null)
+                return false;
+            if(dialogNodeObj != null)
+                return true;
+        }
+
+        static hideDialogBoxAndDestroyNode(parentnode, nodeToDelete){
+            //If node to delete is null, return
+            if(nodeToDelete == null){
+                return;
+            }
+
+            //Run animation of delete
+            nodeToDelete.style.opacity = "0";
+
+            //If parent node informed is null, get parent node of nodeToDelete
+            if(parentnode == null){
+                parentnode = nodeToDelete.parentNode;
+            }
+
+            //Delete the node after animation
+            setTimeout(function () { 
+                if(parentnode != null && nodeToDelete != null)
+                    if(nodeToDelete.parentNode == parentnode)
+                        parentnode.removeChild(nodeToDelete);
+            }, 160);
         }
     }
 </script>

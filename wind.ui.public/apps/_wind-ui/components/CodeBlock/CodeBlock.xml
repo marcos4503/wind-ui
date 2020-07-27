@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<component>
+    <!-- Component HTML default values for yours HTML code Variables -->
+    <!-- Set the default value of the undefined variables here when instantiating this component in yours fragments -->
+    <!-- Use "(__WindUiPhp::getResourcePath__)/yourResource" to get path of a resource of your file. This only works in JSON for setting default values of variables. -->
+    <!-- It is important that the JSON syntax written here is correct, or Wind UI will not be able to understand the default values of your component's variables. -->
+    <json type="text/json" app="wind.ui">
+        {
+        "language":"generic"
+        "codeToShow":""
+        }
+    </json>
+
+    <!-- Component HTML Code -->
+    <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
+    <html type="text/html" app="wind.ui">
+
+        <pre>
+            <code data-language="__language__">
+            __codeToShow__
+            </code>
+        </pre>
+
+    </html>
+</component>

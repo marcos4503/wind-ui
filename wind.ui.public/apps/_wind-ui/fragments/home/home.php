@@ -5,6 +5,8 @@
 ?>
 
 <!-- Fragment manifest and parameters area -->
+<!-- Do not type plain text in this area and do not open PHP or HTML tags. Just edit the JSON content. -->
+<!-- Make sure to always maintain a correct JSON syntax, otherwise the Wind UI will not be able to process your fragment's metadata. -->
 
 <json id="windUiJsonFragmentManifest" type="text/json" app="wind.ui">
 {
@@ -23,6 +25,7 @@
 </json>
 
 <!-- Start of fragment content modifiable and visible to user area -->
+<!-- Here you can type plain text and open PHP or HTML tags. -->
 
 <center>
     <h1>Aplicativo de Gerenciamento e Documentação do Wind UI</h1>
@@ -38,8 +41,8 @@ Este é o aplicativo que vem acompanhado do seu Framework Wind UI ao baixa-lo. A
 
 <?php 
     WindUiPhp::renderComponentHere("AdaptativeImage", (object)array(
-        "imageSrc"=>WindUiPhp::getResourcePath("images/framework.png"),
-        "style"=>"max-height: 350px;"
+        "src"=>WindUiPhp::getResourcePath("images/framework.png"),
+        "max-height"=>"350px;"
     ), false);
 ?>
 
@@ -47,11 +50,10 @@ Este é o aplicativo que vem acompanhado do seu Framework Wind UI ao baixa-lo. A
 <br>
 
 <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
-    <center>
+    <center style="margin-right: 8px;">
         <?php 
             WindUiPhp::renderComponentHere("Button", (object)array(
-                "style"=>"max-width: 250px; margin: 4px; min-width: 16px;",
-                "onClickJsEvent"=>"openAppMenu();",
+                "onclick"=>"openAppMenu();",
                 "value"=>"Abrir Menu"
             ), false);
         ?>
@@ -59,14 +61,12 @@ Este é o aplicativo que vem acompanhado do seu Framework Wind UI ao baixa-lo. A
     <center>
         <?php 
             WindUiPhp::renderComponentHere("Button", (object)array(
-                "style"=>"max-width: 250px; margin: 4px; min-width: 16px;",
-                "onClickJsEvent"=>"window.open('https://github.com/marcos4503/wind-ui', '_blank');",
+                "onclick"=>"window.open('https://github.com/marcos4503/wind-ui', '_blank');",
                 "value"=>"Ver Wind UI no GitHub"
             ), false);
         ?>
     </center>
 </div>
-
 
 <!-- End of fragment modifiable content and visible area -->
 <?php

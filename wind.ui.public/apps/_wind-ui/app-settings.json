@@ -9,7 +9,6 @@
     "appPhpTimeZone": "America/Sao_Paulo",
     "appPreventDragImages": true,
     "appTextSelectionHighlight": false,
-    "appShowNotificationOnJsLogs": true,
     "appAlwaysShowYScrollBar": true,
     "appDefaultFragmentToLoad": "home",
     "appFragmentNotFoundMessage": "Wind UI: Erro 404. Não foi possível encontrar o Fragmento que você solicitou pela URL. O Fragmento padrão foi carregado ao invés disso.",

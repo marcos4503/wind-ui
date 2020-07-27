@@ -61,10 +61,12 @@
 
                 //Get json code of fragment file
                 $jsonCode = "";
-                $fileExploded0 = explode("<json", $phpFragmentFileContent);
-                $fileExploded1 = explode(">", $fileExploded0[1]);
-                $fileExploded2 = explode("}", $fileExploded1[1]);
-                $jsonCode = str_replace(array("<json>", "</json>", "< json>", "</ json>"), "", $fileExploded2[0]) . "}";
+                $dom = new DOMDocument;
+                $dom->loadXML((explode("</json>", $phpFragmentFileContent)[0] . "</json>"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                foreach ($dom->getElementsByTagName('json') as $node)
+                    if($node->getAttribute('type') == "text/json" && $node->getAttribute('app') == "wind.ui"){
+                        $jsonCode = self::DOMinnerHTML($node);
+                    }
 
                 //Verify if is valid json
                 if(self::isJson($jsonCode) == true){
@@ -124,25 +126,26 @@
             $backTrace = debug_backtrace();
             $phpScriptCaller = array_shift($backTrace);
 
-            //Include HTML block of a component.html in a place that this method are called
-            $codeFileOfComponent = WindUiAppPrefs::$appRootPath."/components/".$componentFolderName."/".$componentFolderName.".html";
-            if(is_file($codeFileOfComponent) == true){
-                //Read the document and get content of json of default value of variables
-                $jsonValues = new stdClass;
+            //Include HTML block of a component.xml in a place that this method are called
+            $xmlFileOfComponent = WindUiAppPrefs::$appRootPath."/components/".$componentFolderName."/".$componentFolderName.".xml";
+            if(is_file($xmlFileOfComponent) == true){
+
+                //Read the document and get content of json, to know default value of all variables
+                $jsonDefaultVariablesValues = new stdClass;
                 $dom = new DOMDocument;
-                $dom->loadXML(file_get_contents($codeFileOfComponent));
+                $dom->loadXML(file_get_contents($xmlFileOfComponent));
                 $jsonTags = $dom->getElementsByTagName("json");
                 foreach($jsonTags as $jsonTags){
                     if($jsonTags->getAttribute('type') == "text/json" && $jsonTags->getAttribute('app') == "wind.ui"){
                         $innerHTML = self::DOMinnerHTML($jsonTags);
                         if(self::isJson($innerHTML) == true)
-                            $jsonValues = json_decode($innerHTML);
+                            $jsonDefaultVariablesValues = json_decode($innerHTML);
                     }
                 }
 
-                //Read the document and get content of correct block of html code
+                //Read the document and get content of HTML block code
                 $dom = new DOMDocument;
-                $dom->loadXML(file_get_contents($codeFileOfComponent));
+                $dom->loadXML(file_get_contents($xmlFileOfComponent));
                 $htmlTags = $dom->getElementsByTagName("html");
                 foreach($htmlTags as $htmlTag){
                     if($htmlTag->getAttribute('type') == "text/html" && $htmlTag->getAttribute('app') == "wind.ui"){
@@ -150,15 +153,15 @@
                         $innerHTMLinflatedWithVariablesPassed = "";
                         $innerHTMLinflatedWithVariablesPassedAndDefaultVariablesValues = "";
 
-                        //Inflate the innerHTML with all variables passed
+                        //Inflate the HTML of component with all variables passed
                         if($variables != null){
                             $arrayOfVars = array();
                             $arrayOfValues = array();
 
-                            //Scan all variables passed into stdClass(or array) and fill all in HTML node code of component
+                            //Scan all variables passed into stdClass(or array) and fill all in HTML code of component
                             foreach (get_object_vars($variables) as $variable => $value) {
-                                if (strpos($innerHTML, "__%".$variable."__") !== false) {
-                                    array_push($arrayOfVars, "__%".$variable."__");
+                                if (strpos($innerHTML, "__".$variable."__") !== false) {
+                                    array_push($arrayOfVars, "__".$variable."__");
                                     array_push($arrayOfValues, $value);
                                 }
                                 else {
@@ -167,24 +170,25 @@
                             }
                             $innerHTMLinflatedWithVariablesPassed = str_replace($arrayOfVars, $arrayOfValues, $innerHTML);
                         }
+                        //If not passed variables, get the component code basic
                         if($variables == null)
                             $innerHTMLinflatedWithVariablesPassed = $innerHTML;
 
-                        //Inflate the innerHTMLinflatedWithVariablesPassed with all variables default values that is not used because not passed on render this component
+                        //Inflate the innerHTMLinflatedWithVariablesPassed with all default variables values that is not used because not passed on render this component
                         $arrayOfVars = array();
                         $arrayOfValues = array();
                         //Scan all variables present in json default values and fill all in HTML node code of component
-                        foreach (get_object_vars($jsonValues) as $variable => $value) {
-                            if (strpos($innerHTMLinflatedWithVariablesPassed, "__%".$variable."__") !== false) {
-                                array_push($arrayOfVars, "__%".$variable."__");
-                                array_push($arrayOfValues, str_replace("__%WindUiPhp::getResourcePath__", WindUiAppPrefs::$appRootPath . "/resources", $value));
+                        foreach (get_object_vars($jsonDefaultVariablesValues) as $variable => $value) {
+                            if (strpos($innerHTMLinflatedWithVariablesPassed, "__".$variable."__") !== false) {
+                                array_push($arrayOfVars, "__".$variable."__");
+                                array_push($arrayOfValues, str_replace("(__WindUiPhp::getResourcePath__)", WindUiAppPrefs::$appRootPath . "/resources", $value)); //Before set default value, change (__WindUiPhp::getResourcePath__) to dir to "Resources" path of this App
                             }
                         }
                         $innerHTMLinflatedWithVariablesPassedAndDefaultVariablesValues = str_replace($arrayOfVars, $arrayOfValues, $innerHTMLinflatedWithVariablesPassed);
 
                         //Warn on render this component, if a not used var is detected
                         if($warnIfThisComponentHaveNotUsedVars == true)
-                            if (strpos($innerHTMLinflatedWithVariablesPassedAndDefaultVariablesValues, "__%") !== false)
+                            if (strpos($innerHTMLinflatedWithVariablesPassedAndDefaultVariablesValues, "__") !== false)
                                 echo('<br><b>Wind UI:</b> Unused variables were detected when instantiating component "'.$componentFolderName.'" below. This means that these variables were not passed through the PHP command (or JSON default values of component), when instantiating this component. Check if all the variables of the component are being informed (or registered in JSON default values of Component code) in the stdClass when instantiating this component on line '.$phpScriptCaller['line'].'.');
 
                         echo("<!-- Wind UI Component Renderization: ".$componentFolderName." -->" . $innerHTMLinflatedWithVariablesPassedAndDefaultVariablesValues);
@@ -192,7 +196,7 @@
                 }
             }
             else{
-                echo('<br><b>Wind UI:</b> Could not render component "'.$componentFolderName.'" here. The component (folder) with this name or the "'.$componentFolderName.'.html" file for this component was not found. Error on line '.$phpScriptCaller['line'].'.');
+                echo('<br><b>Wind UI:</b> Could not render component "'.$componentFolderName.'" here. The component (folder) with this name or the "'.$componentFolderName.'.xml" file for this component was not found. Error on line '.$phpScriptCaller['line'].'.');
             }
         }
     }

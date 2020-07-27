@@ -77,53 +77,37 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
         <!-- All CSS of this app Wind UI components -->
         <style>
             <?php
-                //Retun all style node content of all components.html compiled into a unique text file
-                $style = "";
+                //Retun all CSS content of all components.css compiled into a unique text file
+                $css = "";
                 $allComponents = scandir(WindUiAppPrefs::$appRootPath."/components");
                 for($i = 0; $i < count($allComponents); $i++){
                     //Skip if is not a folder with a valid name to be a component
                     if(preg_match("/[^a-zA-Z]/", $allComponents[$i]) == true)
                         continue;
-                    $styleFileOfCurrentComponent = WindUiAppPrefs::$appRootPath."/components/".$allComponents[$i]."/".$allComponents[$i].".html";
-                    if(is_file($styleFileOfCurrentComponent) == true){
-                        //Read the document and get content of correct block
-                        $dom = new DOMDocument;
-                        $dom->loadXML(file_get_contents($styleFileOfCurrentComponent));
-                        $htmlTags = $dom->getElementsByTagName("style");
-                        foreach($htmlTags as $htmlTag){
-                            if($htmlTag->getAttribute('type') == "text/css" && $htmlTag->getAttribute('app') == "wind.ui"){
-                                $innerHTML = WindUiPhp::DOMinnerHTML($htmlTag);
-                                $style .= $innerHTML;
-                            }
-                        }
+                    $cssFileOfCurrentComponent = WindUiAppPrefs::$appRootPath."/components/".$allComponents[$i]."/".$allComponents[$i].".css";
+                    if(is_file($cssFileOfCurrentComponent) == true){
+                        //Read the document and get CSS content
+                        $css .= file_get_contents($cssFileOfCurrentComponent);
                     }
                 }
-                echo($style);
+                echo($css);
             ?>
         </style>
 
         <!-- All JavaScript of this app Wind UI components -->
         <script type="text/javascript">
             <?php
-                //Retun all script nodes content of all components.html compiled into a unique text file
+                //Retun all JavaScript content of all components.js compiled into a unique text file
                 $script = "";
                 $allComponents = scandir(WindUiAppPrefs::$appRootPath."/components");
                 for($i = 0; $i < count($allComponents); $i++){
                     //Skip if is not a folder with a valid name to be a component
                     if(preg_match("/[^a-zA-Z]/", $allComponents[$i]) == true)
                         continue;
-                    $scriptFileOfCurrentComponent = WindUiAppPrefs::$appRootPath."/components/".$allComponents[$i]."/".$allComponents[$i].".html";
+                    $scriptFileOfCurrentComponent = WindUiAppPrefs::$appRootPath."/components/".$allComponents[$i]."/".$allComponents[$i].".js";
                     if(is_file($scriptFileOfCurrentComponent) == true){
-                        //Read the document and get content of correct block
-                        $dom = new DOMDocument;
-                        $dom->loadXML(file_get_contents($scriptFileOfCurrentComponent));
-                        $htmlTags = $dom->getElementsByTagName("script");
-                        foreach($htmlTags as $htmlTag){
-                            if($htmlTag->getAttribute('type') == "text/javacript" && $htmlTag->getAttribute('app') == "wind.ui"){
-                                $innerHTML = WindUiPhp::DOMinnerHTML($htmlTag);
-                                $script .= $innerHTML;
-                            }
-                        }
+                        //Read the document and get JS content
+                        $script .= file_get_contents($scriptFileOfCurrentComponent);
                     }
                 }
                 echo($script);
@@ -137,7 +121,7 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
         ?>
 
         <!-- Startup Load Screen -->
-        <div id="windUiLoadingScreen" class="windUiLoadingScreen">
+        <div id="windUiLoadingScreen" class="windUiLoadingScreen" <?php if(WindUiAppPrefs::$loadScreenEnabled == false) { echo('style="opacity: 0; pointerEvents: none;"'); } ?>>
             <div class="windUiLoadingScreenContent">
                 <div style="width: 80px; margin-left: auto; margin-right: auto;">
                     <image src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$loadScreenLogoResource); ?>" style="width: 100%;" />
@@ -159,9 +143,15 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
         <!-- Notification Area -->
         <div id="windUiNotificationArea" class="windUiNotificationArea">
         </div>
-        <audio id="windUiNotificationAreaSound">
+        <audio id="windUiNotificationAreaSound" preload="auto">
             <source src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$notificationOggSoundFile); ?>" type="audio/ogg">
             <source src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$notificationMp3SoundFile); ?>" type="audio/mpeg">
         </audio>
+
+        <!-- Dialog Box Area -->
+        <div id="windUiDialogBoxAreaBackgroundClickBlock" class="windUiDialogBoxAreaBackgroundClickBlock">
+        </div>
+        <div id="windUiDialogBoxArea" class="windUiDialogBoxArea">
+        </div>
 
         <!-- ========================= Wind UI End of Client Renderer base code ========================= -->

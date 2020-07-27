@@ -54,6 +54,7 @@
         public static $cookieWarningPopUpAcceptButton = "All Right";
 
         //Initial load screen
+        public static $loadScreenEnabled = true;
         public static $loadScreenBackgroundColor = "#f7f7f7";
         public static $loadScreenLogoResource = "/../../.core/resources/images/startup-loading.png";
         public static $loadScreenSpinnerResource = "/../../.core/resources/images/spinner.gif";
@@ -149,6 +150,7 @@
             self::$cookieWarningPopUpAcceptButton = self::getFirstVariableThatMatch("cookieWarningPopUpAcceptButton", self::$cookieWarningPopUpAcceptButton, $appSettings);
 
             //Initial load screen
+            self::$loadScreenEnabled = self::getFirstVariableThatMatch("loadScreenEnabled", self::$loadScreenEnabled, $appSettings);
             self::$loadScreenBackgroundColor = self::getFirstVariableThatMatch("loadScreenBackgroundColor", self::$loadScreenBackgroundColor, $appSettings);
             self::$loadScreenLogoResource = self::getFirstVariableThatMatch("loadScreenLogoResource", self::$loadScreenLogoResource, $appSettings);
             self::$loadScreenSpinnerResource = self::getFirstVariableThatMatch("loadScreenSpinnerResource", self::$loadScreenSpinnerResource, $appSettings);

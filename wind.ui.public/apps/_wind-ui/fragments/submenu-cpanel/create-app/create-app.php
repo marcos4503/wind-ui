@@ -5,6 +5,8 @@
 ?>
 
 <!-- Fragment manifest and parameters area -->
+<!-- Do not type plain text in this area and do not open PHP or HTML tags. Just edit the JSON content. -->
+<!-- Make sure to always maintain a correct JSON syntax, otherwise the Wind UI will not be able to process your fragment's metadata. -->
 
 <json id="windUiJsonFragmentManifest" type="text/json" app="wind.ui">
 {
@@ -22,7 +24,8 @@
 }
 </json>
 
-<!-- Start of fragment modifiable area -->
+<!-- Start of fragment content modifiable and visible to user area -->
+<!-- Here you can type plain text and open PHP or HTML tags. -->
 
 <center>
     <h1>Criar Novo App Dentro do Seu Wind UI</h1>

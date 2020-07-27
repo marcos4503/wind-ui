@@ -32,7 +32,6 @@
                 allMenuItens[i].classList.add("bodyMenuItemCurrentSelected");
         }
 
-        //Colorize all <code><pre> blocks of Rainbow Sintax Highlighter third party library, after load a fragment
-        Rainbow.color();
+        CodeBlock.updateAllColorsOfAllCodeBlocks();
     });
 </script>
