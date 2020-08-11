@@ -61,7 +61,8 @@ pre [class^="lang"].rainbow-show {
 }
 
 pre {
-	position: relative
+	position: relative;
+	overflow: auto;
 }
 
 pre.loading .preloader div {

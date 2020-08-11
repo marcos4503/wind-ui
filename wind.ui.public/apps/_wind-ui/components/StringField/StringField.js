@@ -60,6 +60,7 @@ class StringField {
         var maxchars = targetInput.getAttribute("maxchars");
         var validationtype = targetInput.getAttribute("validationtype");
         var allowespecialchars = targetInput.getAttribute("allowespecialchars");
+        var specialcharsallowed = targetInput.getAttribute("specialcharsallowed");
         var allownumbers = targetInput.getAttribute("allownumbers");
         var allowuppercase = targetInput.getAttribute("allowuppercase");
         var allowlowercase = targetInput.getAttribute("allowlowercase");
@@ -102,8 +103,35 @@ class StringField {
             isValid = "- O conteúdo precisa ter no mínimo " + minchars + " caracteres.";
         if (maxchars > 0 && value.length > maxchars)
             isValid = "- O conteúdo pode ter no máximo " + maxchars + " caracteres.";
-        if (allowespecialchars == "false" && /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g.test(value) == true)
+        if (allowespecialchars == "false" && /[ ¹!@²#³$£%¢¨¬^&*()_§´`ª~º°•√π÷×¶∆€¥©®™✓+\-=\[\]{};':"\\|,.<>\/?]/g.test(value) == true) {
             isValid = "- O conteúdo não pode conter caracteres especiais.";
+            //Check if have a special char that can be acepted
+            if (specialcharsallowed != "") {
+                var regex = " ¹!@²#³$£%¢¨¬^&*()_§´`ª~º°•√π÷×¶∆€¥©®™✓+\-=\[\]{};':\"\\|,.<>\/?";
+                var charArray = specialcharsallowed.split(",");
+                for (var i = 0; i < charArray.length; i++) {
+                    if (charArray[i] == "'" || charArray[i] == "\"")
+                        continue;
+                    var newRegex1 = regex.replace("\\" + charArray[i], "");
+                    var newRegex2 = newRegex1.replace(charArray[i], "");
+                    var newRegex3 = newRegex2;
+                    if (charArray[i] == "comma")
+                        newRegex3 = newRegex2.replace(",", "");
+                    regex = newRegex3;
+                }
+                var regexEscaped0 = regex.replace("\\", "\\\\");
+                var regexEscaped1 = regexEscaped0.replace("/", "\\/");
+                var regexEscaped2 = regexEscaped1.replace("]", "\\]");
+                var regexEscaped3 = regexEscaped2.replace("[", "\\[");
+                var regexEscaped4 = regexEscaped3.replace("-", "\\-");
+                var regexFinal = new RegExp("[" + regexEscaped4 + "]", "g");
+                var resultOfTest = regexFinal.test(value);
+                if (resultOfTest == true)
+                    isValid = "- Somente os seguintes caracteres especiais são aceitos: " + charArray;
+                if (resultOfTest == false)
+                    isValid = "";
+            }
+        }
         if (allownumbers == "false" && /\d/.test(value) == true)
             isValid = "- O conteúdo não pode conter números.";
         if (allowuppercase == "false" && /[A-Z]/.test(value) == true)

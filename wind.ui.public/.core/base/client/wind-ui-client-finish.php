@@ -1,5 +1,5 @@
         <?php
-            //Generate script code to include all third party js libs before </body>
+            //Generate script code to include all third party js libs before </body> tag
             $beforeBodyCloseThirdPartyJs = "";
             for ($i = 0; $i < count(WindUiAppPrefs::$clientThirdPartyBeforeBodyCloseJsLibs); $i++){
                 $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/js/" . WindUiAppPrefs::$clientThirdPartyBeforeBodyCloseJsLibs[$i];
@@ -10,6 +10,7 @@
         <!-- ========================= Wind UI Start of Client Renderer Finish base code ========================= -->
         <!-- Startup Fragment Load -->
         <script type="text/javascript">
+            //Will be executed after Client.php done first loading
             window.onload = function(){
 
                 <?php
@@ -22,10 +23,10 @@
 
                     if($fragmentUrlParam != ""){
                         //Set code to load a startup fragment
-                        if(is_file(WindUiPhp::getPathToFragmentWithFragmentUrlGetParam($fragmentUrlParam)) == true)
+                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == true)
                             $defaultFragmentToLoad = $fragmentUrlParam;
                         //If is a invalid fragment param
-                        if(is_file(WindUiPhp::getPathToFragmentWithFragmentUrlGetParam($fragmentUrlParam)) == false)
+                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == false)
                             $fragmentInUrlParamIsInvalid = true;
                     }
 

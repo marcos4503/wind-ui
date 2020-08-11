@@ -80,7 +80,10 @@ class BoolField {
         var component = WindUiJs.getComponentById(componentId + "Input");
         if (component != null) {
             //Return value of BoolField
-            return component.checked;
+            if (component.checked == true)
+                return "true";
+            if (component.checked == false)
+                return "false";
         }
     }
 

@@ -15,6 +15,7 @@
         "minchars":"0",
         "maxchars":"0",
         "allowespecialchars":"true",
+        "specialcharsallowed":"",
         "allownumbers":"true",
         "allowuppercase":"true",
         "allowlowercase":"true",
@@ -32,7 +33,7 @@
             <label for="__id__Input">__label__</label>
 
             <textarea id="__id__Input" placeholder="__placeholder__"
-            minchars="__minchars__" maxchars="__maxchars__" allowespecialchars="__allowespecialchars__" allownumbers="__allownumbers__" allowuppercase="__allowuppercase__" allowlowercase="__allowlowercase__" allowhtml="__allowhtml__" allowempty="__allowempty__" isvalid="true" 
+            minchars="__minchars__" maxchars="__maxchars__" allowespecialchars="__allowespecialchars__" allownumbers="__allownumbers__" allowuppercase="__allowuppercase__" allowlowercase="__allowlowercase__" allowhtml="__allowhtml__" allowempty="__allowempty__" specialcharsallowed="__specialcharsallowed__" isvalid="true" 
             onchangecontent="__onchangecontent__"
             onkeydown="TextField.autoValidation(this);" onchange="TextField.autoValidation(this);" onpaste="TextField.autoValidation(this);" oninput="TextField.autoValidation(this);" onfocusout="TextField.autoHideCharCount(this);" onfocus="TextField.autoShowCharCount(this);" 
             >__value__</textarea>

@@ -1,7 +1,7 @@
 <?php
     //Start Wind UI Client Core
     include_once("../../.core/base/client/wind-ui-client-prepare.php");
-    WindUiClientRenderer::startClient((__DIR__));
+    WindUiClientRenderer::startClient(__DIR__);
 ?>
 <!-- /////////////////////////////////////////////////// Start of client.php modifiable area /////////////////////////////////////////////////// -->
 
@@ -35,111 +35,74 @@
     <hr class="bodyMenuSeparator" style="margin-bottom: 16px;" />
     <!-- Página Inicial -->
     <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="home" onclick="WindUiJs.loadNewFragment('home', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/home.png")); ?>" style="width: 100%;" /></div>
+        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu-icons/home.png")); ?>" style="width: 100%;" /></div>
         <div class="bodyMenuItemText">Página Inicial</div>
     </div>
 
     <!-- SubMenu: CPanel -->
     <div class="bodyMenuSubMenu">Wind UI CPanel</div>
-    <!-- Criar app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="submenu-cpanel/create-app" onclick="WindUiJs.loadNewFragment('submenu-cpanel/create-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/create-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Criar Novo Aplicativo Wind UI</div>
-    </div>
-    <!-- Criar fragmento para app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="create-fragment" onclick="WindUiJs.loadNewFragment('submenu-cpanel/create-fragment', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/create-fragment.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Criar Novo Fragmento Para Um App</div>
-    </div>
-    <!-- Criar componente para app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="submenu-cpanel/create-component" onclick="WindUiJs.loadNewFragment('submenu-cpanel/create-component', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/create-component.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Criar Novo Componente Para Um App</div>
-    </div>
-    <!-- Reparar um app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="submenu-cpanel/repair-app" onclick="WindUiJs.loadNewFragment('submenu-cpanel/repair-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/repair-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Reparar Um App</div>
-    </div>
+    <!-- Render all menu items found in "menu-items-cpanel.json" -->
+    <?php
+        $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-cpanel.json"));
+        $data = json_decode($content);
+        for($i = 0; $i < count($data->menuItems); $i++){
+            echo('
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                    <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
+                    <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
+                </div>
+            ');
+        }
+    ?>
 
-    <!-- SubMenu: Documentação -->
-    <div class="bodyMenuSubMenu">Documentação</div>
-    <!-- Página Inicial -->
-    <div class="bodyMenuItem" fragmentOfThisButton="home" onclick="WindUiJs.loadNewFragment('home', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/home.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Página Inicial</div>
-    </div>
-    <!-- Como funciona -->
-    <div class="bodyMenuItem" fragmentOfThisButton="how-works" onclick="WindUiJs.loadNewFragment('how-works', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/how-work.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Como Funciona o Wind UI</div>
-    </div>
-    <!-- Criando seu app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">O Básico Para Criar um App Wind UI</div>
-    </div>
+    <!-- SubMenu: Gerenciamento de Cookies e Sessões -->
+    <div class="bodyMenuSubMenu">Gerenciamento de Cookies e Sessões</div>
+    <!-- Render all menu items found in "menu-items-sessions.json" -->
+    <?php
+        $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-sessions.json"));
+        $data = json_decode($content);
+        for($i = 0; $i < count($data->menuItems); $i++){
+            echo('
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                    <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
+                    <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
+                </div>
+            ');
+        }
+    ?>
 
-    <!-- Parametros para criar o client.php -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Parâmetros do Client.php</div>
-    </div>
-    <!-- Criando um Fragmento -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Criando um Fragmento</div>
-    </div>
-    <!-- Criando seu próprio componente -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Criando Seu Próprio Componente</div>
-    </div>
-    <!-- Renderizando um componente em um Fragmento -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Renderizando Componentes Nos Fragmentos</div>
-    </div>
-    <!-- Toda API Backend PHP do Wind UI -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">API Backend PHP do Wind UI</div>
-    </div>
-    <!-- Toda API Frontend JS do Wind UI -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">API Frontend JavaScript do Wind UI</div>
-    </div>
-    <!-- Armazenando recursos e os exibindo -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Armazenando Recursos e Exibindo-os</div>
-    </div>
-    <!-- Incluindo bibliotecas de terceiros -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Incluindo Bibliotecas de Terceiros no Seu App</div>
-    </div>
-    <!-- Configurando preferencias do app -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Configuração de Preferências do App</div>
-    </div>
-    <!-- Configurando variaveis globais e estáticas -->
-    <div class="bodyMenuItem" fragmentOfThisButton="making-app" onclick="WindUiJs.loadNewFragment('making-app', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/making-app.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Configurando Variáveis Globais e Estáticas no App</div>
-    </div>
-    <!-- Eventos do frontend do Wind UI -->
-    <div class="bodyMenuItem" fragmentOfThisButton="notifications" onclick="WindUiJs.loadNewFragment('notifications', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/bell.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">Eventos JavaScript Frontend do Wind UI</div>
-    </div>
-    <!-- Notificações frontend -->
-    <div class="bodyMenuItem" fragmentOfThisButton="submenu-docs/notifications" onclick="WindUiJs.loadNewFragment('submenu-docs/notifications', null); closeAppMenu();">
-        <div class="bodyMenuItemIcon"><img src="<?php echo(WindUiPhp::getResourcePath("menu/bell.png")); ?>" style="width: 100%;" /></div>
-        <div class="bodyMenuItemText">API de Notificações Frontend</div>
-    </div>
+    <!-- SubMenu: Referência a API Backend PHP do Wind UI -->
+    <div class="bodyMenuSubMenu">Referência a API Backend PHP do Wind UI</div>
+    <!-- Render all menu items found in "menu-items-php-reference.json" -->
+    <?php
+        $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-php-reference.json"));
+        $data = json_decode($content);
+        for($i = 0; $i < count($data->menuItems); $i++){
+            echo('
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                    <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
+                    <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
+                </div>
+            ');
+        }
+    ?>
+
+    <!-- SubMenu: Referência a API Frontend JavaScript do Wind UI -->
+    <div class="bodyMenuSubMenu">Referência a API Frontend JavaScript do Wind UI</div>
+    <!-- Render all menu items found in "menu-items-js-reference.json" -->
+    <?php
+        $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-js-reference.json"));
+        $data = json_decode($content);
+        for($i = 0; $i < count($data->menuItems); $i++){
+            echo('
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                    <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
+                    <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
+                </div>
+            ');
+        }
+    ?>
+
     <div style="width: 100%; height: 16px;"></div>
 </div>
 

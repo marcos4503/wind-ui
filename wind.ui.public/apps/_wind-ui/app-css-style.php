@@ -147,10 +147,12 @@
         background-color: rgba(1, 1, 1, 0.25);
     }
     .bodyMenuSubMenu{
-        height: 32px;
+        height: 48px;
         width: 100%;
         font-weight: bolder;
         font-size: 12px;
+        display: flex;
+        align-items: center;
     }
     .bodyMenuItem{
         margin-left: 16px;

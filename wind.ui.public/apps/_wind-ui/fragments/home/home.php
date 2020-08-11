@@ -1,31 +1,9 @@
 <?php
     //Import core files and start fragment renderization.
     include_once("../../../../.core/base/fragment/wind-ui-fragment-prepare.php");
-    WindUiFragmentRenderer::startFragment((__DIR__ . "/../../"));
+    WindUiFragmentRenderer::startFragment(__DIR__);
 ?>
-
-<!-- Fragment manifest and parameters area -->
-<!-- Do not type plain text in this area and do not open PHP or HTML tags. Just edit the JSON content. -->
-<!-- Make sure to always maintain a correct JSON syntax, otherwise the Wind UI will not be able to process your fragment's metadata. -->
-
-<json id="windUiJsonFragmentManifest" type="text/json" app="wind.ui">
-{
-    "fragmentOgMetaTagTitle": "Wind UI App",
-    "fragmentOgMetaTagDescription": "Página inicial do Wind UI App.",
-    "fragmentOgMetaTagImage": "/resources/images/startup-loading.png",
-    "fragmentOgMetaTagImageType": "image/png",
-    "fragmentOgMetaTagImageWidth": "512",
-    "fragmentOgMetaTagImageHeight": "512",
-    "fragmentOgMetaTagType": "website",
-    "fragmentOgArticleAuthor": "",
-    "fragmentOgArticleSection": "",
-    "fragmentOgArticleTags": "",
-    "fragmentOgArticlePublishTime": ""
-}
-</json>
-
 <!-- Start of fragment content modifiable and visible to user area -->
-<!-- Here you can type plain text and open PHP or HTML tags. -->
 
 <center>
     <h1>Aplicativo de Gerenciamento e Documentação do Wind UI</h1>

@@ -16,5 +16,13 @@
 */
 
 class Button {
-
+    //Get the button input
+    static getInput(componentId) {
+        //Access the component
+        var component = WindUiJs.getComponentById(componentId);
+        if (component != null) {
+            //Return the input
+            return component;
+        }
+    }
 }

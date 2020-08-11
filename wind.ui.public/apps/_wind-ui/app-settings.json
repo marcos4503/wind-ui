@@ -46,5 +46,13 @@
         "rainbow.ruby.js",
         "rainbow.shell.js",
         "rainbow.sql.js"
-    ]
+    ],
+    "sessionsRequiredDefinedVariablesToSessionBeValid": [
+        "id",
+        "login",
+        "password"
+    ],
+    "sessionsInvalidSessionMessage": "[Sessão Inválida]",
+    "sessionsValidSessionMessage": "[Sessão Ok]",
+    "sessionsValidateSessionWithIp": true
 }

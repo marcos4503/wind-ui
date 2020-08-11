@@ -6,6 +6,8 @@ Este componente é apenas um Botão customizável. Com este componente você rap
 
 VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
 
+- id (String)
+    Um ID para o botão. Se você vai gerenciar o botão, será necessário fornecer um ID a ele, se não, não é obrigatório o uso de um ID
 - style (CSS)
     Um CSS personalizado que você queira incluir no botão.
 - onclick (Função JavaScript)
@@ -26,4 +28,5 @@ API JAVASCRIPT DESTE COMPONENTE
 Veja abaixo todos os métodos JavaScript deste componente. Com a API JavaScript deste componente, seu App Wind UI, Client e Fragmentos serão capazes de
 interagir com este componente, capaz de interagir individualmente com cada instância deste componente ou com multiplas instâncias.
 
-- Este componente não possui API JavaScript.
+- Button.getInput(componentId)
+    Retorna o input type Button do Button alvo. É necessário informar o ID do botão que você definiu ao renderiza-lo.

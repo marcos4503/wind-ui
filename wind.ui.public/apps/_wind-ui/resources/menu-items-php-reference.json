@@ -1,0 +1,24 @@
+{
+    "menuItems": [
+        {
+            "fragmentName": "submenu-docs/backend-api-basic-tools",
+            "iconName": "php.png",
+            "visibleName": "Ferramentas e Métodos Básicos"
+        },
+        {
+            "fragmentName": "submenu-docs/backend-api-core-method",
+            "iconName": "php.png",
+            "visibleName": "Métodos Essenciais"
+        },
+        {
+            "fragmentName": "submenu-docs/backend-api-input-validators",
+            "iconName": "php.png",
+            "visibleName": "Validadores de Entradas POST/GET/FILES de Clients"
+        },
+        {
+            "fragmentName": "submenu-docs/backend-api-file-manipulation",
+            "iconName": "php.png",
+            "visibleName": "Manipuladores e Gerenciadores de Arquivos"
+        }
+    ]
+}

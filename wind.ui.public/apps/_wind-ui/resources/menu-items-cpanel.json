@@ -1,0 +1,24 @@
+{
+    "menuItems": [
+        {
+            "fragmentName": "submenu-cpanel/create-app",
+            "iconName": "create-app.png",
+            "visibleName": "Criar Novo Aplicativo Wind UI"
+        },
+        {
+            "fragmentName": "submenu-cpanel/create-fragment",
+            "iconName": "create-fragment.png",
+            "visibleName": "Criar Novo Fragmento Para Um App"
+        },
+        {
+            "fragmentName": "submenu-cpanel/create-component",
+            "iconName": "create-component.png",
+            "visibleName": "Criar Novo Componente Para Um App"
+        },
+        {
+            "fragmentName": "submenu-cpanel/repair-app",
+            "iconName": "repair-app.png",
+            "visibleName": "Reparar Um App"
+        }
+    ]
+}
