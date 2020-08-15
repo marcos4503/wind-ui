@@ -7,7 +7,13 @@
 <?php
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 echo("teste");
+=======
+//Vai retornar "true"
+WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(false, false, true, true);
+
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 =======
 //Vai retornar "true"
 WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(false, false, true, true);

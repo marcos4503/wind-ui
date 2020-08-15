@@ -6,7 +6,11 @@
         private function __construct() {}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public static function isCurrentSessionOfReceivedCookiesValid(bool $stopPhpIfInvalid, bool $destroySessionIfInvalid){
+=======
+        public static function isCurrentSessionOfReceivedCookiesValid(bool $stopPhpIfInvalid, bool $destroySessionIfInvalid, bool $printMessageIfIsInvalid, bool $printMessageIfIsValid){
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 =======
         public static function isCurrentSessionOfReceivedCookiesValid(bool $stopPhpIfInvalid, bool $destroySessionIfInvalid, bool $printMessageIfIsInvalid, bool $printMessageIfIsValid){
 >>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
@@ -97,7 +101,11 @@
         public static function saveValueInCurrentSession(string $valueName, $value){
             //Save a value in this session, if have a valid session
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false) == true){
+=======
+            if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 =======
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
 >>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
@@ -112,7 +120,11 @@
         public static function readValueOfCurrentSession(string $valueName){
             //Read and return a value in this session, if have a valid session
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false) == true){
+=======
+            if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 =======
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
 >>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
@@ -127,7 +139,11 @@
         public static function valueOfCurrentSessionExists(string $valueName){
             //Check if a value exists in this session, if have a valid session
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false) == true){
+=======
+            if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 =======
             if(self::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
 >>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
