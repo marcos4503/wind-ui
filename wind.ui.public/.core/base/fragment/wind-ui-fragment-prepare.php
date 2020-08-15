@@ -3,8 +3,12 @@
 class WindUiFragmentRenderer{
     private function __construct() {}
 
-    public static function startFragment($thisAppRootDir){
+    public static function startFragment(string $fragmentDir){
         //Start the Fragment
+
+        //Convert fragment dir, to app root dir
+        $fragmentDirExploded = explode("/fragments/", $fragmentDir);
+        $thisAppRootDir = $fragmentDirExploded[0];
 
         //Include all preferences and load all
         include_once(__DIR__ . "/../../base/settings/wind-ui-app-prefs-loader.php");

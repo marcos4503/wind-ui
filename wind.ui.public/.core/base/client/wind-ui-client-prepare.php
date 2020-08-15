@@ -3,7 +3,7 @@
 class WindUiClientRenderer{
     private function __construct() {}
 
-    public static function startClient($thisAppRootDir){
+    public static function startClient(string $thisAppRootDir){
         //Start the Client.php
 
         //Include all preferences and load all

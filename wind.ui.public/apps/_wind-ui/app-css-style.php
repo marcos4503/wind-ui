@@ -147,10 +147,12 @@
         background-color: rgba(1, 1, 1, 0.25);
     }
     .bodyMenuSubMenu{
-        height: 32px;
+        height: 48px;
         width: 100%;
         font-weight: bolder;
         font-size: 12px;
+        display: flex;
+        align-items: center;
     }
     .bodyMenuItem{
         margin-left: 16px;
@@ -215,13 +217,13 @@
     @media screen and (max-width: 720px) {
         .bodyMenuBase{
             width: 100%;
-            max-width: 90%;
+            max-width: 80%;
         }
     }
     @media screen and (max-width: 480px) {
         .bodyMenuBase{
             width: 100%;
-            max-width: 90%;
+            max-width: 80%;
         }
     }
 </style>

@@ -5,6 +5,7 @@
 include_once(WindUiAppPrefs::$appRootPath . "/app-variables.php");
 include_once(__DIR__ . "/../../library/backend/wind-ui-php.php");
 WindUiPhp::$typeOfScriptCurrentlyUsingThisLib = "client";
+include_once(__DIR__ . "/../../library/backend/wind-ui-app-sessions.php");
 
 //Set default timezone of Wind UI
 date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
@@ -44,21 +45,21 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
                     echo('<script type="text/javascript">'.file_get_contents($filePath)."</script>");
             }
         ?>
-        <!-- Wind UI Client.php dynamic Open Graph Universal Meta Tags of current requested fragment in URL get PARAM -->
+        <!-- Wind UI Client.php dynamic Open Graph Universal Meta Tags of current requested fragment in URL GET param -->
         <meta property="og:locale" content="<?php echo(WindUiAppPrefs::$appLang); ?>" />
         <meta id="windUiOgMetaTagUrl" property="og:url" content="<?php echo("https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>" />
-        <meta id="windUiOgMetaTagTitle" property="og:title" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagTitle")); ?>" />
+        <meta id="windUiOgMetaTagTitle" property="og:title" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagTitle")); ?>" />
         <meta id="windUiOgMetaTagSiteName" property="og:site_name" content="<?php echo(WindUiAppPrefs::$appTitle); ?>" />
-        <meta id="windUiOgMetaTagDescription" property="og:description" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagDescription")); ?>">
-        <meta id="windUiOgMetaTagImage" property="og:image" content="<?php echo(WindUiAppPrefs::$appRootPath . WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImage")); ?>">
-        <meta id="windUiOgMetaTagImageType" property="og:image:type" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageType")); ?>">
-        <meta id="windUiOgMetaTagImageWidth" property="og:image:width" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageWidth")); ?>">
-        <meta id="windUiOgMetaTagImageHeight" property="og:image:height" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageHeight")); ?>">
-        <meta id="windUiOgMetaTagType" property="og:type" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgMetaTagType")); ?>">
-        <meta id="windUiOgArticleAuthor" property="article:author" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleAuthor")); ?>">
-        <meta id="windUiOgArticleSection" property="article:section" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleSection")); ?>">
-        <meta id="windUiOgArticleTag" property="article:tag" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticleTags")); ?>">
-        <meta id="windUiOgArticlePublishTime" property="article:published_time" content="<?php echo(WindUiPhp::getOgMetaTagsFromFragmentFile(urldecode($_GET["fragment"]), "fragmentOgArticlePublishTime")); ?>">
+        <meta id="windUiOgMetaTagDescription" property="og:description" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagDescription")); ?>">
+        <meta id="windUiOgMetaTagImage" property="og:image" content="<?php echo(WindUiAppPrefs::$appRootPath . WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagImage")); ?>">
+        <meta id="windUiOgMetaTagImageType" property="og:image:type" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageType")); ?>">
+        <meta id="windUiOgMetaTagImageWidth" property="og:image:width" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageWidth")); ?>">
+        <meta id="windUiOgMetaTagImageHeight" property="og:image:height" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagImageHeight")); ?>">
+        <meta id="windUiOgMetaTagType" property="og:type" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgMetaTagType")); ?>">
+        <meta id="windUiOgArticleAuthor" property="article:author" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgArticleAuthor")); ?>">
+        <meta id="windUiOgArticleSection" property="article:section" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgArticleSection")); ?>">
+        <meta id="windUiOgArticleTag" property="article:tag" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgArticleTags")); ?>">
+        <meta id="windUiOgArticlePublishTime" property="article:published_time" content="<?php echo(WindUiPhp::getValueOfSpecificOgMetaTagFromFragmentJsonManifest(urldecode($_GET["fragment"]), "fragmentOgArticlePublishTime")); ?>">
         <!-- Wind UI Client.php dynamic elements -->
         <!-- Tags of dynamic favicon and dynamic current fragment javascript will be rendered below -->
         <link id="windUiDynamicIcon" rel="shortcut icon" href="<?php; echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$appDefaultFavicon); ?>" />

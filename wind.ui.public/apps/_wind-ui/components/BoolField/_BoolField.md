@@ -46,7 +46,7 @@ interagir com este componente, capaz de interagir individualmente com cada inst�
     Retorna true se o conteúdo de um componente BoolField é válido, de acordo com os parâmetros passados a ele no momento da renderização.
 
 - BoolField.getValue(id)
-    Retorna o valor booleano de BoolField alvo.
+    Retorna o valor booleano de BoolField alvo. O valor retornado é em texto. Exemplo, se o BoolField estiver marcado, o valor sera "true".
     
 - BoolField.setValue(id, newValue)
     Define o novo valor booleano de um BoolField alvo.

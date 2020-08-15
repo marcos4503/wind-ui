@@ -1,0 +1,14 @@
+{
+    "menuItems": [
+        {
+            "fragmentName": "submenu-docs/backend-api-cookies-about",
+            "iconName": "cookie.png",
+            "visibleName": "Criando, Gerenciando e Destruindo Cookies e Sessões"
+        },
+        {
+            "fragmentName": "submenu-docs/backend-api-cookies-api",
+            "iconName": "php.png",
+            "visibleName": "API Backend PHP Para Gerenciamento de Sessões"
+        }
+    ]
+}

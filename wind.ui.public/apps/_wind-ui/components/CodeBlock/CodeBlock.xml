@@ -15,11 +15,7 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <pre>
-            <code data-language="__language__">
-            __codeToShow__
-            </code>
-        </pre>
+        <pre><code data-language="__language__">__codeToShow__</code></pre>
 
     </html>
 </component>

@@ -71,6 +71,9 @@
         public static $fragmentsViewerMinHeightPx = "450";
         public static $fragmentsViewerLoadingMessage = "Loading content...";
         public static $fragmentsViewerLoadingMessageSizePx = "14";
+        public static $fragmentsViewerNotFoundResource = "/../../.core/resources/images/fragment-error.png";
+        public static $fragmentsViewerNotFoundTitleMessage = "Error On Load Content";
+        public static $fragmentsViewerNotFoundMessage = "<b>Wind UI:</b> The desired fragment could not be loaded. Apparently the Fragment was not found or has invalid content. Please check that the path to the fragment is correct.";
 
         //Notifications options
         public static $notificationBackgroundColor = "#31454f";
@@ -86,17 +89,33 @@
         public static $ajaxHttpRequestLoadingOnButtonSpinnerResource = "/../../.core/resources/images/spinner.gif";
         public static $ajaxHttpRequestLoadingOnButtonSpinnerSizePx = "18";
 
+        //Sessions settings
+        public static $sessionsRequiredDefinedVariablesToSessionBeValid = array();
+        public static $sessionsInvalidSessionMessage = "Wind UI: This session is invalid.";
+        public static $sessionsValidSessionMessage = "Wind UI: This session is valid.";
+        public static $sessionsValidateSessionWithIp = false;
+
         
 
 
 
         //Load all settings in "app-settings.json"
-        public static function loadAllSettingsFromCurrentApp($appRootPath){
+        public static function loadAllSettingsFromCurrentApp(string $appRootPath){
             //Get the app root dir
             self::$appRootPath = $appRootPath;
+            //Build the app-settings.json path
+            $appSettingsJsonFile = $appRootPath . "/app-settings.json";
+            //Get the app settings stdClass
+            $appSettings = null;
 
-            //Read app-settings.json file
-            $appSettings = json_decode(file_get_contents($appRootPath . "/app-settings.json"));
+            //Read app-settings.json file if is a file
+            if(is_file($appSettingsJsonFile) == true)
+                $appSettings = json_decode(file_get_contents($appSettingsJsonFile));
+            if(is_file($appSettingsJsonFile) == false){
+                echo("<b>Wind UI:</b> This app's preferences and settings could not be read. The \"app-settings.json\" file was not found.");
+                echo("<script type=\"text/javascript\"> console.error('Wind UI: This app\'s preferences and settings could not be read. The \"app-settings.json\" file was not found.'); </script>");
+                exit();
+            }
 
             //Load all vars
 
@@ -167,6 +186,9 @@
             self::$fragmentsViewerMinHeightPx = self::getFirstVariableThatMatch("fragmentsViewerMinHeightPx", self::$fragmentsViewerMinHeightPx, $appSettings);
             self::$fragmentsViewerLoadingMessage = self::getFirstVariableThatMatch("fragmentsViewerLoadingMessage", self::$fragmentsViewerLoadingMessage, $appSettings);
             self::$fragmentsViewerLoadingMessageSizePx = self::getFirstVariableThatMatch("fragmentsViewerLoadingMessageSizePx", self::$fragmentsViewerLoadingMessageSizePx, $appSettings);
+            self::$fragmentsViewerNotFoundResource = self::getFirstVariableThatMatch("fragmentsViewerNotFoundResource", self::$fragmentsViewerNotFoundResource, $appSettings);
+            self::$fragmentsViewerNotFoundTitleMessage = self::getFirstVariableThatMatch("fragmentsViewerNotFoundTitleMessage", self::$fragmentsViewerNotFoundTitleMessage, $appSettings);
+            self::$fragmentsViewerNotFoundMessage = self::getFirstVariableThatMatch("fragmentsViewerNotFoundMessage", self::$fragmentsViewerNotFoundMessage, $appSettings);
 
             //Notifications options
             self::$notificationBackgroundColor = self::getFirstVariableThatMatch("notificationBackgroundColor", self::$notificationBackgroundColor, $appSettings);
@@ -181,10 +203,16 @@
             //Ajax request running loading buttons
             self::$ajaxHttpRequestLoadingOnButtonSpinnerResource = self::getFirstVariableThatMatch("ajaxHttpRequestLoadingOnButtonSpinnerResource", self::$ajaxHttpRequestLoadingOnButtonSpinnerResource, $appSettings);
             self::$ajaxHttpRequestLoadingOnButtonSpinnerSizePx = self::getFirstVariableThatMatch("ajaxHttpRequestLoadingOnButtonSpinnerSizePx", self::$ajaxHttpRequestLoadingOnButtonSpinnerSizePx, $appSettings);
+        
+            //Sessions settings
+            self::$sessionsRequiredDefinedVariablesToSessionBeValid = self::getFirstVariableThatMatch("sessionsRequiredDefinedVariablesToSessionBeValid", self::$sessionsRequiredDefinedVariablesToSessionBeValid, $appSettings);
+            self::$sessionsInvalidSessionMessage = self::getFirstVariableThatMatch("sessionsInvalidSessionMessage", self::$sessionsInvalidSessionMessage, $appSettings);
+            self::$sessionsValidSessionMessage = self::getFirstVariableThatMatch("sessionsValidSessionMessage", self::$sessionsValidSessionMessage, $appSettings);
+            self::$sessionsValidateSessionWithIp = self::getFirstVariableThatMatch("sessionsValidateSessionWithIp", self::$sessionsValidateSessionWithIp, $appSettings);
         }
 
         //Get a value of json that have a specific name
-        public static function getFirstVariableThatMatch($variableName, $originalAndDefaultValue, stdClass $json){
+        public static function getFirstVariableThatMatch(string $variableName, $originalAndDefaultValue, stdClass $json){
             //Get a variable from params, the variable cannot be empty or inexistent, or this return te original and default value
             foreach (get_object_vars($json) as $variable => $value) 
                 if (strpos($variable, $variableName) !== false){

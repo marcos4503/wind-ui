@@ -25,7 +25,7 @@ VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
     A quantidade máxima de arquivos que podem ser selecionados para upload.
 - maxsizemebibytes (String Int)
     O tamanho máximo em MiB que cada arquivo pode ter.
-- allowedextensions (String List)
+- allowedextensions (String Array)
     Uma lista de extensões permitidas, separadas por virgula. Exemplo "mp4,png,jpg" ou "mp4". Caso não seja fornecido, o FileField aceitará todas extensões.
 - allowempty (String Bool)
     Caso false, o FileField será inválido se não tiver nenhum arquivo selecionado.

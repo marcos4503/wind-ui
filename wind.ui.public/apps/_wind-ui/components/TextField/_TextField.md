@@ -43,6 +43,12 @@ VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
     Caso falso, o campo só será valido se não contiver código HTML.
 - allowempty (String Bool)
     Caso falso, o campo só será válido se não estiver vazio.
+- specialcharsallowed (String Array)
+    Caso "allowespecialchars" seja false, você pode definir aqui, quais serão os caracteres especiais que ainda serão aceitos. Caso deixe vazio, nenhum
+    caractere especial será aceito.
+    NOTA: Cada caractere especial deve ser separado por virgula. Exemplo "!,@,#,_,-".
+    NOTA: Aspas simples ou aspas dupla não serão aceitos mesmo que estejam em "specialcharsallowed".
+    NOTA: Caso queira permitir virgulas, ao invés de acrescentar o caractere "," em sua lista, adicione a palavra "comma". Exemplo: "!,@,comma,#,&"
 
 VARIAVEIS ESSENCIAS DESTE COMPONENTE
 

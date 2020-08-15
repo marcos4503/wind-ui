@@ -1,0 +1,34 @@
+{
+    "menuItems": [
+        {
+            "fragmentName": "submenu-docs/frontend-api-basic-tools",
+            "iconName": "javascript.png",
+            "visibleName": "Ferramentas e Métodos Básicos"
+        },
+        {
+            "fragmentName": "submenu-docs/frontend-api-core-method",
+            "iconName": "javascript.png",
+            "visibleName": "Métodos Essenciais"
+        },
+        {
+            "fragmentName": "submenu-docs/frontend-api-components-core-method",
+            "iconName": "javascript.png",
+            "visibleName": "Métodos Essenciais Para Componentes"
+        },
+        {
+            "fragmentName": "submenu-docs/frontend-api-ajax",
+            "iconName": "javascript.png",
+            "visibleName": "API Para Requisições via HTTP/HTTPS Com Ajax"
+        },
+        {
+            "fragmentName": "submenu-docs/frontend-api-notifications",
+            "iconName": "javascript.png",
+            "visibleName": "Emissão de Notificações Customizáveis"
+        },
+        {
+            "fragmentName": "submenu-docs/frontend-api-dialogs",
+            "iconName": "javascript.png",
+            "visibleName": "Exibição de Caixas de Diálogo Customizáveis"
+        }
+    ]
+}

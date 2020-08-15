@@ -1,5 +1,5 @@
         <?php
-            //Generate script code to include all third party js libs before </body>
+            //Generate script code to include all third party js libs before </body> tag
             $beforeBodyCloseThirdPartyJs = "";
             for ($i = 0; $i < count(WindUiAppPrefs::$clientThirdPartyBeforeBodyCloseJsLibs); $i++){
                 $filePath = WindUiAppPrefs::$appRootPath . "/thirdparty-libs/js/" . WindUiAppPrefs::$clientThirdPartyBeforeBodyCloseJsLibs[$i];
@@ -10,6 +10,7 @@
         <!-- ========================= Wind UI Start of Client Renderer Finish base code ========================= -->
         <!-- Startup Fragment Load -->
         <script type="text/javascript">
+            //Will be executed after Client.php done first loading
             window.onload = function(){
 
                 <?php
@@ -17,27 +18,26 @@
 
                     //Get params from URL in client.php
                     $defaultFragmentToLoad = WindUiAppPrefs::$appDefaultFragmentToLoad;
-                    $fragmentInUrlParamIsInvalid = false;
                     $fragmentUrlParam = urldecode($_GET["fragment"]);
 
+<<<<<<< HEAD
+                    //Set code to load a startup fragment
+                    if($fragmentUrlParam != "")
+                        $defaultFragmentToLoad = $fragmentUrlParam;
+=======
                     if($fragmentUrlParam != ""){
                         //Set code to load a startup fragment
-                        if(is_file(WindUiPhp::getPathToFragmentWithFragmentUrlGetParam($fragmentUrlParam)) == true)
+                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == true)
                             $defaultFragmentToLoad = $fragmentUrlParam;
                         //If is a invalid fragment param
-                        if(is_file(WindUiPhp::getPathToFragmentWithFragmentUrlGetParam($fragmentUrlParam)) == false)
+                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == false)
                             $fragmentInUrlParamIsInvalid = true;
                     }
+>>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 
                     //If not seted a default fragment to load in client
-                    if($defaultFragmentToLoad == "noDefaultFragmentDefined"){
+                    if($defaultFragmentToLoad == "noDefaultFragmentDefined")
                         echo("console.error('Wind UI: No default fragment have been defined to be loaded into client.php.');");
-                    }
-
-                    //If the fragment in "fragment" get param of url, is invalid or inexistent
-                    if($fragmentInUrlParamIsInvalid == true){
-                        echo("WindUiJs.showSimpleNotification('".WindUiAppPrefs::$appFragmentNotFoundMessage."', 0, false, null);");
-                    }
                 ?>
 
                 WindUiJs.loadNewFragment("<?php echo($defaultFragmentToLoad); ?>", null);

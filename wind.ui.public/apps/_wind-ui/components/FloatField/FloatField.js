@@ -43,6 +43,8 @@ class FloatField {
     //Update char count
     static autoUpdateCharCount(element, currentValue, max, colorIvalid, defaultColor) {
         //Update char count and color
+        if (element == null)
+            return;
         element.innerHTML = currentValue.length + ((max != "0") ? ("/" + max) : "");
         if (currentValue.length > max && max != "0")
             element.style.color = colorIvalid;

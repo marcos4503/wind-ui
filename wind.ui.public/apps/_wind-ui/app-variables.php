@@ -1,9 +1,19 @@
 <?php
     class WindUiAppVariables{
-        //All variables present here, will be accessible from your client or any fragment in your PHP codes. Just use "WindUiAppVariables::$yourVarName"
+        //In this class you can define your own session variables and you can also define public and static variables.
         private function __construct() {}
 
-        //Your variables
-        public static $passwordToManageYourWindUiApps = "admin@windsoft.xyz4503";
+        /*
+         * Public and Static Variables
+         * 
+         * All the variables present below, can be accessed from any part of your Wind Ui app, they will be accessible through their
+         * fragments, ajax-http-apis or client.php.
+         * Just use "WindUiAppVariables::$yourVarName"
+         * 
+         * Just declare your custom and static variables, below.
+        */
+
+        //Your custom static variables
+        public static $yourVarName = "Some Value";
     }
 ?>

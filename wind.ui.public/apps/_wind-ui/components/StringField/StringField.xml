@@ -16,6 +16,7 @@
         "maxchars":"0",
         "validationtype":"text",
         "allowespecialchars":"true",
+        "specialcharsallowed":"",
         "allownumbers":"true",
         "allowuppercase":"true",
         "allowlowercase":"true",
@@ -32,7 +33,7 @@
             <label for="__id__Input">__label__</label>
 
             <input id="__id__Input" type="text" placeholder="__placeholder__" value="__value__" 
-            minchars="__minchars__" maxchars="__maxchars__" validationtype="__validationtype__" allowespecialchars="__allowespecialchars__" allownumbers="__allownumbers__" allowuppercase="__allowuppercase__" allowlowercase="__allowlowercase__" allowempty="__allowempty__" isvalid="true" 
+            minchars="__minchars__" maxchars="__maxchars__" validationtype="__validationtype__" allowespecialchars="__allowespecialchars__" allownumbers="__allownumbers__" allowuppercase="__allowuppercase__" allowlowercase="__allowlowercase__" allowempty="__allowempty__" specialcharsallowed="__specialcharsallowed__" isvalid="true" 
             onchangecontent="__onchangecontent__"
             onkeydown="StringField.autoValidation(this);" onchange="StringField.autoValidation(this);" onpaste="StringField.autoValidation(this);" oninput="StringField.autoValidation(this);" onfocusout="StringField.autoHideCharCount(this);" onfocus="StringField.autoShowCharCount(this);" />
 

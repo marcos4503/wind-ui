@@ -6,6 +6,7 @@
     <!-- It is important that the JSON syntax written here is correct, or Wind UI will not be able to understand the default values of your component's variables. -->
     <json type="text/json" app="wind.ui">
         {
+        "id":"",
         "style":"",
         "onclick":"",
         "value":"Empty Button"
@@ -16,7 +17,7 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <input type="button" class="componentButton" style="__style__" value="__value__" onclick="__onclick__" />
+        <input type="button" id="__id__" class="componentButton" style="__style__" value="__value__" onclick="__onclick__" />
 
     </html>
 </component>
