@@ -24,15 +24,9 @@ class WindUiAjaxHttpApi{
 
         //Set default timezone of Wind UI
         date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
-<<<<<<< HEAD
-<<<<<<< HEAD
 
         //Show the message to represent that is it a content returned by API
         echo("[Wind UI API Successfully Loaded]<br>");
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
     }
 }
 ?>

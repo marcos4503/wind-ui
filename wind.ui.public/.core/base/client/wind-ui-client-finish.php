@@ -20,20 +20,9 @@
                     $defaultFragmentToLoad = WindUiAppPrefs::$appDefaultFragmentToLoad;
                     $fragmentUrlParam = urldecode($_GET["fragment"]);
 
-<<<<<<< HEAD
                     //Set code to load a startup fragment
                     if($fragmentUrlParam != "")
                         $defaultFragmentToLoad = $fragmentUrlParam;
-=======
-                    if($fragmentUrlParam != ""){
-                        //Set code to load a startup fragment
-                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == true)
-                            $defaultFragmentToLoad = $fragmentUrlParam;
-                        //If is a invalid fragment param
-                        if(is_file(WindUiPhp::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentUrlParam)) == false)
-                            $fragmentInUrlParamIsInvalid = true;
-                    }
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 
                     //If not seted a default fragment to load in client
                     if($defaultFragmentToLoad == "noDefaultFragmentDefined")

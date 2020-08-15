@@ -7,12 +7,9 @@ include_once(__DIR__ . "/../../library/backend/wind-ui-php.php");
 WindUiPhp::$typeOfScriptCurrentlyUsingThisLib = "fragment";
 include_once(__DIR__ . "/../../library/backend/wind-ui-app-sessions.php");
 
-<<<<<<< HEAD
 //Show the message to represent that is it a valid fragment content
 echo("[Wind UI Fragment Successfully Loaded]<br>");
 
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 //Include the CSS file of fragment, if this exists
 $possiblePathOfCssOfThisFragment = dirname($_SERVER["PHP_SELF"]) . "/" . basename(dirname($_SERVER["PHP_SELF"])) . ".css";
 if(is_file($possiblePathOfCssOfThisFragment) == true){

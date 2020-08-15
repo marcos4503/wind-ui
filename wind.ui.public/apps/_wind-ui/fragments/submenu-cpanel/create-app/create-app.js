@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //On Start
 WindUiJs.setAnOtherFunctionToBeRunnedAfterLoadANewFragment(function () {
     //Start updating app list
@@ -98,8 +97,4 @@ function createRequestedApp() {
         //Send notification
         WindUiJs.showSimpleNotification("Há campos inválidos. Por favor, verifique todos.", 5000, false, null);
     }
-=======
-function createNewApp() {
-
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 }

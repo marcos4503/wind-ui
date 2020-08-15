@@ -475,7 +475,6 @@
                     if (xmlHttpreq.status === 200) {
                         //IF SUCESS
 
-<<<<<<< HEAD
                         //Read the content of response and verify that contains the key "[Wind UI Fragment Successfully Loaded]<br>" showing that the content loaded, is the valid Fragment
                         var contentSplited = xmlHttpreq.responseText.split("[Wind UI Fragment Successfully Loaded]<br>");
 
@@ -544,59 +543,6 @@
                                     console.error(e.message);
                                 }
                         }
-=======
-                        //Insert the loaded content inside the fragments viewer
-                        windUiClientFragmentsViewer.innerHTML = xmlHttpreq.responseText;
-
-                        //Clear the fragment, if have <html>, <head> or <body> tags, or other motives.
-                        var htmlTagsCount = windUiClientFragmentsViewer.getElementsByTagName("HTML").length;
-                        var headTagsCount = windUiClientFragmentsViewer.getElementsByTagName("HEAD").length;
-                        var bodyTagsCount = windUiClientFragmentsViewer.getElementsByTagName("BODY").length;
-                        var styleTagsCount = windUiClientFragmentsViewer.getElementsByTagName("STYLE").length;
-                        var scriptTagsCount = windUiClientFragmentsViewer.getElementsByTagName("SCRIPT").length;
-                        if(htmlTagsCount > 0 || headTagsCount > 0 || bodyTagsCount > 0)
-                            windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain HEAD, HTML or BODY tags.";
-                        if(styleTagsCount > 1)
-                            windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain STYLE tags.";
-                        if(scriptTagsCount > 1)
-                            windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain more than one SCRIPT tags.";
-
-                        //Change the contents of all og metatags of client with the metatags of this fragment, delete <json> from this fragment
-                        var windUiJsonFragmentManifestNode = document.getElementById("windUiJsonFragmentManifest");
-                        if(windUiJsonFragmentManifestNode == null)
-                            console.error("Wind UI: We couldn't find a Json tag manifest in this fragment.");
-                        if(windUiJsonFragmentManifestNode != null){
-                            var jsonManifestOfThisFragment = windUiJsonFragmentManifestNode.innerHTML;
-                            if(WindUiJs.isJsonString(jsonManifestOfThisFragment) == true){
-                                var jsonManifest = JSON.parse(jsonManifestOfThisFragment);
-                                WindUiJs.changeCurrentClientTitle(jsonManifest.fragmentOgMetaTagTitle);
-                                document.getElementById("windUiOgMetaTagUrl").content = window.location.href;
-                                document.getElementById("windUiOgMetaTagTitle").content = jsonManifest.fragmentOgMetaTagTitle;
-                                document.getElementById("windUiOgMetaTagDescription").content = jsonManifest.fragmentOgMetaTagDescription;
-                                document.getElementById("windUiOgMetaTagImage").content = "<?php echo(WindUiAppPrefs::$appRootPath); ?>" + jsonManifest.fragmentOgMetaTagImage;
-                                document.getElementById("windUiOgMetaTagImageType").content = jsonManifest.fragmentOgMetaTagImageType;
-                                document.getElementById("windUiOgMetaTagImageWidth").content = jsonManifest.fragmentOgMetaTagImageWidth;
-                                document.getElementById("windUiOgMetaTagImageHeight").content = jsonManifest.fragmentOgMetaTagImageHeight;
-                                document.getElementById("windUiOgMetaTagType").content = jsonManifest.fragmentOgMetaTagType;
-                                document.getElementById("windUiOgArticleAuthor").content = jsonManifest.fragmentOgArticleAuthor;
-                                document.getElementById("windUiOgArticleSection").content = jsonManifest.fragmentOgArticleSection;
-                                document.getElementById("windUiOgArticleTag").content = jsonManifest.fragmentOgArticleTags;
-                                document.getElementById("windUiOgArticlePublishTime").content = jsonManifest.fragmentOgArticlePublishTime;
-                            }
-                            windUiJsonFragmentManifestNode.style.display = "none";
-                        }
-                        
-                        //Eval all JavaScript tags of fragment code
-                        var allScriptTagsInsideFragment = windUiClientFragmentsViewer.getElementsByTagName("SCRIPT");
-                        for (var i = 0; i < allScriptTagsInsideFragment.length; i++)
-                            try{
-                                eval(allScriptTagsInsideFragment[i].innerHTML);
-                            } 
-                            catch(e){
-                                console.error("Wind UI: There were 1 or more errors when executing the javascript present inside a SCRIPT tag of this fragment.");
-                                console.error(e.message);
-                            }
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
                     }
                     else {
                         //IF NETWORK ERROR
@@ -842,15 +788,7 @@
                                     console.log("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON.");
                                 }
                             }
-<<<<<<< HEAD
                         }
-=======
-                            else{
-                                onDone(true, xmlHttpreq.responseText, xmlHttpreq.responseXML, null);
-                                console.log("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON.");
-                            }     
-                        } 
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
                     }
                     else {
                         //IF NETWORK ERROR
@@ -997,7 +935,6 @@
                     if (xmlHttpreq.status === 200) {
                         //IF SUCESS
 
-<<<<<<< HEAD
                         //Read the content of response and verify that contains the key "[Wind UI API Successfully Loaded]<br>" showing that the content loaded, is the API response
                         var contentSplited = xmlHttpreq.responseText.split("[Wind UI API Successfully Loaded]<br>");
 
@@ -1024,25 +961,11 @@
                                 }     
                             }
                         }
-=======
-                        //Call "onDoneGetResponse" if is registered
-                        //function(isSuccess, responseText, responseXml, responseJson){}
-                        if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true){
-                            if(WindUiJs.isJsonString(xmlHttpreq.responseText) == true){
-                                onDoneGetResponse(true, xmlHttpreq.responseText, xmlHttpreq.responseXML, JSON.parse(xmlHttpreq.responseText));
-                            }
-                            else{
-                                onDoneGetResponse(true, xmlHttpreq.responseText, xmlHttpreq.responseXML, null);
-                                console.log("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON.");
-                            }     
-                        } 
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
                     }
                     else {
                         //IF NETWORK ERROR
 
                         //Call "onDoneGetResponse" if is registered
-<<<<<<< HEAD
                         //function(isSuccess, responseText, responseJson){}
                         if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
                             onDoneGetResponse(false, null, null);
@@ -1063,15 +986,6 @@
                 //End a new http request running
                 WindUiJs.currentAjaxHttpRequestsRunning -= 1;
             }
-=======
-                        //function(isSuccess, responseText, responseXml, responseJson){}
-                        if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
-                            onDoneGetResponse(false, null, null, null);
-                    }
-                }
-            }
-            xmlHttpreq.send(formData);
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 
             //Return the windUiJsAjaxUploadOperation
             return xmlHttpreq;
@@ -1119,11 +1033,7 @@
             buttonElement.style.backgroundRepeat = "no-repeat";
             buttonElement.style.width = originalWidth.toString() + "px";
             buttonElement.style.height = originalHeight.toString() + "px";
-<<<<<<< HEAD
             buttonElement.value = " ";
-=======
-            buttonElement.value = "";
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
             buttonElement.disabled = "disabled";
 
             //Return the original state

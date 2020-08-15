@@ -36,15 +36,7 @@ Por favor, note que todos os métodos listados aqui são utilizáveis, e todos o
 ?>
 Este método acessa um arquivo PHP que esteja dentro da pasta "ajax-http-apis" de seu app Wind UI, o executa e em seguida lhe informa se essa requisição
  foi um sucesso, se ocorreu um erro, e se foi um sucesso, retorna também a resposta em texto do arquivo PHP. Seu arquivo pode retornar uma resposta em
-<<<<<<< HEAD
-<<<<<<< HEAD
  texto ou JSON.
-=======
- texto, JSON ou XML.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
- texto, JSON ou XML.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 <ul>
     <li>
         <b>ajaxHttpApiName (String)</b> - Uma URI que aponte para algum arquivo PHP que esteja dentro da sua pasta "ajax-http-apis" do seu app Wind UI.
@@ -67,8 +59,6 @@ Este método acessa um arquivo PHP que esteja dentro da pasta "ajax-http-apis" d
 var form = new FormData();
     form.append("id", "23");
 WindUiJs.loadNewAjaxHttpRequestOnApi("dadosDoUsuario", form, 
-<<<<<<< HEAD
-<<<<<<< HEAD
     function(isSuccess, responseText, responseJson){
         //Ao concluir a requisição, o código aqui dentro será executado
         //isSucess - retorna um valor booleano que indica se a requisição foi bem sucedida ou não
@@ -76,21 +66,6 @@ WindUiJs.loadNewAjaxHttpRequestOnApi("dadosDoUsuario", form,
         //responseJson - retorna a resposta que o arquivo PHP deu, convertido para JSON (se for possivel converter a resposta para um objeto JSON)
         //Note que caso isSuccess seja false, responseText e responseJson serão null.
         //Note também que: Se não for possível converter a resposta para Json, "responseJson" será null.
-=======
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-    function(isSuccess, responseText, responseXml, responseJson){
-        //Ao concluir a requisição, o código aqui dentro será executado
-        //isSucess - retorna um valor booleano que indica se a requisição foi bem sucedida ou não
-        //responseText - retorna a resposta que o arquivo PHP deu, em texto puro
-        //responseXml - retorna a resposta que o arquivo PHP deu, convertido para XML (se for possivel converter a resposta para XML)
-        //responseJson - retorna a resposta que o arquivo PHP deu, convertido para JSON (se for possivel converter a resposta para JSON)
-        //Note que caso isSuccess seja false, responseText, responseXml e responseJson serão null.
-        //Note também que: Se não for possível converter a resposta para Json, respons
-<<<<<<< HEAD
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 
         //Caso tenha dado tudo certo
         if(isSuccess == true){
@@ -119,15 +94,7 @@ WindUiJs.loadNewAjaxHttpRequestOnApi("incrementarContadorDeVisitas", null, null)
 ?>
 Este método acessa um arquivo PHP que esteja dentro da pasta "ajax-http-apis" de seu app Wind UI, envia um arquivo para ele, o executa e em seguida lhe informa
  se essa requisição foi um sucesso, se ocorreu um erro, e se foi um sucesso, retorna também a resposta em texto do arquivo PHP. Seu arquivo pode retornar uma resposta em
-<<<<<<< HEAD
-<<<<<<< HEAD
  texto ou JSON. Apesar dessa função ser muito longa, ela fornece vários manipuladores para que você registre eventos para serem executados quando o envio
-=======
- texto, JSON ou XML. Apesar dessa função ser muito longa, ela fornece vários manipuladores para que você registre eventos para serem executados quando o envio
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
- texto, JSON ou XML. Apesar dessa função ser muito longa, ela fornece vários manipuladores para que você registre eventos para serem executados quando o envio
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
  começar, terminar e até mesmo função para ser executada sempre que o envio sofrer um progresso, para que você exiba por exemplo, uma barra de progresso. Além disso, esse
  método retorna um objeto "windUiJsAjaxUploadOperation" para que você possa usa-lo no próximo método e cancelar um envio em andamento.
 <ul>
@@ -204,21 +171,9 @@ var windUiJsAjaxUploadOperation = WindUiJs.uploadNewFileOnAjaxHttpRequestInApi("
         //Ao upload ser abortado
         console.log("O upload foi abortado.");
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
     function(isSuccess, responseText, responsJson){
         //Ao obter a resposta do arquivo PHP
         //Note que caso isSuccess seja false, responseText e responseJson serão null.
-=======
-    function(isSuccess, responseText, responseXml, responsJson){
-        //Ao obter a resposta do arquivo PHP
-        //Note que caso isSuccess seja false, responseText, responseXml e responseJson serão null.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
-    function(isSuccess, responseText, responseXml, responsJson){
-        //Ao obter a resposta do arquivo PHP
-        //Note que caso isSuccess seja false, responseText, responseXml e responseJson serão null.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
         //Note também que: Se não for possível converter a resposta para Json, responseJson será null.
 
         //Caso ocorra tudo bem e seja retornada uma resposta do PHP

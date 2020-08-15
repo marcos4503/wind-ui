@@ -12,25 +12,11 @@
 O Wind UI possui uma API PHP completa para que você crie seu sistema de salvamento de dados do usuário, Sessões e Cookies de maneira mais rápida.
  Assim fica fácil implementar seu sistema de login e registro em seu app Wind UI por exemplo.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 <!-- isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid) -->
 <?php 
     WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
         "classname"=>'WindUiAppSessions',
         "methodname"=>'isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid)'
-=======
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-<!-- isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid, $printMessageIfIsInvalid, $printMessageIfIsValid) -->
-<?php 
-    WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
-        "classname"=>'WindUiAppSessions',
-        "methodname"=>'isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid, $printMessageIfIsInvalid, $printMessageIfIsValid)'
-<<<<<<< HEAD
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
     ), false);
 ?>
 Este método obtem o Cookie enviado pelo cliente, procura uma Sessão correspondente e então, analisa o conteúdo dessa Sessão. Se a sessão tiver todas as variaveis
@@ -47,21 +33,6 @@ Este método obtem o Cookie enviado pelo cliente, procura uma Sessão correspond
     <li>
         <b>$destroySessionIfInvalid (Bool)</b> - Irá destruir a sessão correspondente, caso esta seja inválida.
     </li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-    <li>
-        <b>$printMessageIfIsInvalid (Bool)</b> - Irá imprimir uma mensagem caso a sessão seja inválida.
-    </li>
-    <li>
-        <b>$printMessageIfIsValid (Bool)</b> - Irá imprimir uma mensagem caso a sessão seja válida.
-    </li>
-<<<<<<< HEAD
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 </ul>
 <?php 
     WindUiPhp::renderComponentHere("CodeBlock", (object)array(

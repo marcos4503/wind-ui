@@ -16,7 +16,6 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
 <br>
 <br>
 
-<<<<<<< HEAD
 <div class="appCreationBlocks">
     <div class="appCreationBlockOfCreation">
         <?php 
@@ -83,52 +82,12 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
 </div>
 
 <div class="appCreationButton">
-=======
-<div style="width: 90%; max-width: 350px; margin-left: auto; margin-right: auto;">
-    <?php 
-        WindUiPhp::renderComponentHere("StringField", (object)array(
-            "id"=>"appTitle",
-            "label"=>"Nome do App"
-        ), false);
-    ?>
-    <br>
-    <?php 
-        WindUiPhp::renderComponentHere("StringField", (object)array(
-            "id"=>"appBaseUrl",
-            "label"=>"Nome da Pasta"
-        ), false);
-    ?>
-    <br>
-    <?php 
-        WindUiPhp::renderComponentHere("StringField", (object)array(
-            "id"=>"appCode",
-            "label"=>"Código do App"
-        ), false);
-    ?>
-    <br>
-    <?php 
-        WindUiPhp::renderComponentHere("StringField", (object)array(
-            "id"=>"appLang",
-            "label"=>"Língua do App (ISO)"
-        ), false);
-    ?>
-    <br>
-    <?php 
-        WindUiPhp::renderComponentHere("PasswordField", (object)array(
-            "id"=>"password",
-            "label"=>"Senha do Seu Wind UI"
-        ), false);
-    ?>
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
     <br>
     <br>
     <?php 
         WindUiPhp::renderComponentHere("Button", (object)array(
-<<<<<<< HEAD
             "id"=>"submitRequestButton",
             "onclick"=>"createRequestedApp();",
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
             "value"=>"Criar Novo App"
         ), false);
     ?>

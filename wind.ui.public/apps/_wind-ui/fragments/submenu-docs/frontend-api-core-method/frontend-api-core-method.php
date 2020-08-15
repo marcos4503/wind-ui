@@ -34,16 +34,8 @@ Por favor, note que todos os métodos listados aqui são utilizáveis, e todos o
         "methodname"=>"setFunctionToBeRunnedOnBeforeLoadANewFragment(customFunction)"
     ), false);
 ?>
-<<<<<<< HEAD
-<<<<<<< HEAD
 Com este método você pode registrar uma função para ser executada sempre ANTES que um novo fragmento seja carregado. A intenção aqui, é que
 você só utilize este método, no código JavaScript do seu Client.php, ou no "app-javascript.php" do seu app. Continue lendo para entender.
-=======
-Com este método você pode registrar uma função para ser executada sempre ANTES que um novo fragmento seja carregado.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
-Com este método você pode registrar uma função para ser executada sempre ANTES que um novo fragmento seja carregado.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 <ul>
     <li>
         <b>customFunction (JS Function)</b> - Neste argumento deve-se passar uma função JavaScript.
@@ -69,17 +61,9 @@ WindUiJs.setFunctionToBeRunnedOnBeforeLoadANewFragment(variavel);
         "methodname"=>"setFunctionToBeRunnedAfterLoadANewFragment(customFunction)"
     ), false);
 ?>
-<<<<<<< HEAD
-<<<<<<< HEAD
 Com este método você pode registrar uma função para ser executada sempre DEPOIS que um novo fragmento tiver seu carregamento concluído. 
  A intenção aqui, é que você só utilize este método, no código JavaScript do seu Client.php, ou no "app-javascript.php" do seu app. Continue
  lendo para entender.
-=======
-Com este método você pode registrar uma função para ser executada sempre DEPOIS que um novo fragmento tiver seu carregamento concluído.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
-Com este método você pode registrar uma função para ser executada sempre DEPOIS que um novo fragmento tiver seu carregamento concluído.
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 <ul>
     <li>
         <b>customFunction (JS Function)</b> - Neste argumento deve-se passar uma função JavaScript.
@@ -98,8 +82,6 @@ WindUiJs.setFunctionToBeRunnedAfterLoadANewFragment(variavel);
 ), false);
 ?>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 <!-- setAnOtherFunctionToBeRunnedOnBeforeLoadANewFragment(customFunction) -->
 <?php 
     WindUiPhp::renderComponentHere("JsMethodName", (object)array(
@@ -171,10 +153,6 @@ WindUiJs.setAnOtherFunctionToBeRunnedAfterLoadANewFragment(variavel);
 ), false);
 ?>
 
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 
 <!-- setFunctionToBeRunnedOnEach100Milliseconds(customFunction) -->
 <?php 

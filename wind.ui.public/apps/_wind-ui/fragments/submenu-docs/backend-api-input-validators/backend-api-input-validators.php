@@ -113,15 +113,7 @@ if($nomeValido == true){
 //minchars - Verifica a quantidade minima de caracteres necessários para que seja válido. (valor padrão: 0)
 //maxchars - Verifica a quantidade máxima de caracteres necessários para que seja válido. (valor padrão: 0 (ilimitado))
 //allowespecialchars - Caso seja false, a string não será válida caso tenha caracteres especiais. (valor padrão: true)
-<<<<<<< HEAD
-<<<<<<< HEAD
 //specialcharsallowed - Caso "allowespecialchars" seja false, você pode definir aqui, os caracteres especiais que podem ser aceitos, então mesmo que a string contenha estes caracteres especiais, ela ainda será válida. (valor padrão: "") (Pode ser "!,@,#" ou "@") Utilize "comma" caso queira permitir virgulas no conteúdo. Exemplo: "@,comma,!,#"
-=======
-//specialcharsallowed - Caso "allowespecialchars" seja false, você pode definir aqui, os caracteres especiais que podem ser aceitos, então mesmo que a string contenha estes caracteres especiais, ela ainda será válida. (valor padrão: "") (Pode ser "!,@,#" ou "@")
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
-=======
-//specialcharsallowed - Caso "allowespecialchars" seja false, você pode definir aqui, os caracteres especiais que podem ser aceitos, então mesmo que a string contenha estes caracteres especiais, ela ainda será válida. (valor padrão: "") (Pode ser "!,@,#" ou "@")
->>>>>>> 4311b5564d08e846da9da9d6e1f506ad76ade9f5
 //allownumbers - Caso seja false, a string não será válida se contiver números. (valor padrão: true)
 //allowuppercase - Caso seja false, a string não será válida se contiver letras maiúsculas. (valor padrão: true)
 //allowlowercase - Caso seja false, a string não será válida se contiver letras minúsculas. (valor padrão: true)
