@@ -1,0 +1,13 @@
+{
+    "fragmentOgMetaTagTitle": "%TITLE%",
+    "fragmentOgMetaTagDescription": "%DESCRIPTION%",
+    "fragmentOgMetaTagImage": "/resources/%IMAGE%",
+    "fragmentOgMetaTagImageType": "image/%EXTENSION%",
+    "fragmentOgMetaTagImageWidth": "%PIXELS_SIZE_WIDTH%",
+    "fragmentOgMetaTagImageHeight": "%PIXELS_SIZE_HEIGHT%",
+    "fragmentOgMetaTagType": "%TYPE%",
+    "fragmentOgArticleAuthor": "%AUTHOR%",
+    "fragmentOgArticleSection": "%SECTION%",
+    "fragmentOgArticleTags": "%TAGS%",
+    "fragmentOgArticlePublishTime": "%PUBLISH_TIME%"
+}

@@ -351,6 +351,12 @@
         border-radius: 32px;
     }
 
+    /* CSS style of div that stores important images */
+
+    .windUiRequiredAndImportantImages{
+        display: none;
+    }
+
     /* All CSS style by screen width */
 
     @media screen and (max-width: 3840px) {

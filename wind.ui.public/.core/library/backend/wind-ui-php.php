@@ -56,46 +56,35 @@
 
         public static function getValueOfSpecificOgMetaTagFromFragmentJsonManifest(string $fragmentGetParamInUrl, string $desiredOgMetaTag){
             //Read json manifest of a fragment and return desired metatag from it
+            $phpFragmentFilePath = self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentGetParamInUrl);
 
-            //Case don't have a default fragment defined
-            if(WindUiAppPrefs::$appDefaultFragmentToLoad == "noDefaultFragmentDefined")
-                return "";
-            //Case have a default fragment defined
-            if(WindUiAppPrefs::$appDefaultFragmentToLoad != "noDefaultFragmentDefined"){
-                $phpFragmentFilePath = "";
-                if($fragmentGetParamInUrl == "")
-                    $phpFragmentFilePath = self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl(WindUiAppPrefs::$appDefaultFragmentToLoad);
-                if($fragmentGetParamInUrl != ""){
-                    if(is_file(self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentGetParamInUrl)) == true)
-                        $phpFragmentFilePath = self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentGetParamInUrl);
-                    if(is_file(self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl($fragmentGetParamInUrl)) == false)
-                        $phpFragmentFilePath = self::getPathToFragmentPhpFileBasingOnGetFragmentParamInUrl(WindUiAppPrefs::$appDefaultFragmentToLoad);
-                }
+            //Convert PHP file path, to a json manifest file path
+            $fragmentFilePathDir = dirname($phpFragmentFilePath);
+            $fragmentFilePhpName = basename($fragmentFilePathDir);
+            $fragmentJsonManifestFilePath = $fragmentFilePathDir . "/" . $fragmentFilePhpName . ".json";
 
-                //Convert PHP file path, to a json manifest file path
-                $fragmentFilePathDir = dirname($phpFragmentFilePath);
-                $fragmentFilePhpName = basename($fragmentFilePathDir);
-                $fragmentJsonManifestFilePath = $fragmentFilePathDir . "/" . $fragmentFilePhpName . ".json";
+            //If file json of manifest not found, return error
+            if(is_file($fragmentJsonManifestFilePath) == false)
+                return WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage;
 
-                //Get json code of file
-                $jsonCode = file_get_contents($fragmentJsonManifestFilePath);
+            //Get json code of file
+            $jsonCode = file_get_contents($fragmentJsonManifestFilePath);
 
-                //Verify if is valid json
-                if(self::isJson($jsonCode) == true){
-                    //Decode the json
-                    $jsonFinal = json_decode($jsonCode);
+            //Verify if is valid json
+            if(self::isJson($jsonCode) == true){
+                //Decode the json
+                $jsonFinal = json_decode($jsonCode);
 
-                    //Get the variable from json
-                    foreach (get_object_vars($jsonFinal) as $variable => $value) 
-                        if (strpos($variable, $desiredOgMetaTag) !== false)
-                            return $value;
+                //Get the variable from json
+                foreach (get_object_vars($jsonFinal) as $variable => $value) 
+                    if (strpos($variable, $desiredOgMetaTag) !== false)
+                        return $value;
 
-                    //If variable not found, return empty string
-                    return "";
-                }
-                if(self::isJson($jsonCode) == false)
-                    return "";
+                //If variable not found, return empty string
+                return WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage;
             }
+            if(self::isJson($jsonCode) == false)
+                return WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage;
         }
 
         public static function renderFragmentsViewerHere(){

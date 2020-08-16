@@ -155,4 +155,13 @@ date_default_timezone_set(WindUiAppPrefs::$appPhpTimeZone);
         <div id="windUiDialogBoxArea" class="windUiDialogBoxArea">
         </div>
 
+        <!-- Required and Important resources to be available even user is offline -->
+        <div id="windUiRequiredAndImportantImages" class="windUiRequiredAndImportantImages">
+            <img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$fragmentsViewerSpinnerResource); ?>" />
+            <img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$fragmentsViewerErrorResource); ?>" />
+            <img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$fragmentsViewerNotFoundResource); ?>" />
+            <img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$notificationCloseIcon); ?>" />
+            <img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$ajaxHttpRequestLoadingOnButtonSpinnerResource); ?>" />
+        </div>
+
         <!-- ========================= Wind UI End of Client Renderer base code ========================= -->

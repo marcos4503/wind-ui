@@ -64,11 +64,11 @@ Sabendo da necessidade de uso de Sessões e armazenamento de dados dos usuários
  o processo de validação e criação de Sessões. Com a API do Wind UI, você pode proteger suas páginas PHP para serem acessadas somente por usuários que tenham
  uma sessão válida ativa. Como por exemplo, veja abaixo...
 
-<!-- isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid, $printMessageIfIsInvalid, $printMessageIfIsValid) -->
+<!-- isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid) -->
 <?php 
     WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
         "classname"=>'WindUiAppSessions',
-        "methodname"=>'isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid, $printMessageIfIsInvalid, $printMessageIfIsValid)'
+        "methodname"=>'isCurrentSessionOfReceivedCookiesValid($stopPhpIfInvalid, $destroySessionIfInvalid)'
     ), false);
 ?>
 <?php 
@@ -76,7 +76,7 @@ Sabendo da necessidade de uso de Sessões e armazenamento de dados dos usuários
     "language"=>"php",
     "codeToShow"=>
 '//Recebe o cookie do usuário, verifica a sessão e verifica se esta é valida. Somente se a sessão for válida é que o script continuará a ser executada.
-$sessaoValida = WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(true, true, false, false);
+$sessaoValida = WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(true, true);
 
 //o resto do script....
 '

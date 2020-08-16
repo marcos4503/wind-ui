@@ -50,7 +50,7 @@ Este método obtem o Cookie enviado pelo cliente, procura uma Sessão correspond
 //id|s:1:"1";login|s:10:"marcos4503";password|s:10:"tfgrkjengrojn34";
 
 //Vai retornar "true"
-if(WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(false, false, false, false) == true){
+if(WindUiAppSessions::isCurrentSessionOfReceivedCookiesValid(false, false) == true){
     echo("Esta é uma sessão válida, pois a sessão encontrada no servidor, contém as variáveis \"id\", \"login\" e \"password\" todas definidas.");
 }
 '

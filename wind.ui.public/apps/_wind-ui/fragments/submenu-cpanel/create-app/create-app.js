@@ -12,7 +12,7 @@ function updateCreatedAppsList() {
     appListDiv.innerHTML = "<ul><li>Um momento...</li></ul>";
 
     //Update content
-    WindUiJs.loadNewAjaxHttpRequestOnApi("returns-html/fragment/create-app/get-app-list", null,
+    WindUiJs.loadNewAjaxHttpRequestOnApi("returns-html/fragments/create-app/get-app-list", null,
         function (isSuccess, responseText, responseJson) {
             //On success
             if (isSuccess == true) {
@@ -59,25 +59,34 @@ function createRequestedApp() {
 
                 //Start the request
                 var form = new FormData();
-                form.append("id", "23");
+                form.append("appName", StringField.getText(appName));
+                form.append("folderName", StringField.getText(folderName));
+                form.append("appCode", StringField.getText(appCode));
+                form.append("appLang", StringField.getText(appLang));
+                form.append("password", StringField.getText(passwordWindUi));
                 WindUiJs.loadNewAjaxHttpRequestOnApi("returns-json/fragments/create-app/create-app-template", form,
                     function (isSuccess, responseText, responseJson) {
                         //Caso tenha dado tudo certo
                         if (isSuccess == true) {
                             //response
-                            if (responseJson.responseCode == -1) {
-                                WindUiJs.showSimpleNotification("Não foi possível processar a requisição.", 0, false, null);
+                            if (responseJson.folderNameAvailable == false) {
+                                //Show the error
+                                StringField.setStatus(folderName, false, "Essa pasta já está sendo usada por um outro app.");
                             }
-                            if (responseJson.responseCode == 0) {
-                                WindUiJs.showSimpleNotification("O aplicativo foi criado com sucesso!", 0, false, null);
+                            if (responseJson.passwordValid == false) {
+                                //Show the error
+                                StringField.setStatus(passwordWindUi, false, "Senha incorreta.");
+                            }
+                            if (responseJson.appCreated == true) {
+                                //Show the nofication
+                                WindUiJs.showSimpleDialog("", "Novo Wind UI App Criado", "O app \"" + StringField.getText(appName) + "\" foi criado dentro do seu Framework Wind UI. Sinta-se livre para criar um novo app, se quiser. Aproveite e leia a documentação do Wind UI e comece a editar seu novo app agora mesmo!", "Tudo bem!");
+
+                                //Change the UI to app created
                                 StringField.setText(appName, "");
                                 StringField.setText(folderName, "");
                                 StringField.setText(appCode, "");
                                 StringField.setText(appLang, "");
                                 StringField.setText(passwordWindUi, "");
-                            }
-                            if (responseJson.responseCode == 1) {
-                                StringField.setStatus(passwordWindUi, false, "Senha incorreta.");
                             }
                         }
                         //Caso tenha dado algo errado

@@ -457,7 +457,7 @@
             .'');
             ?>';
 
-            //Run the custom function before stats to load a new fragment, if is desired, and clear that function
+            //Run the custom function before stats to load a new fragment, if is desired
             if(WindUiJs.customFunctionToRunBeforeLoadFragment != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunBeforeLoadFragment) == true)
                 WindUiJs.customFunctionToRunBeforeLoadFragment();
             //Run the other custom function before stats to load a new fragment, if is desired, and clear that function
@@ -469,7 +469,6 @@
             //Prepare to load a new fragment
             var xmlHttpreq = new XMLHttpRequest();
             xmlHttpreq.open("POST", "<?php echo(WindUiAppPrefs::$appRootPath . "/fragments/"); ?>" + WindUiJs.getDirFromFragmentNameStr(fragmentName) + "/" + WindUiJs.getFileFromFragmentNameStr(fragmentName) + ".php", true);
-            xmlHttpreq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xmlHttpreq.onreadystatechange = function(){
                 if (xmlHttpreq.readyState === 4) {
                     if (xmlHttpreq.status === 200) {
@@ -480,7 +479,7 @@
 
                         //If not contains the key
                         if(contentSplited.length != 2){
-                            //Show the error message
+                            //Show the error message inside the fragment viewer
                             windUiClientFragmentsViewer.innerHTML = "<div style=\"text-align: center; min-height: <?php echo(WindUiAppPrefs::$fragmentsViewerMinHeightPx); ?>px;\">"
                             + "<h1><?php echo(WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage); ?></h1>"
                             + "<center><img src=\"<?php echo(WindUiAppPrefs::$appRootPath.WindUiAppPrefs::$fragmentsViewerNotFoundResource); ?>\" style=\"width: 95%; max-width: 620px;\" /></center><br><br>"
@@ -488,6 +487,20 @@
                             + "<small>Requested fragment is <b>" + fragmentName + "</b>.</small><br><br>"
                             + "<?php echo(WindUiAppPrefs::$fragmentsViewerNotFoundMessage); ?></div>"
                             + "<br></div>";
+                            //Change the title and metadata of this page
+                            WindUiJs.changeCurrentClientTitle("<?php echo(WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage); ?>");
+                            document.getElementById("windUiOgMetaTagUrl").content = window.location.href;
+                            document.getElementById("windUiOgMetaTagTitle").content = "<?php echo(WindUiAppPrefs::$fragmentsViewerNotFoundTitleMessage); ?>";
+                            document.getElementById("windUiOgMetaTagDescription").content = "<?php echo(WindUiAppPrefs::$fragmentsViewerNotFoundMessage); ?>";
+                            document.getElementById("windUiOgMetaTagImage").content = "";
+                            document.getElementById("windUiOgMetaTagImageType").content = "";
+                            document.getElementById("windUiOgMetaTagImageWidth").content = "";
+                            document.getElementById("windUiOgMetaTagImageHeight").content = "";
+                            document.getElementById("windUiOgMetaTagType").content = "";
+                            document.getElementById("windUiOgArticleAuthor").content = "";
+                            document.getElementById("windUiOgArticleSection").content = "";
+                            document.getElementById("windUiOgArticleTag").content = "";
+                            document.getElementById("windUiOgArticlePublishTime").content = "";
                         }
                         //If contains the key
                         if(contentSplited.length == 2){
@@ -507,7 +520,7 @@
                             if(scriptTagsCount > 1)
                                 windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain more than one SCRIPT tags.";
 
-                            //Change the contents of all og metatags of client with the metatags of this fragment, delete <json> from this fragment
+                            //Change the contents of all og metatags of client with the metatags of this fragment, hide <json> from this fragment after this
                             var windUiJsonFragmentManifestNode = document.getElementById("windUiJsonFragmentManifest");
                             if(windUiJsonFragmentManifestNode == null)
                                 console.error("Wind UI: We couldn't find a Json tag manifest in this fragment.");
@@ -564,7 +577,7 @@
                     //Run the custom function after loaded a new fragment, if is desired
                     if(WindUiJs.customFunctionToRunAfterLoadFragment != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAfterLoadFragment) == true)
                         WindUiJs.customFunctionToRunAfterLoadFragment();
-                    //Run the other custom function after loaded a new fragment, if is desired
+                    //Run the other custom function after loaded a new fragment, if is desired and clear that function
                     if(WindUiJs.customAnOtherFunctionToRunAfterLoadFragment != null && WindUiJs.isFunction(WindUiJs.customAnOtherFunctionToRunAfterLoadFragment) == true){
                         WindUiJs.customAnOtherFunctionToRunAfterLoadFragment();
                         WindUiJs.customAnOtherFunctionToRunAfterLoadFragment = null;
@@ -598,7 +611,7 @@
                 //IF NETWORK ERROR
 
                 //Show warning about error
-                WindUiJs.showSimpleNotification('Wind UI: An error occurred while loading the ' + fragmentName + '.js for this fragment. Please try to refresh the page.', 0, true, null);
+                WindUiJs.showSimpleNotification('Wind UI: An error occurred while loading the "' + fragmentName + '.js" for this fragment. Please try to refresh the page.', 0, true, null);
                 //Show network error message
                 windUiClientFragmentsViewer.innerHTML = windUiNetworkErrorMessageCode;
                 //Run functions needed after load fragment
@@ -774,7 +787,7 @@
                             if(onDone != null && WindUiJs.isFunction(onDone) == true)
                                 onDone(false, null, null);
                             //Show the warning
-                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file.");
+                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
                         }
                         //If contains the key
                         if(contentSplited.length == 2){
@@ -945,7 +958,7 @@
                             if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
                                 onDoneGetResponse(false, null, null);
                             //Show the warning
-                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file.");
+                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
                         }
                         //If contains the key
                         if(contentSplited.length == 2){

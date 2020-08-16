@@ -209,6 +209,12 @@
             self::$sessionsInvalidSessionMessage = self::getFirstVariableThatMatch("sessionsInvalidSessionMessage", self::$sessionsInvalidSessionMessage, $appSettings);
             self::$sessionsValidSessionMessage = self::getFirstVariableThatMatch("sessionsValidSessionMessage", self::$sessionsValidSessionMessage, $appSettings);
             self::$sessionsValidateSessionWithIp = self::getFirstVariableThatMatch("sessionsValidateSessionWithIp", self::$sessionsValidateSessionWithIp, $appSettings);
+
+            //Validate some variables values
+            if(self::$appDelayBeforeLoadFragment <= 150)
+                self::$appDelayBeforeLoadFragment = 150;
+            if(self::$appDelayBeforeLoadAjaxRequest <= 100)
+                self::$appDelayBeforeLoadAjaxRequest = 100;
         }
 
         //Get a value of json that have a specific name
