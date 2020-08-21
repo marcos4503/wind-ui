@@ -1,3 +1,5 @@
+var lastAppCreatedFolderName = "";
+
 //On Start
 WindUiJs.setAnOtherFunctionToBeRunnedAfterLoadANewFragment(function () {
     //Start updating app list
@@ -80,6 +82,16 @@ function createRequestedApp() {
                             if (responseJson.appCreated == true) {
                                 //Show the nofication
                                 WindUiJs.showSimpleDialog("", "Novo Wind UI App Criado", "O app \"" + StringField.getText(appName) + "\" foi criado dentro do seu Framework Wind UI. Sinta-se livre para criar um novo app, se quiser. Aproveite e leia a documentação do Wind UI e comece a editar seu novo app agora mesmo!", "Tudo bem!");
+                                WindUiJs.showActionNotification("O App \"" + StringField.getText(appName) + "\" foi criado com sucesso.", 0, false, "Visualizar", function () {
+                                    //Open the created app in new tab
+                                    var currentUrl = window.location.href.split('?')[0];
+                                    var urlOfNewApp = currentUrl.replace("_wind-ui", lastAppCreatedFolderName);
+                                    console.log(urlOfNewApp);
+                                    window.open(urlOfNewApp);
+                                }, true, null);
+
+                                //Store the last app created
+                                lastAppCreatedFolderName = StringField.getText(folderName);
 
                                 //Change the UI to app created
                                 StringField.setText(appName, "");

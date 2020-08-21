@@ -7,6 +7,7 @@
 
 
 <!-- Code HTML or PHP of your fragment, goes here -->
+%ADITIONAL_CONTENT_CODE%
 
 
 <!-- End of fragment modifiable content and visible area -->

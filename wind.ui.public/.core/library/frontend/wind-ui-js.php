@@ -11,8 +11,10 @@
         WindUiJs.checkCurrentClientScreenWidthAndRunCustomFunction();
         WindUiJs.countNodesOnNotificationAreaAndShowCorrectFavicon();
         WindUiJs.countNodesOnDialogAreaAndShowBackgroundBlock();
-        if(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds != null && WindUiJs.isFunction(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds) == true)
-            WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds();
+        WindUiJs.callRegisteredFunction(function(){
+                if(WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds != null)
+                    WindUiJs.customFunctionToBeRunnedOnEach100Milliseconds();
+            }, "customFunctionToBeRunnedOnEach100Milliseconds");
     }, 100);
 
     //Catch all logs
@@ -68,7 +70,13 @@
         static isJsonString(str) {
             //Return true if a string is a json syntax
             try {
-                JSON.parse(str);
+                var json = JSON.parse(str);
+                if(typeof json === null)
+                    return false;
+                if(typeof json !== "object")
+                    return false;
+                if(Object.keys(json).length == 0)
+                    return false;
             } catch (e) {
                 return false;
             }
@@ -312,6 +320,13 @@
                 return second.toString();
         }
 
+        static callRegisteredFunction(functionCode, functionName){
+            //Call a determined function registered by user, and catch possible errors and notify on console
+            if(functionCode != null && WindUiJs.isFunction(functionCode) == true)
+                try{ functionCode(); }
+                catch(e){ console.error("Wind UI: An error occurred while executing the function that you registered in \"" + functionName + "\". Your function appears to have compilation errors. (" + e.stack + ")"); }
+        }
+
         //Client after load methods
 
         static disableDragEventOnAllImagesIfDesired() {
@@ -410,9 +425,11 @@
 
             //If is running a ajax http request, cancel load of fragment
             if(WindUiJs.blockOnLoadNewFragmentWhileAjaxHttpRequestRunning == true && WindUiJs.currentAjaxHttpRequestsRunning > 0){
-                if(WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning != null && WindUiJs.isFunction(WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning) == true)
-                    WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning();
                 console.error("Wind UI: Error on load Fragment " + fragmentName + ". " + WindUiJs.currentAjaxHttpRequestsRunning.toString() + " Ajax Http Request is running. Please, wait.");
+                WindUiJs.callRegisteredFunction(function(){
+                    if(WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning != null)
+                        WindUiJs.customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning();
+                }, "customFunctionToOnTryToLoadNewFragmentWhileExistsAjaxHttpRequestsRunning");
                 return;
             }
 
@@ -458,13 +475,16 @@
             ?>';
 
             //Run the custom function before stats to load a new fragment, if is desired
-            if(WindUiJs.customFunctionToRunBeforeLoadFragment != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunBeforeLoadFragment) == true)
-                WindUiJs.customFunctionToRunBeforeLoadFragment();
+            WindUiJs.callRegisteredFunction(function(){
+                    if(WindUiJs.customFunctionToRunBeforeLoadFragment != null)
+                        WindUiJs.customFunctionToRunBeforeLoadFragment(); 
+                }, "customFunctionToRunBeforeLoadFragment");
             //Run the other custom function before stats to load a new fragment, if is desired, and clear that function
-            if(WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment != null && WindUiJs.isFunction(WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment) == true){
-                WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment();
-                WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment = null;
-            }
+            WindUiJs.callRegisteredFunction(function(){
+                    if(WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment != null)
+                        WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment();
+                }, "customAnOtherFunctionToRunBeforeLoadFragment");
+            WindUiJs.customAnOtherFunctionToRunBeforeLoadFragment = null;
 
             //Prepare to load a new fragment
             var xmlHttpreq = new XMLHttpRequest();
@@ -552,8 +572,7 @@
                                     eval(allScriptTagsInsideFragment[i].innerHTML);
                                 } 
                                 catch(e){
-                                    console.error("Wind UI: There were 1 or more errors when executing the javascript present inside a SCRIPT tag of this fragment.");
-                                    console.error(e.message);
+                                    console.error("Wind UI: There were 1 or more errors when executing the javascript present inside a SCRIPT tag of this fragment. (" + e.stack + ")");
                                 }
                         }
                     }
@@ -575,13 +594,16 @@
                     }, 1000);
 
                     //Run the custom function after loaded a new fragment, if is desired
-                    if(WindUiJs.customFunctionToRunAfterLoadFragment != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAfterLoadFragment) == true)
-                        WindUiJs.customFunctionToRunAfterLoadFragment();
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAfterLoadFragment != null)
+                            WindUiJs.customFunctionToRunAfterLoadFragment();
+                    }, "customFunctionToRunAfterLoadFragment");
                     //Run the other custom function after loaded a new fragment, if is desired and clear that function
-                    if(WindUiJs.customAnOtherFunctionToRunAfterLoadFragment != null && WindUiJs.isFunction(WindUiJs.customAnOtherFunctionToRunAfterLoadFragment) == true){
-                        WindUiJs.customAnOtherFunctionToRunAfterLoadFragment();
-                        WindUiJs.customAnOtherFunctionToRunAfterLoadFragment = null;
-                    }
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customAnOtherFunctionToRunAfterLoadFragment != null)
+                            WindUiJs.customAnOtherFunctionToRunAfterLoadFragment();
+                    }, "customAnOtherFunctionToRunAfterLoadFragment");
+                    WindUiJs.customAnOtherFunctionToRunAfterLoadFragment = null;
                 }
             }
 
@@ -660,42 +682,58 @@
             switch(true){
                 case (screenWidth >= 3840):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(3840, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(3840, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 2560):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(2560, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(2560, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 1920):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1920, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(1920, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 1368):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1368, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(1368, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 1280):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(1280, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(1280, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 720):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(720, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(720, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 case (screenWidth >= 480 || screenWidth < 480):
                     //Run functions
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(480, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(480, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
                     break;
                 default:
-                    if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null && WindUiJs.isFunction(WindUiJs.customFunctionToRunAccordingClientScreenWidth) == true)
-                        WindUiJs.customFunctionToRunAccordingClientScreenWidth(0, screenWidth);
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(WindUiJs.customFunctionToRunAccordingClientScreenWidth != null)
+                            WindUiJs.customFunctionToRunAccordingClientScreenWidth(0, screenWidth);
+                    }, "customFunctionToRunAccordingClientScreenWidth");
             }
         }
 
@@ -784,22 +822,28 @@
                         //If not contains the key
                         if(contentSplited.length != 2){
                             //Call "onDone" if is registered
-                            if(onDone != null && WindUiJs.isFunction(onDone) == true)
-                                onDone(false, null, null);
+                            WindUiJs.callRegisteredFunction(function(){
+                                if(onDone != null)
+                                    onDone(false, null, null);
+                            }, "onDone");
                             //Show the warning
-                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
+                            console.error("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
                         }
                         //If contains the key
                         if(contentSplited.length == 2){
                             //Call "onDone" if is registered
-                            if(onDone != null && WindUiJs.isFunction(onDone) == true){
-                                if(WindUiJs.isJsonString(contentSplited[1]) == true){
-                                    onDone(true, contentSplited[1], JSON.parse(contentSplited[1]));
-                                }
-                                else{
-                                    onDone(true, contentSplited[1], null);
-                                    console.log("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON.");
-                                }
+                            if(WindUiJs.isJsonString(contentSplited[1]) == true){
+                                WindUiJs.callRegisteredFunction(function(){
+                                    if(onDone != null)
+                                        onDone(true, contentSplited[1], JSON.parse(contentSplited[1]));
+                                }, "onDone");
+                            }
+                            else{
+                                console.warn("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON. Apparently the response text content is not a valid JSON code. If the API request expects a JSON response and the API should return a valid JSON code, also check that there are no errors in the API's PHP code. The \"responseJson\" variable will be null.");
+                                WindUiJs.callRegisteredFunction(function(){
+                                    if(onDone != null)
+                                        onDone(true, contentSplited[1], null);
+                                }, "onDone");
                             }
                         }
                     }
@@ -807,8 +851,10 @@
                         //IF NETWORK ERROR
 
                         //Call "onDone" if is registered
-                        if(onDone != null && WindUiJs.isFunction(onDone) == true)
-                            onDone(false, null, null);
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onDone != null)
+                                onDone(false, null, null);
+                        }, "onDone");
                     }
 
                     //End a new http request running
@@ -824,8 +870,10 @@
                     //IF NETWORK ERROR
 
                     //Call "onDone" if is registered
-                    if(onDone != null && WindUiJs.isFunction(onDone) == true)
-                        onDone(false, null, null);
+                    WindUiJs.callRegisteredFunction(function(){
+                            if(onDone != null)
+                                onDone(false, null, null);
+                        }, "onDone");
 
                     //End a new http request running
                     WindUiJs.currentAjaxHttpRequestsRunning -= 1;
@@ -902,24 +950,32 @@
             xmlHttpreq.upload.addEventListener("loadstart", function(event){
                 //onStartLoad function example
                 //function(){}
-                if(onStartLoad != null && WindUiJs.isFunction(onStartLoad) == true)
-                    onStartLoad();
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onStartLoad != null)
+                        onStartLoad();
+                    }, "onStartLoad");
             }, false);
             xmlHttpreq.upload.addEventListener("progress", function(event){
                 //onProgressUpdate function example
                 //function(value){}
-                if(onProgressUpdate != null && WindUiJs.isFunction(onProgressUpdate) == true){
-                    if(event.lengthComputable == true)
-                        onProgressUpdate(event.loaded / event.total);
-                    if(event.lengthComputable == false)
-                        onProgressUpdate(1.0);
-                }
+                if(event.lengthComputable == true)
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(onProgressUpdate != null)
+                            onProgressUpdate(event.loaded / event.total);
+                    }, "onProgressUpdate");
+                if(event.lengthComputable == false)
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(onProgressUpdate != null)
+                            onProgressUpdate(1.0);
+                    }, "onProgressUpdate");
             }, false);
             xmlHttpreq.addEventListener("load", function(event){
                 //onDoneLoad function example
                 //function(){}
-                if(onDoneLoad != null && WindUiJs.isFunction(onDoneLoad) == true)
-                    onDoneLoad();
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onDoneLoad != null)
+                        onDoneLoad();
+                }, "onDoneLoad");
 
                 //End a new http request running
                 WindUiJs.currentAjaxHttpRequestsRunning -= 1;
@@ -927,8 +983,10 @@
             xmlHttpreq.addEventListener("error", function(event){
                 //onError function example
                 //function(){}
-                if(onError != null && WindUiJs.isFunction(onError) == true)
-                    onError();
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onError != null)
+                        onError();
+                }, "onError");
 
                 //End a new http request running
                 WindUiJs.currentAjaxHttpRequestsRunning -= 1;
@@ -936,8 +994,10 @@
             xmlHttpreq.addEventListener("abort", function(event){
                 //onAbort function example
                 //function(){}
-                if(onAbort != null && WindUiJs.isFunction(onAbort) == true)
-                    onAbort();
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onAbort != null)
+                        onAbort();
+                }, "onAbort");
 
                 //End a new http request running
                 WindUiJs.currentAjaxHttpRequestsRunning -= 1;
@@ -955,23 +1015,29 @@
                         if(contentSplited.length != 2){
                             //Call "onDoneGetResponse" if is registered
                             //function(isSuccess, responseText, responseJson){}
-                            if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
-                                onDoneGetResponse(false, null, null);
+                            WindUiJs.callRegisteredFunction(function(){
+                                if(onDoneGetResponse != null)
+                                    onDoneGetResponse(false, null, null);
+                            }, "onDoneGetResponse");
                             //Show the warning
-                            console.warn("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
+                            console.error("Wind UI: Could not consume API \"" + ajaxHttpApiName + "\". Apparently the API PHP file was not found, or the returned response is invalid. Please make sure that when loading this API, you are entering the correct path to its PHP file. Content returned by API is: " + xmlHttpreq.responseText);
                         }
                         //If contains the key
                         if(contentSplited.length == 2){
                             //Call "onDoneGetResponse" if is registered
                             //function(isSuccess, responseText, responseJson){}
-                            if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true){
-                                if(WindUiJs.isJsonString(contentSplited[1]) == true){
-                                    onDoneGetResponse(true, contentSplited[1], JSON.parse(contentSplited[1]));
-                                }
-                                else{
-                                    onDoneGetResponse(true, contentSplited[1], null);
-                                    console.log("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON.");
-                                }     
+                            if(WindUiJs.isJsonString(contentSplited[1]) == true){
+                                WindUiJs.callRegisteredFunction(function(){
+                                    if(onDoneGetResponse != null)
+                                        onDoneGetResponse(true, contentSplited[1], JSON.parse(contentSplited[1]));
+                                }, "onDoneGetResponse");
+                            }
+                            else{
+                                console.warn("Wind UI: Could not convert API \"" + ajaxHttpApiName + "\" response to JSON. Apparently the response text content is not a valid JSON code. If the API request expects a JSON response and the API should return a valid JSON code, also check that there are no errors in the API's PHP code. The \"responseJson\" variable will be null.");
+                                WindUiJs.callRegisteredFunction(function(){
+                                    if(onDoneGetResponse != null)
+                                        onDoneGetResponse(true, contentSplited[1], null);
+                                }, "onDoneGetResponse");
                             }
                         }
                     }
@@ -980,8 +1046,10 @@
 
                         //Call "onDoneGetResponse" if is registered
                         //function(isSuccess, responseText, responseJson){}
-                        if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
-                            onDoneGetResponse(false, null, null);
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onDoneGetResponse != null)
+                                onDoneGetResponse(false, null, null);
+                        }, "onDoneGetResponse");
                     }
                 }
             }
@@ -993,8 +1061,10 @@
                 //IF NETWORK ERROR
                 //Call "onDoneGetResponse" if is registered
                 //function(isSuccess, responseText, responseJson){}
-                if(onDoneGetResponse != null && WindUiJs.isFunction(onDoneGetResponse) == true)
-                    onDoneGetResponse(false, null, null);
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onDoneGetResponse != null)
+                        onDoneGetResponse(false, null, null);
+                }, "onDoneGetResponse");
 
                 //End a new http request running
                 WindUiJs.currentAjaxHttpRequestsRunning -= 1;
@@ -1265,9 +1335,11 @@
                 popUpYesButton.innerHTML = yesButtonText;
                 popUpYesButton.onclick = function(){
                     if(closeNotificationOnClickOnActionButton == true)
-                        WindUiJs.hideNotificationAndDestroyNode(notifyArea, popUp); 
-                    if(onClickYesEvent != null && WindUiJs.isFunction(onClickYesEvent) == true)
-                        onClickYesEvent();
+                        WindUiJs.hideNotificationAndDestroyNode(notifyArea, popUp);
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onClickYesEvent != null)
+                                onClickYesEvent();
+                        }, "onClickYesEvent");
                 };
                 popUp.appendChild(popUpYesButton);
             }
@@ -1279,8 +1351,10 @@
                 popUpNoButton.onclick = function(){ 
                     if(closeNotificationOnClickOnActionButton == true)
                         WindUiJs.hideNotificationAndDestroyNode(notifyArea, popUp); 
-                    if(onClickNoEvent != null && WindUiJs.isFunction(onClickNoEvent) == true)
-                        onClickNoEvent();
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onClickNoEvent != null)
+                                onClickNoEvent();
+                        }, "onClickNoEvent");
                 };
                 popUp.appendChild(popUpNoButton);
             }
@@ -1289,9 +1363,11 @@
             popUpCloseButton.classList.add("windUiNotificationPopUpButton");
             popUpCloseButton.innerHTML = '<img src="<?php echo(WindUiAppPrefs::$appRootPath . WindUiAppPrefs::$notificationCloseIcon); ?>" style="width: 24px;" draggable="false" />';
             popUpCloseButton.onclick = function(){ 
-                WindUiJs.hideNotificationAndDestroyNode(notifyArea, popUp); 
-                if(onCloseEvent != null && WindUiJs.isFunction(onCloseEvent) == true)
-                    onCloseEvent();
+                WindUiJs.hideNotificationAndDestroyNode(notifyArea, popUp);
+                WindUiJs.callRegisteredFunction(function(){
+                    if(onCloseEvent != null)
+                        onCloseEvent();
+                }, "onCloseEvent");
             };
             popUp.appendChild(popUpCloseButton);
 
@@ -1517,9 +1593,10 @@
                 complexDialogNoButtonDefined.innerHTML = "OK";
                 complexDialogNoButtonDefined.onclick = function(){
                     WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
-
-                    if(onClickNeutralButtonEvent != null && WindUiJs.isFunction(onClickNeutralButtonEvent) == true)
-                        onClickNeutralButtonEvent();
+                    WindUiJs.callRegisteredFunction(function(){
+                        if(onClickNeutralButtonEvent != null)
+                            onClickNeutralButtonEvent();
+                    }, "onClickNeutralButtonEvent");
                 }
                 complexDialogButtons.appendChild(complexDialogNoButtonDefined);
             }
@@ -1530,9 +1607,10 @@
                     complexDialogNeutralButton.innerHTML = neutralButtonText;
                     complexDialogNeutralButton.onclick = function(){
                         WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
-
-                        if(onClickNeutralButtonEvent != null && WindUiJs.isFunction(onClickNeutralButtonEvent) == true)
-                            onClickNeutralButtonEvent();
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onClickNeutralButtonEvent != null)
+                                onClickNeutralButtonEvent();
+                        }, "onClickNeutralButtonEvent");
                     }
                     complexDialogButtons.appendChild(complexDialogNeutralButton);
                 }
@@ -1542,9 +1620,10 @@
                     complexDialogYesButton.innerHTML = yesButtonText;
                     complexDialogYesButton.onclick = function(){
                         WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
-
-                        if(onClickYesButtonEvent != null && WindUiJs.isFunction(onClickYesButtonEvent) == true)
-                            onClickYesButtonEvent();
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onClickYesButtonEvent != null)
+                                onClickYesButtonEvent();
+                        }, "onClickYesButtonEvent");
                     }
                     complexDialogButtons.appendChild(complexDialogYesButton);
                 }
@@ -1554,9 +1633,10 @@
                     complexDialogNoButton.innerHTML = noButtonText;
                     complexDialogNoButton.onclick = function(){
                         WindUiJs.hideDialogBoxAndDestroyNode(dialogArea, complexDialogBackground);
-
-                        if(onClickNoButtonEvent != null && WindUiJs.isFunction(onClickNoButtonEvent) == true)
-                            onClickNoButtonEvent();
+                        WindUiJs.callRegisteredFunction(function(){
+                            if(onClickNoButtonEvent != null)
+                                onClickNoButtonEvent();
+                        }, "onClickNoButtonEvent");
                     }
                     complexDialogButtons.appendChild(complexDialogNoButton);
                 }

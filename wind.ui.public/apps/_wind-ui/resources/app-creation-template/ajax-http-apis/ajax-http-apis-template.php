@@ -6,6 +6,6 @@
 
 <?
 
-//Code of you PHP API goes here.
+//Code of you PHP API goes here. The Wind UI PHP API is useful from here too.
 
 ?>

@@ -1,0 +1,26 @@
+{
+    "appTitle": "%APP_NAME%",
+    "appCode": "%APP_CODE%",
+    "appLang": "%APP_LANG%",
+    "appCharSet": "UTF-8",
+    "appDefaultFavicon": "/resources/icons/favicon.png",
+    "appWithNotificationsFavicon": "/resources/icons/favicon-notify.png",
+    "appBrowserColor": "#0055A5",
+    "appPhpTimeZone": "America/Sao_Paulo",
+    "appDefaultFragmentToLoad": "fragment1",
+    "clientExternalJsLibs": [
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    ],
+    "clientExternalCssLibs": [
+        ""
+    ],
+    "clientThirdPartyOnHeadJsLibs": [
+        ""
+    ],
+    "clientThirdPartyCssLibs": [
+        ""
+    ],
+    "clientThirdPartyBeforeBodyCloseJsLibs": [
+        ""
+    ]
+}

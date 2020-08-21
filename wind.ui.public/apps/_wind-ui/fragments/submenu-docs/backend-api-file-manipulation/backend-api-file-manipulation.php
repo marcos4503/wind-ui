@@ -114,6 +114,59 @@ echo(WindUiPhp::getExtensionOfFile("full/path/to/file/file.exe"));
 ), false);
 ?>
 
+
+<!-- copyDirContentToAnotherDir(string $sourceDir, string $targetDir) -->
+<?php 
+    WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
+        "methodname"=>'copyDirContentToAnotherDir(string $sourceDir, string $targetDir)'
+    ), false);
+?>
+Este método copia todos os arquivos que estiverem dentro de um diretório e os cola em um outro diretório que você preferir. Este método
+ é recursivo, ou seja, se ele achar uma pasta dentro do diretório ao qual ele está copiando, ele irá copiar todos os arquivos dentro desta pasta
+ também, e se achar uma pasta dentro dessa mesma pasta, ele irá copiar todos os arquivos e pastas também, de forma ifinita até copiar 100% das pastas
+ e arquivos dentro do diretório que você deseja.
+<ul>
+    <li>
+        <b>$sourceDir (String)</b> - Pasta que terá seu conteúdo copiado.
+    </li>
+    <li>
+        <b>$targetDir (String)</b> - Pasta que receberá os arquivos copiados.
+    </li>
+</ul>
+<?php 
+    WindUiPhp::renderComponentHere("CodeBlock", (object)array(
+    "language"=>"php",
+    "codeToShow"=>
+'//Copia os arquivos da pasta Teste para a pasta Exemplo.
+WindUiPhp::copyDirContentToAnotherDir("php/Teste", "php/Exemplo");
+'
+), false);
+?>
+
+
+<!-- deleteDirContent(string $targetDir) -->
+<?php 
+    WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
+        "methodname"=>'deleteDirContent(string $targetDir)'
+    ), false);
+?>
+Este método deleta todos os arquivos que estiverem dentro de um diretório. Este método é recursivo, ou seja, se ele achar uma pasta dentro do diretório
+ ao qual ele está deletando, ele irá copiar todos os arquivos dentro desta pasta também.
+<ul>
+    <li>
+        <b>$targetDir (String)</b> - Pasta que terá todos os seus arquivos deletados.
+    </li>
+</ul>
+<?php 
+    WindUiPhp::renderComponentHere("CodeBlock", (object)array(
+    "language"=>"php",
+    "codeToShow"=>
+'//Deleta todos os arquivos e pastas dentro de um diretório específico.
+WindUiPhp::deleteDirContent("php/Teste");
+'
+), false);
+?>
+
 <!-- End of fragment modifiable area -->
 <?php
     //End of fragment renderization.

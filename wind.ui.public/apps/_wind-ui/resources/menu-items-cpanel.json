@@ -6,6 +6,11 @@
             "visibleName": "Criar Novo Aplicativo Wind UI"
         },
         {
+            "fragmentName": "submenu-cpanel/delete-app",
+            "iconName": "delete-app.png",
+            "visibleName": "Deletar Aplicativo Existe no Wind UI"
+        },
+        {
             "fragmentName": "submenu-cpanel/create-fragment",
             "iconName": "create-fragment.png",
             "visibleName": "Criar Novo Fragmento Para Um App"

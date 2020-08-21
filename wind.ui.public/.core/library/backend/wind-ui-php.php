@@ -458,5 +458,35 @@
             //Return empty if not found file or error occurs
             return "";
         }
+    
+        public static function copyDirContentToAnotherDir(string $sourceDir, string $targetDir){
+            //Copy all files inside a directory to another directory
+            $dir = opendir($sourceDir);
+            @mkdir($targetDir);
+            while(false !== ( $file = readdir($dir)) ) { 
+                if (( $file != '.' ) && ( $file != '..' )) { 
+                    if ( is_dir($sourceDir . '/' . $file) ) { 
+                        self::copyDirContentToAnotherDir($sourceDir . '/' . $file,$targetDir . '/' . $file); 
+                    } 
+                    else { 
+                        copy($sourceDir . '/' . $file,$targetDir . '/' . $file); 
+                    } 
+                } 
+            }
+            closedir($dir);
+        }
+    
+        public static function deleteDirContent(string $targetDir){
+            //Delete all files and folders inside a directory target
+            foreach(glob($targetDir . '/*') as $file) { 
+                if(is_dir($file) == true){
+                    self::deleteDirContent($file);
+                }    
+                else{
+                    unlink($file); 
+                }
+            } 
+            rmdir($targetDir); 
+        }
     }
 ?>
