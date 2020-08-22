@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<component>
+    <!-- Component HTML default values for yours HTML code Variables -->
+    <!-- Set the default value of the undefined variables here when instantiating this component in yours fragments -->
+    <!-- Use "(__WindUiPhp::getResourcePath__)/yourResource" to get path of a resource of your file. This only works in JSON for setting default values of variables. -->
+    <!-- It is important that the JSON syntax written here is correct, or Wind UI will not be able to understand the default values of your component's variables. -->
+    <json type="text/json" app="wind.ui">
+        {
+        "id":"",
+        "style":"",
+        "label":"",
+        "onchangecontent":"",
+        "maxfiles":"0",
+        "maxsizemebibytes":"0",
+        "allowedextensions":"",
+        "allowempty":"true"
+        }
+    </json>
+
+    <!-- Component HTML Code -->
+    <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
+    <html type="text/html" app="wind.ui">
+
+        <div id="__id__" class="componentFileFieldParent" style="__style__">
+
+            <label for="__id__Input">__label__</label>
+
+            <input type="file" id="__id__Input" multiple="multiple"
+            allowempty="__allowempty__" allowedextensions="__allowedextensions__" maxfiles="__maxfiles__" maxsizemebibytes="__maxsizemebibytes__" isvalid="true"
+            onchangecontent="__onchangecontent__"
+            onchange="FileField.autoValidation(this);" oninput="FileField.autoValidation(this);" />
+
+            <div id="__id__InputFake" class="componentFileFieldInputFake">
+                <div class="componentFileFieldInputLabel">
+                    <div id="__id__InputFakeLabelText" class="componentFileFieldInputLabelText">
+                        Nenhum arquivo selecionado
+                    </div>
+                    <div id="__id__InputClick" class="componentFileFieldInputLabelButton" style="display: flex;" onclick="FileField.autoClick('__id__Input');">
+                        SELECIONAR
+                    </div>
+                    <div id="__id__InputWait" class="componentFileFieldInputLabelButton" style="display: none;">
+                        AGUARDE
+                    </div>
+                </div>
+            </div>
+
+            <div id="__id__FilesList" class="componentFileFieldInputFilesList">
+                <br/>
+                <div id="__id__FilesListContent">
+                </div>
+                <br/>
+            </div>
+
+            <div class="componentFileFieldStatus">
+                <div id="__id__Status" class="componentFileFieldStatusText">
+                    Empty
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+
+    </html>
+</component>

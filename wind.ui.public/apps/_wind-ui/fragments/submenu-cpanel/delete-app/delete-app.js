@@ -27,7 +27,6 @@ function deleteAppRequested() {
                 form.append("password", StringField.getText(passwordWindUi));
                 WindUiJs.loadNewAjaxHttpRequestOnApi("returns-json/fragments/delete-app/delete-app-existing", form,
                     function (isSuccess, responseText, responseJson) {
-                        console.log(responseText);
                         //Caso tenha dado tudo certo
                         if (isSuccess == true) {
                             //response

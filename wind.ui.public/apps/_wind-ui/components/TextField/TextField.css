@@ -7,17 +7,17 @@
 /* #componentYourComponentName
 */
 
-.componentStringFieldParent {
+.componentTextFieldParent {
     width: 100%;
     max-width: 350px;
 }
 
-.componentStringFieldParent label {
+.componentTextFieldParent label {
     color: #5d5d5d;
     font-weight: bolder;
 }
 
-.componentStringFieldParent textarea {
+.componentTextFieldParent textarea {
     width: 100%;
     padding: 12px 20px;
     margin-top: 4px;
@@ -31,26 +31,67 @@
     min-height: 80px;
 }
 
-.componentStringFieldParent textarea:focus {
+.componentTextFieldParent textarea:focus {
     outline: none;
     box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.25);
 }
 
-.componentStringFieldStatus {
+.componentTextFieldStatus {
     margin-top: -14px;
     display: grid;
     grid-template-columns: auto 40px;
 }
 
-.componentStringFieldStatusText{
+.componentTextFieldStatusText{
     font-size: 10px;
     visibility: hidden;
 }
 
-.componentStringFieldStatusCharCount{
+.componentTextFieldStatusCharCount{
     font-size: 10px;
     text-align: right;
     opacity: 0;
     transition: all 250ms;
     font-weight: bold;
+}
+
+/* Tooltip */
+
+.componentTextFieldTooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.componentTextFieldTooltip .componentTextFieldTooltipText {
+  visibility: hidden;
+  width: 100%;
+  max-width: 180px;
+  background-color: #555;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 4px);
+  left: 0%;
+  margin-left: 0px;
+  opacity: 0;
+  transition: all 250ms;
+  cursor: help;
+}
+
+.componentTextFieldTooltip .componentTextFieldTooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  margin-left: 6px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.componentTextFieldTooltipTextContent{
+    color: #fff;
+    text-align: left;
+    font-size: 12px;
+    margin: 4px;
 }

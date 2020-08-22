@@ -21,6 +21,11 @@ VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
     NOTA: O método registrado em "onchangecontent" só será chamado quando o conteúdo for alterado pelo usuário, e for válido de acordo com os parâmetros
           passados para o campo, ao renderiza-lo com a API PHP. Note também que, funções passando o próprio campo, podem não funcionar, conforme o esperado...
           Exemplo: "onchangecontent"=>"functionName(this);"
+- autocomplete (String Bool)
+    Caso seja "off" desativará as sugestões de autocomplete do Browser. Se desejar manter as sugestões do navegador, deixe como "on". Por padrão, este valor é "off".
+- tooltip (String)
+    Aqui você pode definir um texto de ajuda ou algo similar. Esse texto será exibido dentro de um balão, acima do campo, sempre que o usuário passar o mouse ou tocar
+    em cima deste campo.
 - value (String)
     Um texto que pode vir pré-inserido dentro do campo.
 - minchars (String Int)
@@ -43,7 +48,7 @@ VARIAVEIS ESSENCIAS DESTE COMPONENTE
 As variáveis citadas abaixo são variáveis indispensáveis para o funcionamento deste componente e sempre devem ser fornecidas ao renderizar este componente
 usando a API PHP do Wind UI em seus fragmentos.
 
-- id
+- id (É muito importante que você defina um ID, caso contrário, algumas funções podem não funcionar como o espero, como Tooltips, status e etc)
 
 API JAVASCRIPT DESTE COMPONENTE
 

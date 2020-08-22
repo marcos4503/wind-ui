@@ -11,6 +11,8 @@
         "label":"",
         "onchangecontent":"",
         "placeholder":"",
+        "autocomplete":"off",
+        "tooltip":"",
         "value":"",
         "minchars":"0",
         "maxchars":"0",
@@ -28,24 +30,29 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <div id="__id__" class="componentStringFieldParent" style="__style__">
+        <div id="__id__" class="componentTextFieldParent componentTextFieldTooltip" style="__style__" onmouseover="TextField.autoShowTooltip(this, true);" onmouseout="TextField.autoShowTooltip(this, false);">
 
             <label for="__id__Input">__label__</label>
 
-            <textarea id="__id__Input" placeholder="__placeholder__"
+            <textarea id="__id__Input" placeholder="__placeholder__" autocomplete="__autocomplete__"
             minchars="__minchars__" maxchars="__maxchars__" allowespecialchars="__allowespecialchars__" allownumbers="__allownumbers__" allowuppercase="__allowuppercase__" allowlowercase="__allowlowercase__" allowhtml="__allowhtml__" allowempty="__allowempty__" specialcharsallowed="__specialcharsallowed__" isvalid="true" 
             onchangecontent="__onchangecontent__"
             onkeydown="TextField.autoValidation(this);" onchange="TextField.autoValidation(this);" onpaste="TextField.autoValidation(this);" oninput="TextField.autoValidation(this);" onfocusout="TextField.autoHideCharCount(this);" onfocus="TextField.autoShowCharCount(this);" 
             >__value__</textarea>
 
-            <div class="componentStringFieldStatus">
-                <div id="__id__Status" class="componentStringFieldStatusText">
+            <div class="componentTextFieldStatus">
+                <div id="__id__Status" class="componentTextFieldStatusText">
                     Empty
                 </div>
-                <div id="__id__CharCount" class="componentStringFieldStatusCharCount">
+                <div id="__id__CharCount" class="componentTextFieldStatusCharCount">
                     0
                 </div>
             </div>
+
+            <span class="componentTextFieldTooltipText">
+                <div id="__id__Tooltip" class="componentTextFieldTooltipTextContent">__tooltip__</div>
+            </span>
+
         </div>
 
     </html>

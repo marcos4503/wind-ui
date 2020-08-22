@@ -53,9 +53,6 @@ Para deletar um app que esteja dentro do seu Framework Wind UI, escolha o app de
     ?>
 </div>
 
-<div id="appDeletedDone">
-</div>
-
 <!-- End of fragment modifiable area -->
 <?php
     //End of fragment renderization.

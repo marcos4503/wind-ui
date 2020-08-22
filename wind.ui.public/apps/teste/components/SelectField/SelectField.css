@@ -1,0 +1,46 @@
+/* Component "SelectField" CSS Code */
+/* 
+/* All the CSS code for your component goes here.
+/* It is highly recommended that you include the name of your component in your CSS nodes.
+/* Example
+/* .componentYourComponentName
+/* #componentYourComponentName
+*/
+
+.componentSelectFieldParent {
+    width: 100%;
+    max-width: 350px;
+}
+
+.componentSelectFieldParent label{
+    color: #5d5d5d;
+    font-weight: bolder;
+}
+
+.componentSelectFieldParent select {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 250ms;
+}
+
+.componentSelectFieldParent select:focus {
+    outline: none;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.25);
+}
+
+.componentSelectFieldStatus {
+    margin-top: -14px;
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.componentSelectFieldStatusText{
+    font-size: 10px;
+    visibility: hidden;
+}

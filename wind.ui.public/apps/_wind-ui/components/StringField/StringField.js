@@ -18,6 +18,26 @@
 class StringField {
     //Automatic API
 
+    //Auto hide or show the tooltip, if has one
+    static autoShowTooltip(targetInput, show) {
+        //Get metadata of field
+        var id = targetInput.id;
+        var tooltipText = document.getElementById(id + "Tooltip");
+        var tooltipNode = tooltipText.parentNode;
+        if (tooltipText.innerHTML != "") {
+            if (show == true) {
+                tooltipNode.style.maxWidth = "240px";
+                tooltipNode.style.visibility = "visible";
+                tooltipNode.style.opacity = "0.8";
+            }
+            if (show == false) {
+                tooltipNode.style.maxWidth = "80px";
+                tooltipNode.style.visibility = "hidden";
+                tooltipNode.style.opacity = "0";
+            }
+        }
+    }
+
     //Auto hide characters count of StringField
     static autoHideCharCount(targetInput) {
         //Get metadata of field

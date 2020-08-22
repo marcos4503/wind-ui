@@ -1,0 +1,136 @@
+.progressBarBg{
+    width: 100%;
+    height: 2px;
+    border-radius: 6px;
+    background-color: #d2e9ff;
+    transition: all 1000ms;
+}
+
+.progressBarFg{
+    width: 33.3%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #004f9d;
+    transition: all 1000ms;
+}
+
+.content{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 250ms;
+}
+
+.dirSelection{
+    transition: all 250ms;
+}
+
+.fragmentCreationBlocks{
+    display: grid;
+}
+
+.fragmentCreationDivisor{
+    width: 100%;
+    height: 70%;
+    background-color: #c8c8c8;
+}
+
+.fragmentCreationBlockOfCreation{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fragmentCreationBlockOfIntro{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fragmentCreationButton{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 3840px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto 1px auto;
+    }
+    .fragmentCreationDivisor{
+        display: block;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: block;
+    }
+}
+@media screen and (max-width: 2560px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto 1px auto;
+    }
+    .fragmentCreationDivisor{
+        display: block;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: block;
+    }
+}
+@media screen and (max-width: 1920px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto 1px auto;
+    }
+    .fragmentCreationDivisor{
+        display: block;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: block;
+    }
+}
+@media screen and (max-width: 1368px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto 1px auto;
+    }
+    .fragmentCreationDivisor{
+        display: block;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: block;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto 1px auto;
+    }
+    .fragmentCreationDivisor{
+        display: block;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: block;
+    }
+}
+@media screen and (max-width: 720px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto;
+    }
+    .fragmentCreationDivisor{
+        display: none;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: none;
+    }
+}
+@media screen and (max-width: 480px) {
+    .fragmentCreationBlocks{
+        grid-template-columns: auto;
+    }
+    .fragmentCreationDivisor{
+        display: none;
+    }
+    .fragmentCreationBlockOfIntro{
+        display: none;
+    }
+}

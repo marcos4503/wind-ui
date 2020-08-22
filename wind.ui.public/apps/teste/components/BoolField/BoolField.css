@@ -1,0 +1,112 @@
+/* Component "BoolField" CSS Code */
+/* 
+/* All the CSS code for your component goes here.
+/* It is highly recommended that you include the name of your component in your CSS nodes.
+/* Example
+/* .componentYourComponentName
+/* #componentYourComponentName
+*/
+
+.componentBoolFieldParent{
+    width: 100%;
+    max-width: 350px;
+}
+
+.componentBoolFieldParent label{
+    color: #5d5d5d;
+    font-weight: bolder;
+}
+
+.componentBoolFieldStatus {
+    margin-top: -14px;
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.componentBoolFieldStatusText{
+    font-size: 10px;
+    visibility: hidden;
+}
+
+.componentBoolFieldMainContainer{
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.componentBoolFieldMainContainer label{
+  color: #000000;
+  font-weight: normal;
+}
+
+.componentBoolFieldcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: nonfont-size;
+  font-size: 11.7px;
+  text-align: left;
+  display: table;
+  height: 25px;
+  width: calc(100% - 35px);
+}
+
+.componentBoolFieldcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.componentBoolFieldcheckmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: all 250ms;
+  background-color: #ffffff;
+}
+
+.componentBoolFieldcontainer:hover input ~ .componentBoolFieldcheckmark {
+  box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.25);
+}
+
+.componentBoolFieldcontainer input:checked ~ .componentBoolFieldcheckmark {
+  background-color: #2196F3;
+}
+
+.componentBoolFieldcheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.componentBoolFieldcontainer input:checked ~ .componentBoolFieldcheckmark:after {
+  display: block;
+}
+
+.componentBoolFieldcontainer .componentBoolFieldcheckmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.componentBoolFieldcontainer div {
+    display: table-cell;
+    vertical-align: middle;
+}

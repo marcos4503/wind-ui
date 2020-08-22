@@ -110,3 +110,44 @@
     display: table-cell;
     vertical-align: middle;
 }
+
+/* Tooltip */
+
+.componentBoolFieldTooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.componentBoolFieldTooltip .componentBoolFieldTooltipText {
+  visibility: hidden;
+  width: 100%;
+  max-width: 180px;
+  background-color: #555;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 4px);
+  left: 0%;
+  margin-left: 0px;
+  opacity: 0;
+  transition: all 250ms;
+  cursor: help;
+}
+
+.componentBoolFieldTooltip .componentBoolFieldTooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  margin-left: 6px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.componentBoolFieldTooltipTextContent{
+    color: #fff;
+    text-align: left;
+    font-size: 12px;
+    margin: 4px;
+}

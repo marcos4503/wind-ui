@@ -12,6 +12,8 @@
         "onchangecontent":"",
         "placeholder":"",
         "value":"",
+        "autocomplete":"off",
+        "tooltip":"",
         "minchars":"0",
         "maxchars":"9",
         "minvalue":"0",
@@ -26,11 +28,11 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <div id="__id__" class="componentFloatFieldParent" style="__style__">
+        <div id="__id__" class="componentFloatFieldParent componentFloatFieldTooltip" style="__style__" onmouseover="FloatField.autoShowTooltip(this, true);" onmouseout="FloatField.autoShowTooltip(this, false);">
 
             <label for="__id__Input">__label__</label>
 
-            <input id="__id__Input" type="number" placeholder="__placeholder__" value="__value__" 
+            <input id="__id__Input" type="number" placeholder="__placeholder__" value="__value__" autocomplete="__autocomplete__"
             minchars="__minchars__" maxchars="__maxchars__" minvalue="__minvalue__" maxvalue="__maxvalue__" allowzero="__allowzero__" allownegative="__allownegative__" allowempty="__allowempty__" isvalid="true" 
             onchangecontent="__onchangecontent__"
             onkeydown="FloatField.autoValidation(this);" onchange="FloatField.autoValidation(this);" onpaste="FloatField.autoValidation(this);" oninput="FloatField.autoValidation(this);" onfocusout="FloatField.autoHideCharCount(this);" onfocus="FloatField.autoShowCharCount(this);" />
@@ -43,6 +45,10 @@
                     0
                 </div>
             </div>
+
+            <span class="componentFloatFieldTooltipText">
+                <div id="__id__Tooltip" class="componentFloatFieldTooltipTextContent">__tooltip__</div>
+            </span>
         </div>
 
     </html>

@@ -4,8 +4,8 @@
     WindUiAjaxHttpApi::startAjaxHttpApiRequestProcessing(__DIR__);
 ?>
 
-<?php
-//Start of ajax-http-api content modifiable area
+<?
 
+//Code of you PHP API goes here. The Wind UI PHP API is useful from here too.
 
 ?>

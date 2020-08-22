@@ -9,6 +9,8 @@
         "id":"",
         "style":"",
         "label":"",
+        "autocomplete":"off",
+        "tooltip":"",
         "onchangecontent":"",
         "type":"datetime-local",
         "value":"",
@@ -22,11 +24,11 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <div id="__id__" class="componentDateFieldParent" style="__style__">
+        <div id="__id__" class="componentDateFieldParent componentDateFieldTooltip" style="__style__" onmouseover="DateField.autoShowTooltip(this, true);" onmouseout="DateField.autoShowTooltip(this, false);">
 
             <label for="__id__Input">__label__</label>
 
-            <input id="__id__Input" type="__type__" placeholder="" value="__value__"  min="__min__" max="__max__"
+            <input id="__id__Input" type="__type__" placeholder="" value="__value__"  min="__min__" max="__max__" autocomplete="__autocomplete__"
             allowempty="__allowempty__" isvalid="true"
             onchangecontent="__onchangecontent__"
             onkeydown="DateField.autoValidation(this);" onchange="DateField.autoValidation(this);" onpaste="DateField.autoValidation(this);" oninput="DateField.autoValidation(this);" />
@@ -38,6 +40,11 @@
                 <div>
                 </div>
             </div>
+
+            <span class="componentDateFieldTooltipText">
+                <div id="__id__Tooltip" class="componentDateFieldTooltipTextContent">__tooltip__</div>
+            </span>
+
         </div>
 
     </html>

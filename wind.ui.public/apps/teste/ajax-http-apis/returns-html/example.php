@@ -4,8 +4,8 @@
     WindUiAjaxHttpApi::startAjaxHttpApiRequestProcessing(__DIR__);
 ?>
 
-<?php
+<?
 
-echo("teste");
+//Code of you PHP API goes here. The Wind UI PHP API is useful from here too.
 
 ?>
