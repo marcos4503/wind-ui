@@ -22,7 +22,8 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
             WindUiPhp::renderComponentHere("StringField", (object)array(
                 "id"=>"appTitle",
                 "allowempty"=>"false",
-                "label"=>"Nome do App"
+                "label"=>"Nome do App",
+                "tooltip"=>"O nome do App será exibido na barra de título do navegador e também será adicionado as meta tags do seu app. Pense no nome do App, como o nome de um site."
             ), false);
         ?>
         <br>
@@ -33,7 +34,8 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
                 "allowuppercase"=>"false",
                 "allowempty"=>"false",
                 "specialcharsallowed"=>"-",
-                "label"=>"Nome da Pasta"
+                "label"=>"Nome da Pasta",
+                "tooltip"=>"O nome da pasta do app, será o nome da pasta que guardará os arquivos do seu app, dentro do Wind UI. Também fará parte da URL para acessar seu app: https://seusite.com.br/wind.ui.public/apps/NomeDaPasta/client.php"
             ), false);
         ?>
         <br>
@@ -44,7 +46,8 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
                 "allowuppercase"=>"false",
                 "allowempty"=>"false",
                 "specialcharsallowed"=>".,-,_",
-                "label"=>"Código do App"
+                "label"=>"Código do App",
+                "tooltip"=>"O código do app será usado para que o Wind UI possa guardar dados do seu app, separados de acordo com o código. Dados como cookies e outras informações do núcleo do Wind UI."
             ), false);
         ?>
         <br>
@@ -55,7 +58,8 @@ Aqui você pode criar um novo app dentro da sua framework Wind UI. O app será c
                 "allowempty"=>"false",
                 "specialcharsallowed"=>"-,_",
                 "maxchars"=>"6",
-                "label"=>"Língua do App (ISO)"
+                "label"=>"Língua do App (ISO)",
+                "tooltip"=>"A língua do app deve ser escrita no formato ISO, por exemplo: pt-br para Portugues Brasileiro e en-us para Inglês dos EUA."
             ), false);
         ?>
         <br>

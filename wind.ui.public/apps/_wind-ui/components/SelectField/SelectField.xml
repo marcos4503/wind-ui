@@ -12,6 +12,8 @@
         "autocomplete":"off",
         "tooltip":"",
         "onchangecontent":"",
+        "defaultoptiontext":"Selecione uma opção",
+        "defaultoptionvalue":"",
         "optionshtml":"",
         "allowempty":"true"
         }
@@ -29,7 +31,7 @@
                 allowempty="__allowempty__"  isvalid="true" 
                 onchangecontent="__onchangecontent__"
                 onchange="SelectField.autoValidation(this);" onfocusout="SelectField.autoValidation(this);" >
-                <option value="">Selecione uma opção</option>
+                <option value="__defaultoptionvalue__">__defaultoptiontext__</option>
                 __optionshtml__
             </select>
 

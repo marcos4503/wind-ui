@@ -25,6 +25,12 @@ VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
 - tooltip (String)
     Aqui você pode definir um texto de ajuda ou algo similar. Esse texto será exibido dentro de um balão, acima do campo, sempre que o usuário passar o mouse ou tocar
     em cima deste campo.
+- defaultoptiontext (String)
+    O texto que aparecerá no valor padrão. O valor padrão é o primeiro valor do campo Select, enquanto o usuário ainda não selecionou nenhuma opção ainda. Você
+    pode colocar um texto como "Selecione uma opção".
+- defaultoptionvalue (String)
+    O valor que aparecerá no valor padrão. O valor padrão pode ser apenas uma string vazia, o valor padrão é o valor selecionado por padrão, enquanto o usuário
+    ainda não selecionou nenhuma opção.
 - optionshtml (HTML)
     Código HTML para exibir as opções. Para exibir uma opção, use o código <option value="valor">Nome</option>. Use o atributo "selected" para definir
     como opção padrão.

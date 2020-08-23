@@ -28,7 +28,7 @@ class SelectField {
             if (show == true) {
                 tooltipNode.style.maxWidth = "240px";
                 tooltipNode.style.visibility = "visible";
-                tooltipNode.style.opacity = "0.8";
+                tooltipNode.style.opacity = "1";
             }
             if (show == false) {
                 tooltipNode.style.maxWidth = "80px";

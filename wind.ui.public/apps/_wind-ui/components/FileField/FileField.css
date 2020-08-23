@@ -150,7 +150,7 @@
   margin-left: 0px;
   opacity: 0;
   transition: all 250ms;
-  cursor: help;
+  pointer-events: none;
 }
 
 .componentFileFieldTooltip .componentFileFieldTooltipText::after {
