@@ -61,6 +61,47 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
 <div class="dirSelection" id="step2interface" style="display: none; opacity: 0;">
 
 </div>
+<div id="folderCreationInterface" style="display: none; opacity: 0; transition: all 500ms;">
+    <center>
+        <h2>Criar Nova Pasta</h2>
+        A nova pasta será criada dentro do diretório <b id="createFolderInto">DIR</b>.
+    </center>
+    <br>
+    <br>
+    <div class="fragmentFolderCreationBlocks">
+        <div class="fragmentFolderCreationBlock">
+            <?php 
+                WindUiPhp::renderComponentHere("StringField", (object)array(
+                    "id"=>"createFolderName",
+                    "label"=>"Nome da Pasta",
+                    "allowuppercase"=>"false",
+                    "allowespecialchars"=>"false",
+                    "specialcharsallowed"=>"-",
+                    "allowempty"=>"false"
+                ), false);
+            ?>
+        </div>
+        <div class="fragmentFolderCreationBlock">
+            <?php 
+                WindUiPhp::renderComponentHere("PasswordField", (object)array(
+                "id"=>"passwordToCreateFolder",
+                "allowempty"=>"false",
+                "label"=>"Senha do Seu Wind UI"
+            ), false);
+            ?>
+        </div>
+    </div>
+    <div class="fragmentFolderCreationButton">
+        <br>
+        <?php 
+            WindUiPhp::renderComponentHere("Button", (object)array(
+                "id"=>"createFolderRequest",
+                "onclick"=>"createFolder();",
+                "value"=>"Criar Pasta"
+            ), false);
+        ?>
+    </div>
+</div>
 
 <!-- ################################ Step 3 ################################ -->
 
@@ -71,28 +112,39 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
             <?php 
                 WindUiPhp::renderComponentHere("StringField", (object)array(
                 "id"=>"fragmentName",
-                "label"=>"Nome do Fragmento"
+                "label"=>"Nome do Fragmento",
+                "tooltip"=>"O nome do fragmento não é o título. O nome do fragmento será o nome da pasta que conterá os arquivos do fragmento. Este nome será usado para carregar este fragmento, mais tarde e também aparecerá na URL do seu app.",
+                "allowuppercase"=>"false",
+                "allowespecialchars"=>"false",
+                "specialcharsallowed"=>"-",
+                "allowempty"=>"false"
             ), false);
             ?>
             <br>
             <?php 
                 WindUiPhp::renderComponentHere("StringField", (object)array(
                 "id"=>"fragmentTitle",
-                "label"=>"Título do Fragmento"
+                "label"=>"Título do Fragmento",
+                "tooltip"=>"O título do fragmento é como se fosse um título da página. Este aparecerá no navegador do usuário e também será incluído nas metatags do seu fragmento.",
+                "allowempty"=>"false",
+                "maxchars"=>"100"
             ), false);
             ?>
             <br>
             <?php 
                 WindUiPhp::renderComponentHere("TextField", (object)array(
                 "id"=>"fragmentDescription",
-                "label"=>"Descrição do Fragmento"
+                "label"=>"Descrição do Fragmento",
+                "tooltip"=>"Uma breve descrição do seu fragmento.",
+                "maxchars"=>"160"
             ), false);
             ?>
             <br>
             <?php 
                 WindUiPhp::renderComponentHere("StringField", (object)array(
                 "id"=>"fragmentImage",
-                "label"=>"Imagem de Capa do Fragmento"
+                "label"=>"Imagem de Capa do Fragmento",
+                "tooltip"=>"Escreva aqui, o caminho para um arquivo de imagem para ser a capa do seu fragmento. Este arquivo deve estar dentro da pasta \"resources\" do seu app. Esta imagem de capa será colocada como metatag do seu fragmento e será exibida em situações, como quando o usuário copia e cola o link em alguma rede social por exemplo."
             ), false);
             ?>
             <br>
@@ -101,7 +153,9 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
                 "id"=>"fragmentType",
                 "label"=>"Tipo do Conteúdo do Fragmento",
                 "onchangecontent"=>"onChangeFragmentType();",
-                "optionshtml"=>'<option value="website">Website</option><option value="article">Artigo</option>'
+                "optionshtml"=>'<option value="website">Website</option><option value="article">Artigo</option>',
+                "tooltip"=>"O tipo de conteúdo ao qual se trata este fragmento. Se será um fragmento comum do seu app, deixe como \"Website\", se será um artigo de notícia por exemplo, deixe como \"Article\".",
+                "allowempty"=>"false"
             ), false);
             ?>
             <br>
@@ -109,21 +163,31 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
                 <?php 
                     WindUiPhp::renderComponentHere("StringField", (object)array(
                     "id"=>"fragmentArticleAuthor",
-                    "label"=>"Autor do Artigo"
+                    "label"=>"Autor do Artigo",
+                    "tooltip"=>"O nome do autor do artigo.",
+                    "maxchars"=>"60"
                 ), false);
                 ?>
                 <br>
                 <?php 
                     WindUiPhp::renderComponentHere("StringField", (object)array(
                     "id"=>"fragmentArticleSection",
-                    "label"=>"Seção do Artigo"
+                    "label"=>"Seção do Artigo",
+                    "tooltip"=>"O nome da seção do artigo. Por exemplo, \"últimas noticias\", \"ciência\" ou \"carros\" por exemplo. Evite usar mais do que 6 tags para descrever seu artigo.",
+                    "maxchars"=>"100",
+                    "allowespecialchars"=>"false",
+                    "specialcharsallowed"=>"comma, "
                 ), false);
                 ?>
                 <br>
                 <?php 
                     WindUiPhp::renderComponentHere("StringField", (object)array(
                     "id"=>"fragmentArticleTags",
-                    "label"=>"Tags do Artigo (Separado Por Vírgulas)"
+                    "label"=>"Tags do Artigo (Separado Por Vírgulas)",
+                    "tooltip"=>"As tags deste artigo, ou palavras-chave. Por exemplo: carros, noticia, pontiac, gasolina",
+                    "maxchars"=>"100",
+                    "allowespecialchars"=>"false",
+                    "specialcharsallowed"=>"comma, "
                 ), false);
                 ?>
                 <br>
@@ -146,7 +210,7 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
         <br>
         <?php 
             WindUiPhp::renderComponentHere("Button", (object)array(
-                "id"=>"deleteAppRequest",
+                "id"=>"createFragmentRequest",
                 "onclick"=>"finallyCreateTheFragment();",
                 "value"=>"Criar Fragmento"
             ), false);

@@ -73,7 +73,7 @@
         public static $fragmentsViewerLoadingMessageSizePx = "14";
         public static $fragmentsViewerNotFoundResource = "/../../.core/resources/images/fragment-error.png";
         public static $fragmentsViewerNotFoundTitleMessage = "Error On Load Content";
-        public static $fragmentsViewerNotFoundMessage = "<b>Wind UI:</b> The desired fragment could not be loaded. Apparently the Fragment was not found or has invalid content. Please check that the path to the fragment is correct.";
+        public static $fragmentsViewerNotFoundMessage = "<b>Wind UI:</b> The desired fragment could not be loaded. Apparently the Fragment was not found or has invalid content. Please check that the path to the fragment is correct. Also check, if there is any PHP code with any syntax error, in the fragment.";
 
         //Notifications options
         public static $notificationBackgroundColor = "#31454f";

@@ -20,7 +20,12 @@ $appToListValid = WindUiPhp::isValidContentOfClientInput("string", (object)array
 if($appToListValid == true){
     echo("<ul>");
 
-    echo("<li>(<a onclick=\"selectFolderAndNextStep('" . $appToList . "/fragments');\">Selecionar Raiz</a>)</li>");
+    echo("<li>".
+            "<div style=\"display: grid; grid-template-columns: 24px auto; width: 100%;\">".
+                "<img src=\"".WindUiPhp::getResourcePath("menu-icons/folder.png")."\" style=\"width: 100%;\" />".
+                "<div style=\"margin-left: 4px; display: flex; align-items: center;\">(<a onclick=\"selectFolderAndNextStep('" . $appToList . "/fragments');\">Selecionar Raiz</a>)<div style=\"margin-left: 4px;\">(<a onclick=\"openFolderCreationInterface('" . $appToList . "/fragments');\">Criar Pasta</a>)</div></div>".
+            "</div>".
+        "</li>");
     //Run recursivelly, getting all list of folders inside "fragments" of a app
     $fragmentsOfAppDir = "../../../../../" . $appToList . "/fragments";
     listAllFolderWithoutFragmentData($appToList, $fragmentsOfAppDir);
@@ -37,16 +42,31 @@ function listAllFolderWithoutFragmentData(string $app, string $dir){
     $folders = WindUiPhp::getListOfFoldersInDir($dir);
     for($i = 0; $i < count($folders); $i++){
         if(is_file($dir . "/" . $folders[$i] . "/" . $folders[$i] . ".php") == true)
-            echo("<li><b>" . $folders[$i] . "</b> (Fragmento)</li>");
+            echo("<li>".
+                    "<div style=\"display: grid; grid-template-columns: 24px auto; width: 100%;\">".
+                        "<img src=\"".WindUiPhp::getResourcePath("menu-icons/create-fragment.png")."\" style=\"width: 100%;\" />".
+                        "<div style=\"margin-left: 4px; display: flex; align-items: center;\"><b>" . $folders[$i] . "</b></div>".
+                    "</div>".
+                "</li>");
         if(is_file($dir . "/" . $folders[$i] . "/" . $folders[$i] . ".php") == false){
             $foldersInside = WindUiPhp::getListOfFoldersInDir($dir . "/" . $folders[$i]);
-            echo("<li><b>" . $folders[$i] . "</b> (<a onclick=\"selectFolderAndNextStep('" . $app . "/fragments/" . $folders[$i] . "');\">Selecionar</a>)</li>");
+            echo("<li>".
+                    "<div style=\"display: grid; grid-template-columns: 24px auto; width: 100%;\">".
+                        "<img src=\"".WindUiPhp::getResourcePath("menu-icons/folder.png")."\" style=\"width: 100%;\" />".
+                        "<div style=\"margin-left: 4px; display: flex; align-items: center;\"><b>" . $folders[$i] . "</b><div style=\"margin-left: 4px;\">(<a onclick=\"selectFolderAndNextStep('".getFullPathToThisItem($app, $dir, $folders[$i])."');\">Selecionar</a>)</div><div style=\"margin-left: 4px;\">(<a onclick=\"openFolderCreationInterface('".getFullPathToThisItem($app, $dir, $folders[$i])."');\">Criar Pasta</a>)</div></div>".
+                    "</div>".
+                "</li>");
             if(count($foldersInside) > 0){
                 echo("<ul>");
-                listAllFolderWithoutFragmentData($app, $dir . "/" . $folders[$i]);
+                    listAllFolderWithoutFragmentData($app, $dir . "/" . $folders[$i]);
                 echo("</ul>");
             }
         }
     }
+}
+
+//Return the path of a item
+function getFullPathToThisItem(string $app, string $pathToParent, string $itemName){
+    return ($app . "/" . array_pop(explode("../../../../../" . $app . "/", $pathToParent)) . "/". $itemName);
 }
 ?>

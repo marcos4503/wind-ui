@@ -103,7 +103,7 @@
             }
 
             //Render the fragments view
-            $code = '<div id="windUiClientFragmentsViewer" class="windUiClientFragmentsViewer" style="width: 100%; min-height: '.WindUiAppPrefs::$fragmentsViewerMinHeightPx.'px; word-wrap: break-word;"></div>';
+            $code = '<div id="windUiClientFragmentsViewer" class="windUiClientFragmentsViewer" style="width: 100%; min-height: '.WindUiAppPrefs::$fragmentsViewerMinHeightPx.'px; word-wrap: break-word; transition: all 150ms;"></div>';
             echo($code);
             $fragmentsViewerAlreadyRendered = true;
         }
