@@ -73,6 +73,9 @@ function selectFolderAndNextStep(folderSelected) {
     //Hide the folder creation interface
     document.getElementById("folderCreationInterface").style.display = "none";
     document.getElementById("folderCreationInterface").style.opacity = "0";
+
+    //Update the content shower
+    updateSelectedFolderContentList();
 }
 
 function onChangeFragmentType() {
@@ -266,4 +269,27 @@ function finallyCreateTheFragment() {
         //Send notification
         WindUiJs.showSimpleNotification("Há campos inválidos. Por favor, verifique todos.", 5000, false, null);
     }
+}
+
+function updateSelectedFolderContentList() {
+    //Update the app list
+
+    //Get the app list
+    var appListDiv = document.getElementById("folderSelectedContent");
+    appListDiv.innerHTML = "<ul><li>Um momento...</li></ul>";
+
+    //Update content
+    var form = new FormData();
+    form.append("folder", appNewFragmentDirectory);
+    WindUiJs.loadNewAjaxHttpRequestOnApi("returns-html/fragments/create-fragment/get-folder-content", form,
+        function (isSuccess, responseText, responseJson) {
+            //On success
+            if (isSuccess == true) {
+                appListDiv.innerHTML = responseText;
+            }
+            //On error
+            if (isSuccess == false) {
+                appListDiv.innerHTML = "<ul><li>Erro ao obter conteúdo da pasta. <a onclick=\"updateSelectedFolderContentList();\">Tentar novamente</a></li></ul>";
+            }
+        });
 }

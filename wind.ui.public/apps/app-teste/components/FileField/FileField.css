@@ -1,0 +1,172 @@
+/* Component "FileField" CSS Code */
+/* 
+/* All the CSS code for your component goes here.
+/* It is highly recommended that you include the name of your component in your CSS nodes.
+/* Example
+/* .componentYourComponentName
+/* #componentYourComponentName
+*/
+
+.componentFileFieldParent {
+    width: 100%;
+    max-width: 350px;
+}
+
+.componentFileFieldParent label{
+    color: #5d5d5d;
+    font-weight: bolder;
+}
+
+.componentFileFieldParent input{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.componentFileFieldInputFake {
+    width: 100%;
+    height: 42px;
+    padding: 12px 20px;
+    margin-top: 4px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    transition: all 250ms;
+}
+
+.componentFileFieldInputFake:hover {
+    outline: none;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.25);
+}
+
+.componentFileFieldInputLabel {
+    display: grid;
+    grid-template-columns: auto 30%;
+}
+
+.componentFileFieldInputLabelText{
+    color: #000000;
+    line-height: 18px;
+}
+
+.componentFileFieldInputLabelButton{
+    width: 100%;
+    height: calc(100% + 8px);
+    margin-top: -4px;
+    background-color: #2777b1;
+    cursor: pointer;
+    color: white;
+    border-radius: 4px;
+    transition: all 250ms;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.componentFileFieldInputLabelButton:hover{
+    background-color: #17476a;
+}
+
+.componentFileFieldInputFilesList{
+    width: calc(100% - 40px);
+    max-height: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    margin-top: -4px;
+    margin-bottom: 16px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
+    transition: all 250ms;
+}
+
+.componentFileFieldInputFileUnity{
+    display: grid;
+    grid-template-columns: auto 30%;
+}
+
+.componentFileFieldInputFileUnityName{
+    font-weight: normal;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.componentFileFieldInputFileUnityProgress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.componentFileFieldInputFileUnityProgressBg{
+    width: 100%;
+    height: 6px;
+    border-radius: 6px;
+    background-color: rgba(43, 81, 183, 0.2);
+}
+
+.componentFileFieldInputFileUnityProgressFg{
+    width: 0%;
+    height: 6px;
+    border-radius: 6px;
+    transition: all 250ms;
+    background-color: rgb(43, 81, 183);
+}
+
+.componentFileFieldStatus {
+    margin-top: -14px;
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.componentFileFieldStatusText{
+    font-size: 10px;
+    visibility: hidden;
+}
+
+/* Tooltip */
+
+.componentFileFieldTooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.componentFileFieldTooltip .componentFileFieldTooltipText {
+  visibility: hidden;
+  width: 100%;
+  max-width: 180px;
+  background-color: #555;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 4px);
+  left: 0%;
+  margin-left: 0px;
+  opacity: 0;
+  transition: all 250ms;
+  pointer-events: none;
+}
+
+.componentFileFieldTooltip .componentFileFieldTooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  margin-left: 6px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.componentFileFieldTooltipTextContent{
+    color: #fff;
+    text-align: left;
+    font-size: 12px;
+    margin: 4px;
+}

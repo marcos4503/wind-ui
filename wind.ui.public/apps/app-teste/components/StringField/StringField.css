@@ -1,0 +1,95 @@
+/* Component "StringField" CSS Code */
+/* 
+/* All the CSS code for your component goes here.
+/* It is highly recommended that you include the name of your component in your CSS nodes.
+/* Example
+/* .componentYourComponentName
+/* #componentYourComponentName
+*/
+
+.componentStringFieldParent {
+    width: 100%;
+    max-width: 350px;
+}
+
+.componentStringFieldParent label {
+    color: #5d5d5d;
+    font-weight: bolder;
+}
+
+.componentStringFieldParent input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 250ms;
+}
+
+.componentStringFieldParent input:focus {
+    outline: none;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.25);
+}
+
+.componentStringFieldStatus {
+    margin-top: -14px;
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.componentStringFieldStatusText{
+    font-size: 10px;
+    visibility: hidden;
+}
+
+.componentStringFieldStatusCharCount{
+    font-size: 10px;
+    text-align: right;
+    opacity: 0;
+    transition: all 250ms;
+    font-weight: bold;
+}
+
+/* Tooltip */
+
+.componentStringFieldTooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.componentStringFieldTooltip .componentStringFieldTooltipText {
+  visibility: hidden;
+  width: 100%;
+  max-width: 180px;
+  background-color: #555;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 4px);
+  left: 0%;
+  margin-left: 0px;
+  opacity: 0;
+  transition: all 250ms;
+  pointer-events: none;
+}
+
+.componentStringFieldTooltip .componentStringFieldTooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  margin-left: 6px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.componentStringFieldTooltipTextContent{
+    color: #fff;
+    text-align: left;
+    font-size: 12px;
+    margin: 4px;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<component>
+    <!-- Component HTML default values for yours HTML code Variables -->
+    <!-- Set the default value of the undefined variables here when instantiating this component in yours fragments -->
+    <!-- Use "(__WindUiPhp::getResourcePath__)/yourResource" to get path of a resource of your file. This only works in JSON for setting default values of variables. -->
+    <!-- It is important that the JSON syntax written here is correct, or Wind UI will not be able to understand the default values of your component's variables. -->
+    <json type="text/json" app="wind.ui">
+        {
+        "id":"",
+        "style":"",
+        "label":"",
+        "autocomplete":"off",
+        "tooltip":"",
+        "onchangecontent":"",
+        "type":"datetime-local",
+        "value":"",
+        "min":"",
+        "max":"",
+        "allowempty":"true"
+        }
+    </json>
+
+    <!-- Component HTML Code -->
+    <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
+    <html type="text/html" app="wind.ui">
+
+        <div id="__id__" class="componentDateFieldParent componentDateFieldTooltip" style="__style__" onmouseover="DateField.autoShowTooltip(this, true);" onmouseout="DateField.autoShowTooltip(this, false);">
+
+            <label for="__id__Input">__label__</label>
+
+            <input id="__id__Input" type="__type__" placeholder="" value="__value__"  min="__min__" max="__max__" autocomplete="__autocomplete__"
+            allowempty="__allowempty__" isvalid="true"
+            onchangecontent="__onchangecontent__"
+            onkeydown="DateField.autoValidation(this);" onchange="DateField.autoValidation(this);" onpaste="DateField.autoValidation(this);" oninput="DateField.autoValidation(this);" />
+
+            <div class="componentDateFieldStatus">
+                <div id="__id__Status" class="componentDateFieldStatusText">
+                    Empty
+                </div>
+                <div>
+                </div>
+            </div>
+
+            <span class="componentDateFieldTooltipText">
+                <div id="__id__Tooltip" class="componentDateFieldTooltipTextContent">__tooltip__</div>
+            </span>
+
+        </div>
+
+    </html>
+</component>

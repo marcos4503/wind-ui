@@ -535,8 +535,8 @@
                             var scriptTagsCount = windUiClientFragmentsViewer.getElementsByTagName("SCRIPT").length;
                             if(htmlTagsCount > 0 || headTagsCount > 0 || bodyTagsCount > 0)
                                 windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain HEAD, HTML or BODY tags.";
-                            if(styleTagsCount > 1)
-                                windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain STYLE tags.";
+                            if(styleTagsCount > 2)
+                                windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments can contain only one STYLE tags.";
                             if(scriptTagsCount > 1)
                                 windUiClientFragmentsViewer.innerHTML = "<b>Wind UI:</b> This fragment could not be rendered. Its content is invalid. Fragments cannot contain more than one SCRIPT tags.";
 

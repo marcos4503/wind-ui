@@ -203,6 +203,10 @@ Aqui você pode criar um novo Fragmento para um app que esteja dentro do seu Win
         <div class="fragmentCreationDivisor"><div style="height: 30%; background-color: #f3f3f3;"></div></div>
         <div class="fragmentCreationBlockOfIntro">
             O novo Fragmento que está sendo criado, será instalado no app <b id="appToInstall">APP</b>, no diretório <b id="appToInstallDir">DIR</b>.
+
+            <h3>Conteúdo da Pasta Selecionada</h3>
+            Estes são os Fragmentos e Pastas que atualmente existem dentro da pasta que você selecionou...
+            <div id="folderSelectedContent"></div>
         </div>
     </div>
     <div class="fragmentCreationButton">
