@@ -21,7 +21,7 @@ $password = $_POST["password"];
 $fragmentDirValid = WindUiPhp::isValidContentOfClientInput("string", (object)array(
                 "allowespecialchars"=>false,
                 "allowuppercase"=>false,
-                "specialcharsallowed"=>"-,/",
+                "specialcharsallowed"=>"_,-,/",
                 "allowempty"=>false
             ), $fragmentDir);
 $fragmentNameValid = WindUiPhp::isValidContentOfClientInput("string", (object)array(
