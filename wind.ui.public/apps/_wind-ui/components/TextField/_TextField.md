@@ -23,6 +23,7 @@ VARIÁVEIS (PARÂMETROS) DESTE COMPONENTE
     NOTA: O método registrado em "onchangecontent" só será chamado quando o conteúdo for alterado pelo usuário, e for válido de acordo com os parâmetros
           passados para o campo, ao renderiza-lo com a API PHP. Note também que, funções passando o próprio campo, podem não funcionar, conforme o esperado...
           Exemplo: "onchangecontent"=>"functionName(this);"
+    NOTA: Não use a função "forceValidate()" dentro da função dentro do "onchangecontent", pois pode gerar um loop de chamadas.
 - autocomplete (String Bool)
     Caso seja "off" desativará as sugestões de autocomplete do Browser. Se desejar manter as sugestões do navegador, deixe como "on". Por padrão, este valor é "off".
 - tooltip (String)

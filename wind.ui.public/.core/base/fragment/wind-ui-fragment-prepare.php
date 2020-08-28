@@ -7,7 +7,7 @@ class WindUiFragmentRenderer{
         //Start the Fragment
 
         //Convert fragment dir, to app root dir
-        $fragmentDirExploded = explode("/fragments/", $fragmentDir);
+        $fragmentDirExploded = explode("/fragments", $fragmentDir);
         $thisAppRootDir = $fragmentDirExploded[0];
 
         //Include all preferences and load all

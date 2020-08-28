@@ -26,7 +26,7 @@ $response->passwordValid = false;
 $response->appDeleted = false;
 
 //If all variables is valid
-if($appToDelete == true && $password == true){
+if($appToDeleteValid == true && $passwordValid == true){
     //Check if the password matches
     $passwordOk = true;
     $passwordFileContent = file_get_contents("../../../../../../../wind.ui.data/management-key.txt");

@@ -55,6 +55,12 @@
         color: <?php echo(WindUiAppPrefs::$styleBodyFontColor); ?>;
         overflow-y: <?php echo(((WindUiAppPrefs::$appAlwaysShowYScrollBar == true) ? "scroll" : "auto")); ?>;
     }
+    textarea {
+        font-family: <?php echo(WindUiAppPrefs::$styleBodyPrimaryFontFamily); ?>;
+        font-family: <?php echo(WindUiAppPrefs::$styleBodySecondaryFontFamily); ?>;
+        font-size: <?php echo(WindUiAppPrefs::$styleBodyFontSizePx); ?>px;
+        color: <?php echo(WindUiAppPrefs::$styleBodyFontColor); ?>;
+    }
     pre, code{
         user-select: all;
     }

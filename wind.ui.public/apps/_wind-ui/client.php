@@ -55,6 +55,22 @@
         }
     ?>
 
+    <!-- SubMenu: Documentation -->
+    <div class="bodyMenuSubMenu">Wind UI Documentação Completa</div>
+    <!-- Render all menu items found in "menu-items-wind-ui-documentation.json" -->
+    <?php
+        $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-wind-ui-documentation.json"));
+        $data = json_decode($content);
+        for($i = 0; $i < count($data->menuItems); $i++){
+            echo('
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                    <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
+                    <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
+                </div>
+            ');
+        }
+    ?>
+
     <!-- SubMenu: Gerenciamento de Cookies e Sessões -->
     <div class="bodyMenuSubMenu">Gerenciamento de Cookies e Sessões</div>
     <!-- Render all menu items found in "menu-items-sessions.json" -->

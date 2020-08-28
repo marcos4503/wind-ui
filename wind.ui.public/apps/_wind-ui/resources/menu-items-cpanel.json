@@ -24,6 +24,11 @@
             "fragmentName": "submenu-cpanel/create-component",
             "iconName": "create-component.png",
             "visibleName": "Criar Novo Componente Para Um App"
+        },
+        {
+            "fragmentName": "submenu-cpanel/read-component-documents",
+            "iconName": "documentation.png",
+            "visibleName": "Ler Documentação de Um Componente"
         }
     ]
 }

@@ -1,0 +1,109 @@
+{
+    "menuItems": [
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "O Que é o Wind UI?"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Requisitos Para Usar o Wind UI"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Como o Wind UI Funciona"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Explicando o Client.php"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Explicando Sobre Fragmentos"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Carregando/Trocando Fragmentos Dentro do Client.php"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Explicando Sobre Componentes"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Renderizando Um Componente Num Local Desejado"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Armazenando e Acessando Recursos de Maneira Rápida e Fácil"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Criando e Editando Seu Aplicativo Wind UI"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Editando Seu Client.php"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Criando e Editando Seu Próprio Fragmento"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Criando e Editando Seu Próprio Componente"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Editando o CSS Universal do Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Editando o JavaScript Universal do Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Editando as Configurações do Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Definindo Variáveis Globais Estáticas Para Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Incorporando Bibliotecas de Terceiros Ao Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Incorporando Bibliotecas de Servidores Externos Ao Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Contactando e Consumindo APIs Ajax Com Seu App"
+        },
+        {
+            "fragmentName": "submenu-docs/fragment",
+            "iconName": "icon.png",
+            "visibleName": "Criando Sua Própria API Ajax Dentro do Seu App"
+        }
+    ]
+}

@@ -7,7 +7,7 @@ class WindUiAjaxHttpApi{
         //Start the Ajax-Http-Api
 
         //Convert api dir, to app root dir
-        $apiDirExploded = explode("/ajax-http-apis/", $apiDir);
+        $apiDirExploded = explode("/ajax-http-apis", $apiDir);
         $thisAppRootDir = $apiDirExploded[0];
 
         //Include all preferences and load all

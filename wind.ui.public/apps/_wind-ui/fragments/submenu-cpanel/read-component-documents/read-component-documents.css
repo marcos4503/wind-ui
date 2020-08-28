@@ -1,0 +1,65 @@
+.blocks{
+    display: grid;
+    width: 100%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.block{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button{
+    width: 90%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.visualizer{
+    margin-top: 32px;
+    width: calc(100% - 16px);
+    border-radius: 6px;
+    background-color: white;
+    padding: 8px;
+}
+
+@media screen and (max-width: 3840px) {
+    .blocks{
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 2560px) {
+    .blocks{
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 1920px) {
+    .blocks{
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 1368px) {
+    .blocks{
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .blocks{
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 720px) {
+    .blocks{
+        display: block;
+    }
+}
+@media screen and (max-width: 480px) {
+    .blocks{
+        display: block;
+    }
+}

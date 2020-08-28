@@ -6,8 +6,7 @@
     <!-- It is important that the JSON syntax written here is correct, or Wind UI will not be able to understand the default values of your component's variables. -->
     <json type="text/json" app="wind.ui">
         {
-        "language":"generic"
-        "codeToShow":""
+        "variableName":"default value."
         }
     </json>
 
@@ -15,7 +14,7 @@
     <!-- Wind UI component Variables (example:  __variableName__) only works here! -->
     <html type="text/html" app="wind.ui">
 
-        <pre style="user-select: text;"><code data-language="__language__" style="user-select: text;">__codeToShow__</code></pre>
+        <h1>I'm a component! I have a variable called "variableName", and the value of this variable is __variableName__</h1>
 
     </html>
 </component>
