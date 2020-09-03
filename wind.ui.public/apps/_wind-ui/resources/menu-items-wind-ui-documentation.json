@@ -1,78 +1,68 @@
 {
     "menuItems": [
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-what-is",
+            "iconName": "what-is.png",
             "visibleName": "O Que é o Wind UI?"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-requirements-to-use",
+            "iconName": "requirements.png",
             "visibleName": "Requisitos Para Usar o Wind UI"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-how-works",
+            "iconName": "how-work.png",
             "visibleName": "Como o Wind UI Funciona"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-installing-in-host",
+            "iconName": "installing.png",
+            "visibleName": "Instalando o Wind UI Em Sua Hospedagem"
+        },
+        {
+            "fragmentName": "submenu-docs/wind-ui-docs-cliend-explained",
+            "iconName": "client-explain.png",
             "visibleName": "Explicando o Client.php"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-fragments-explained",
+            "iconName": "fragments-explain.png",
             "visibleName": "Explicando Sobre Fragmentos"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
-            "visibleName": "Carregando/Trocando Fragmentos Dentro do Client.php"
-        },
-        {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-components-explained",
+            "iconName": "component-explain.png",
             "visibleName": "Explicando Sobre Componentes"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
-            "visibleName": "Renderizando Um Componente Num Local Desejado"
-        },
-        {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-resources-folder-acessing",
+            "iconName": "resources-folder.png",
             "visibleName": "Armazenando e Acessando Recursos de Maneira Rápida e Fácil"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-app",
+            "iconName": "creating-editing-app.png",
             "visibleName": "Criando e Editando Seu Aplicativo Wind UI"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
-            "visibleName": "Editando Seu Client.php"
-        },
-        {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-fragments",
+            "iconName": "create-fragment.png",
             "visibleName": "Criando e Editando Seu Próprio Fragmento"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-components",
+            "iconName": "create-component.png",
             "visibleName": "Criando e Editando Seu Próprio Componente"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-editing-universal-css",
+            "iconName": "editing-universal-css.png",
             "visibleName": "Editando o CSS Universal do Seu App"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-editing-universal-js",
+            "iconName": "javascript.png",
             "visibleName": "Editando o JavaScript Universal do Seu App"
         },
         {
@@ -98,12 +88,12 @@
         {
             "fragmentName": "submenu-docs/fragment",
             "iconName": "icon.png",
-            "visibleName": "Contactando e Consumindo APIs Ajax Com Seu App"
+            "visibleName": "Criando Uma Requisição Dinâmica Ajax Dentro do Seu App Com o Wind UI"
         },
         {
             "fragmentName": "submenu-docs/fragment",
             "iconName": "icon.png",
-            "visibleName": "Criando Sua Própria API Ajax Dentro do Seu App"
+            "visibleName": "Compartilhando Links Corretamente do Seu App Wind UI"
         }
     ]
 }

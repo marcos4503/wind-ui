@@ -5,6 +5,17 @@
 ?>
 <!-- /////////////////////////////////////////////////// Start of client.php modifiable area /////////////////////////////////////////////////// -->
 
+<?php
+    //If the management-key does not exists, create then
+    if(file_exists("../../../wind.ui.data/management-key.txt") == false){
+        mkdir("../../../wind.ui.data");
+        $key = "";
+        for($i = 0; $i < 32; $i++)
+            $key .= WindUiPhp::getRandomChar(true, true, true, true);
+        file_put_contents("../../../wind.ui.data/management-key.txt", md5($key));
+    }
+?>
+
 <!-- Topbar -->
 <div class="bodyHeader">
     <div class="bodyHeaderLogo" onclick="WindUiJs.loadNewFragment('home', null); closeAppMenu();">
@@ -39,15 +50,24 @@
         <div class="bodyMenuItemText">Página Inicial</div>
     </div>
 
-    <!-- SubMenu: CPanel -->
-    <div class="bodyMenuSubMenu">Wind UI CPanel</div>
+    <?php
+        //If the password is set in URL, show te control panel
+        $displayCss = "display: none;";
+        $password = $_GET["password"];
+        $passwordFileContent = file_get_contents("../../../wind.ui.data/management-key.txt");
+        if($password == $passwordFileContent)
+            $displayCss = "";
+    ?>
+
+    <!-- SubMenu: CPanel (Só será exibido se a URL contiver a variavel "password" definida com o mesmo HASH que está no arquivo "management-key.txt") -->
+    <div class="bodyMenuSubMenu" style="<?php echo($displayCss); ?>">Wind UI CPanel</div>
     <!-- Render all menu items found in "menu-items-cpanel.json" -->
     <?php
         $content = file_get_contents(WindUiPhp::getResourcePath("menu-items-cpanel.json"));
         $data = json_decode($content);
         for($i = 0; $i < count($data->menuItems); $i++){
             echo('
-                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%;" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
+                <div class="bodyMenuItem" style="margin-left: 0px; width: 100%; '.$displayCss.'" fragmentOfThisButton="'.$data->menuItems[$i]->fragmentName.'" onclick="WindUiJs.loadNewFragment(\''.$data->menuItems[$i]->fragmentName.'\', null); closeAppMenu();">
                     <div class="bodyMenuItemIcon"><img src="'.WindUiPhp::getResourcePath("menu-icons/" . $data->menuItems[$i]->iconName).'" style="width: 100%;" /></div>
                     <div class="bodyMenuItemText">'.$data->menuItems[$i]->visibleName.'</div>
                 </div>

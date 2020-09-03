@@ -67,6 +67,7 @@
     a {
         text-decoration: none;
         color: <?php echo(WindUiAppPrefs::$styleLinkFontColor); ?>;
+        cursor: pointer;
     }
     a:link {
         text-decoration: none;

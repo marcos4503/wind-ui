@@ -44,7 +44,8 @@
         "rainbow.python.js",
         "rainbow.ruby.js",
         "rainbow.shell.js",
-        "rainbow.sql.js"
+        "rainbow.sql.js",
+        "md5.js"
     ],
     "sessionsRequiredDefinedVariablesToSessionBeValid": [
         "id",

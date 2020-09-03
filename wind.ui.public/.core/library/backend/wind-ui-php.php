@@ -28,6 +28,38 @@
             return $innerHTML; 
         }
 
+        public static function getRandomChar(bool $allowUpperCase, bool $allowLowerCase, bool $allowNumbers, bool $allowSpecialChars){
+            //Return a random char
+            $upperCase = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+            $lowerCase = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+            $numbers = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+            $special = array("!", "@", "#", "$", "%", "&", "*", "(", ")", "-", "_",
+                             "!", "@", "#", "$", "%", "&", "*", "(", ")", "-", "_");
+
+            //If is all false
+            if($allowUpperCase == false && $allowLowerCase == false && $allowNumbers == false && $allowSpecialChars)
+                return "";
+
+            //Mount the final array
+            $finalArray = array();
+            if($allowUpperCase == true)
+                $finalArray = array_merge($finalArray, $upperCase);
+            if($allowLowerCase == true)
+                $finalArray = array_merge($finalArray, $lowerCase);
+            if($allowNumbers == true)
+                $finalArray = array_merge($finalArray, $numbers);
+            if($allowSpecialChars == true)
+                $finalArray = array_merge($finalArray, $special);
+
+            //Return the random character
+            $numberOfChars = count($finalArray);
+            $randomNumber = random_int(0, $numberOfChars);
+            return $finalArray[$randomNumber];
+        }
+
         //Core methods
 
         public static function getResourcePath(string $resPath){

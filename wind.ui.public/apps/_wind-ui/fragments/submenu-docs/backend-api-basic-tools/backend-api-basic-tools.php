@@ -93,6 +93,46 @@ echo($innerHTML);
 ), false);
 ?>
 
+
+<!-- getRandomChar(bool $allowUpperCase, bool $allowLowerCase, bool $allowNumbers, bool $allowSpecialChars) -->
+<?php 
+    WindUiPhp::renderComponentHere("PhpMethodName", (object)array(
+        "methodname"=>'getRandomChar(bool $allowUpperCase, bool $allowLowerCase, bool $allowNumbers, bool $allowSpecialChars)'
+    ), false);
+?>
+Este método simplesmente retorna um caractere totalmente aleatório. Pode ser útil para criar chaves ou tokens. Você pode escolher se este método pode retornar letras maiusculas, minusculas,
+ números ou caracteres especiais. Por padrão, este método não retorna as letras "O", "o", "L" e "l", para evitar confusões quando humanos lerem essas letras.
+<ul>
+    <li>
+        <b>$allowUpperCase (bool)</b> - Defina true se você deseja que letras maiúsculas, possam ser retornadas.
+    </li>
+    <li>
+        <b>$allowLowerCase (bool)</b> - Defina true se você deseja que letras minúsculas, possam ser retornadas.
+    </li>
+    <li>
+        <b>$allowNumbers (bool)</b> - Defina true se você deseja que números, possam ser retornados.
+    </li>
+    <li>
+        <b>$allowSpecialChars (bool)</b> - Defina true se você deseja que caracteres especiais, possam ser retornadas.
+    </li>
+</ul>
+<?php 
+    WindUiPhp::renderComponentHere("CodeBlock", (object)array(
+    "language"=>"php",
+    "codeToShow"=>
+'//Inicio do código PHP
+
+//Monta uma string aleatória de 16 caracteres
+$key = "";
+for($i = 0; $i < 16; $i++)
+    $key .= WindUiPhp::getRandomChar(true, true, true, true);
+
+//Exibirá o conteúdo de texto que estiver na string, ou seja, exibirá "dEf34!#WE34d@das"
+echo($key);
+'
+), false);
+?>
+
 <!-- End of fragment modifiable area -->
 <?php
     //End of fragment renderization.
