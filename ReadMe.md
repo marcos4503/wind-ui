@@ -8,6 +8,6 @@ Com o Wind UI, você pode criar seu app rapidamente, em questão de minutos. Iss
 
 # Onde posso ver a documentação e uma referência a API para aprender a como usar?
 
-Basta acessar o app do Wind UI, oficial! Clique no link abaixo!
+Basta acessar o app do Wind UI, oficial! Clique no link abaixo! O site abaixo foi criado com o Wind UI, e o acessando você já terá uma noção básica do que o Framework faz!
 
 https://windsoft.xyz/wind.ui.public/apps/_wind-ui/client.php?fragment=submenu-docs%2Fwind-ui-docs-what-is
