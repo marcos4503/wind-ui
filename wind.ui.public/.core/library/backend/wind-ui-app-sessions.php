@@ -45,18 +45,9 @@
                 //Destroy session, if is desired
                 if($destroySessionIfInvalid == true)
                     session_destroy();
-                //Print message, if is desired
-                if($printMessageIfIsInvalid == true)
-                    echo(WindUiAppPrefs::$sessionsInvalidSessionMessage);
                 //Stop PHP script runtime, if desired
                 if($stopPhpIfInvalid == true)
                     exit();
-            }
-            //If session is valid
-            if($currentSessionIsValid == true){
-                //Print message, if is desired
-                if($printMessageIfIsValid == true)
-                    echo(WindUiAppPrefs::$sessionsValidSessionMessage);
             }
 
             //Return the session validation

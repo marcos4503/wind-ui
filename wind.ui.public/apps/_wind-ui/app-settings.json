@@ -52,7 +52,5 @@
         "login",
         "password"
     ],
-    "sessionsInvalidSessionMessage": "[Sessão Inválida]",
-    "sessionsValidSessionMessage": "[Sessão Ok]",
     "sessionsValidateSessionWithIp": true
 }

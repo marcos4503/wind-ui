@@ -36,14 +36,9 @@
             "visibleName": "Explicando Sobre Componentes"
         },
         {
-            "fragmentName": "submenu-docs/wind-ui-docs-resources-folder-acessing",
-            "iconName": "resources-folder.png",
-            "visibleName": "Armazenando e Acessando Recursos de Maneira Rápida e Fácil"
-        },
-        {
             "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-app",
             "iconName": "creating-editing-app.png",
-            "visibleName": "Criando e Editando Seu Aplicativo Wind UI"
+            "visibleName": "Criando e Editando Seu Primeiro Aplicativo Wind UI"
         },
         {
             "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-fragments",
@@ -56,6 +51,11 @@
             "visibleName": "Criando e Editando Seu Próprio Componente"
         },
         {
+            "fragmentName": "submenu-docs/wind-ui-docs-resources-folder-acessing",
+            "iconName": "resources-folder.png",
+            "visibleName": "Armazenando e Acessando Recursos de Maneira Rápida e Fácil"
+        },
+        {
             "fragmentName": "submenu-docs/wind-ui-docs-editing-universal-css",
             "iconName": "editing-universal-css.png",
             "visibleName": "Editando o CSS Universal do Seu App"
@@ -66,33 +66,28 @@
             "visibleName": "Editando o JavaScript Universal do Seu App"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-settings-of-app",
+            "iconName": "settings-of-app.png",
             "visibleName": "Editando as Configurações do Seu App"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-defining-static-vars",
+            "iconName": "static-variable.png",
             "visibleName": "Definindo Variáveis Globais Estáticas Para Seu App"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
-            "visibleName": "Incorporando Bibliotecas de Terceiros Ao Seu App"
+            "fragmentName": "submenu-docs/wind-ui-docs-third-party-libs",
+            "iconName": "thirdparty-library.png",
+            "visibleName": "Incorporando Bibliotecas de Servidores Externos e de Terceiros Ao Seu App"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
-            "visibleName": "Incorporando Bibliotecas de Servidores Externos Ao Seu App"
-        },
-        {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-creating-and-editing-api",
+            "iconName": "api.png",
             "visibleName": "Criando Uma Requisição Dinâmica Ajax Dentro do Seu App Com o Wind UI"
         },
         {
-            "fragmentName": "submenu-docs/fragment",
-            "iconName": "icon.png",
+            "fragmentName": "submenu-docs/wind-ui-docs-correct-link-sharing",
+            "iconName": "correct-share.png",
             "visibleName": "Compartilhando Links Corretamente do Seu App Wind UI"
         }
     ]

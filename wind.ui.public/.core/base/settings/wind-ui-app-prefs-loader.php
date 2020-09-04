@@ -91,8 +91,6 @@
 
         //Sessions settings
         public static $sessionsRequiredDefinedVariablesToSessionBeValid = array();
-        public static $sessionsInvalidSessionMessage = "Wind UI: This session is invalid.";
-        public static $sessionsValidSessionMessage = "Wind UI: This session is valid.";
         public static $sessionsValidateSessionWithIp = false;
 
         
@@ -206,8 +204,6 @@
         
             //Sessions settings
             self::$sessionsRequiredDefinedVariablesToSessionBeValid = self::getFirstVariableThatMatch("sessionsRequiredDefinedVariablesToSessionBeValid", self::$sessionsRequiredDefinedVariablesToSessionBeValid, $appSettings);
-            self::$sessionsInvalidSessionMessage = self::getFirstVariableThatMatch("sessionsInvalidSessionMessage", self::$sessionsInvalidSessionMessage, $appSettings);
-            self::$sessionsValidSessionMessage = self::getFirstVariableThatMatch("sessionsValidSessionMessage", self::$sessionsValidSessionMessage, $appSettings);
             self::$sessionsValidateSessionWithIp = self::getFirstVariableThatMatch("sessionsValidateSessionWithIp", self::$sessionsValidateSessionWithIp, $appSettings);
 
             //Validate some variables values
